@@ -1,0 +1,9 @@
+﻿INSERT INTO paciente(
+            id_paciente, endereco, n_tipo_parto, n_tipo_sanguineo, nome, 
+            data_nascimento, factor_rh, problemas_gravidez, leite_artificial, 
+            depressao_puerperal, problemas_posparto, leite_materno_exclusivo, 
+            leite_materno_idade)
+    VALUES (1, 1, 1, 1, 'Alain Dominguez Fuentes', 
+            '19/03/1986', '', 'Nao', true, 
+            'Nao', 'Nao', 7, 
+            2);

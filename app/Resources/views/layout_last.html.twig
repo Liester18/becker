@@ -1,0 +1,487 @@
+{# inicial.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# BLOCK META #}
+{% block meta %} 
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Ficha Medica</title>
+    <script src='{{ asset('bundles/general/js/jquery-2.0.3.min.js')}}'></script>
+    <!--<script src="{#{asset('bundles/general/js/_others/filter.js')}#}"></script>-->
+
+    {% endblock %} 
+
+{# BLOCK stylesheets#}
+{% block stylesheets %}
+{# BLOCK stylesheets_layout #}
+{% block stylesheets_layout %}
+
+<link rel="stylesheet" href="{{asset('bundles/general/css/bootstrap.min.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/font-awesome.min.css') }}" />
+
+<!--<link rel="stylesheet" href="{#{asset('bundles/general/css/jquery-ui-1.10.3.custom.min.css')}#}" />-->
+<link rel="stylesheet" href="{{asset('bundles/general/css/chosen.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/datepicker.css')}}" />
+
+<link rel="stylesheet" href="{{asset('bundles/general/css/_other.utils.css')}}" />
+
+<link rel="stylesheet" href="{{asset('bundles/general/css/ace-fonts.css')}}" />
+
+<link rel="stylesheet" href="{{asset('bundles/general/css/ace.min.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/ace-rtl.min.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/ace-skins.min.css')}}" />
+
+
+{#para pefil#}
+
+<link rel="stylesheet" href="{{asset('bundles/general/css/jquery.gritter.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/select2.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/bootstrap-editable.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/bootstrap-timepicker.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/daterangepicker.css')}}" />
+<link rel="stylesheet" href="{{asset('bundles/general/css/colorpicker.css')}}" />
+
+
+{% endblock stylesheets_layout %}   
+{# BLOCK stylesheets_page #}
+{% block stylesheets_page %}{% endblock stylesheets_page%}
+{% endblock %}
+
+{# BLOCK js_head#}
+{% block js_head %}
+{# BLOCK js_head_layout  #}
+{% block js_head_layout %}
+<script src="{{asset('bundles/general/js/ace-extra.min.js')}}"></script>
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+<!--[if lt IE 9]>
+<script src="assets/js/html5shiv.js"></script>
+<script src="assets/js/respond.min.js"></script>
+<![endif]-->    
+
+{% endblock js_head_layout %}  
+{# BLOCK js_head_page  #}
+{% block js_head_page %}{% endblock js_head_page %}
+{% endblock js_head %}
+
+{# BLOCK body #}
+ {% block body %}
+{# BLOCK navbar #}
+    {% block navbar %}
+<div class="navbar navbar-default" id="navbar">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('navbar', 'fixed')
+        } catch (e) {
+        }
+        </script>
+
+        <div class="navbar-container" id="navbar-container">
+            <div class="navbar-header pull-left">
+                <a href="{{path('inicio')}}" class="navbar-brand">
+                    <small>
+                        <i class="icon-leaf"></i>&nbsp;&nbsp;
+                        Sistema Ficha Medica
+                    </small>
+                </a><!-- /.brand -->
+            </div><!-- /.navbar-header -->
+
+            <div class="navbar-header pull-right" role="navigation">
+                <input type="hidden" id="url" value="{{ app.request.BaseUrl }}" >
+                <ul class="nav ace-nav">
+                    
+                    <li class="light-blue">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+                            <img class="nav-user-photo" src="{{ asset('bundles/general/avatars/user.jpg')}}" />
+                            <span class="user-info">
+                                <small>Bienvenido,</small>
+                                 {% if is_granted('ROLE_MEDICO') or is_granted('ROLE_SECRETARIA') %}
+                                    {{ app.user.nombre }}
+                                {% endif %}
+                            </span>
+
+                            <i class="icon-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                           <!-- <li>
+                                <a href="#">
+                                    <i class="icon-leaf"></i>
+                                    Crear Ficha Médica
+                                </a>
+                            </li>-->
+
+                            <li>
+                                <a href="#">
+                                    <i class="icon-user"></i>
+                                    Perfil
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="{{ path('user_logout') }}">
+                                    <i class="icon-off"></i>
+                                    Salir
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul><!-- /.ace-nav -->
+            </div><!-- /.navbar-header -->
+        </div><!-- /.container -->
+    </div>
+    {% endblock navbar %}
+{# BLOCK maincontainer #}
+    {% block maincontainer %}
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try {
+                ace.settings.check('main-container', 'fixed')
+            } catch (e) {
+            }
+            </script>
+
+            <div class="main-container-inner">
+                <a class="menu-toggler" id="menu-toggler" href="#">
+                    <span class="menu-text"></span>
+                </a>
+
+                <div class="sidebar" id="sidebar">
+                    <script type="text/javascript">
+                        try {
+                            ace.settings.check('sidebar', 'fixed')
+                        } catch (e) {
+                        }
+                        </script>                    
+
+                        {% block nav_list %}
+                        <ul class="nav nav-list"> 
+                           <!-- <div id="filters">{#{render(controller('ReportsBundle:Default:filterPage'))}#}</div>-->
+                            
+                            <li>
+                                <a href="{{path('to_dwork')}}" class="dropdown-toggle">
+                                    <i class="icon-leaf dark"></i>
+                                    <span class="menu-text"> Criar Ficha Medica </span>
+                                    <b class="arrow"></b>
+                                </a>
+                               <!-- <ul class="submenu">
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-double-angle-right"></i>
+                                            Administar mis proyectos
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#">
+                                            <i class="icon-double-angle-right"></i>
+                                            Vista general
+                                        </a>
+                                    </li>
+
+                                </ul>-->
+
+                            </li>
+
+                            {#<li>
+                                <a href="{{path('to_dawork')}}">
+                                    <i class="icon-cog blue"></i>
+                                    <span class="menu-text"> Trabalho Diario </span>
+                                </a>
+                            </li>#}
+
+                            <li>
+                                <a href="{{path('to_reportes')}}" class="dropdown-toggle">
+                                    <i class="icon-cogs light-blue"></i>
+                                    <span class="menu-text grey"> Trabalho Diario </span>
+                                     <b class="arrow icon-angle-down"></b>
+                                </a>
+                                
+                                <ul class="submenu">
+                                    <li class="disabled">
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="icon-double-angle-right"></i>
+                                            Reporte por edad
+                                        </a>
+                                         <ul class="submenu">
+                                            <li class="disabled">
+                                                <a href="#">
+                                                    <i class="icon-double-angle-right"></i>
+                                                    Ate 1 ano 
+                                                </a>
+                                            </li>
+
+                                            <li class="disabled">
+                                                <a href="#">
+                                                    <i class="icon-double-angle-right"></i>
+                                                      1 ate 3 anos                                     
+                                                </a>
+                                            </li>
+                                            <li class="disabled">
+                                                <a href="#">
+                                                    <i class="icon-double-angle-right"></i>
+                                                      3 ate 7 anos                                   
+                                                </a>
+                                            </li>
+                                            <li class="disabled">
+                                                <a href="#">
+                                                    <i class="icon-double-angle-right"></i>
+                                                      7 ate 14 anos                                   
+                                                </a>
+                                            </li>
+
+                                         </ul>
+                                    </li>
+
+                                    <li class="disabled">
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="icon-double-angle-right"></i>
+                                            Tipo de sangue                                          
+                                        </a>
+                                        {{render(controller('ReportsBundle:Default:bloodFilter'))}}
+                                    </li>                                
+                                    
+                                    <li class="disabled">
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="icon-double-angle-right"></i>
+                                            Nome                                          
+                                        </a>
+                                        
+                                        <ul class="submenu">
+                                           
+                                              <a id="nome-id" href="#">
+                                                <input type="text" id="filtername" placeholder="nome" class="col-xs-10 fnome" />                                            
+                                                  <i class="icon-zoom-in bigger-130 blue isearch"></i>
+                                              </a>                                           
+                                            
+                                            <br />
+                                        </ul>
+                                        
+                                    </li>
+                                </ul>
+                                
+                            </li>                                 
+ 
+                        </ul>                           
+
+
+                        </ul><!-- /.nav-list -->
+
+                        <div class="sidebar-collapse" id="sidebar-collapse">
+                            <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+                        </div>
+                       {% endblock nav_list %}
+             
+
+                        <script type="text/javascript">
+                            try {
+                                ace.settings.check('sidebar', 'collapsed')
+                            } catch (e) {
+                            }
+                            </script>
+                        </div>
+
+                        <div class="main-content">
+
+                            <div class="breadcrumbs" id="breadcrumbs">
+                                <script type="text/javascript">
+                                    try {
+                                        ace.settings.check('breadcrumbs', 'fixed')
+                                    } catch (e) {
+                                    }
+                                    </script>
+
+                                    <ul class="breadcrumb">
+                                        <li>
+                                            <i class=
+                                               "icon-home home-icon">
+                                            </i>
+                                            <a href="#">Home</a>
+                                        </li>
+                                    </ul>               
+                            </div>
+
+                                    <div class="page-content">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <!-- PAGE CONTENT BEGINS -->
+
+                                             {% block page_content %}{% endblock %}
+
+                                                <!-- PAGE CONTENT ENDS -->
+                                            </div><!-- /.col -->
+                                        </div><!-- /.row -->
+                                    </div><!-- /.page-content -->
+                                </div><!-- /.main-content -->                                
+                            </div><!-- /.main-container-inner -->
+
+                            <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+                                <i class="icon-double-angle-up icon-only bigger-110"></i>
+                            </a>
+                        </div><!-- /.main-container -->
+                {% endblock maincontainer%}
+    {% endblock body%}
+
+{# BLOCK javascripts#}
+ {% block javascripts %}                  
+ {# BLOCK javascripts_layout #}
+    {% block javascripts_layout1 %}
+                    <!-- basic scripts -->
+
+                    <!--[if !IE]> -->
+
+                    <script type="text/javascript">
+                        window.jQuery || document.write("<script src='{{ asset('bundles/general/js/jquery-2.0.3.min.js') }}'>" + "<" + "/script>");
+                        </script>
+
+                        <!-- <![endif]-->
+
+                        <!--[if IE]>
+        <script type="text/javascript">
+         window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+        </script>
+        <![endif]-->
+
+                        <script type="text/javascript">
+                            if ("ontouchend" in document)
+                                document.write("<script src='{{ asset('bundles/general/js/jquery.mobile.custom.min.js') }}'>" + "<" + "/script>");
+                            </script>
+                            <script src="{{ asset('bundles/general/js/bootstrap.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/typeahead-bs2.min.js')}}"></script>
+
+                            <!-- page specific plugin scripts -->
+                          <!--  <script src="{# asset('bundles/general/js/jQuery/jquery-2.0.0.min.js')#}"></script>
+                            <script src="{# asset('bundles/general/js/jQuery/jquery-2.0.0.js')#}"></script> -->
+                            <script src="{{ asset('bundles/general/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/jquery.ui.touch-punch.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/chosen.jquery.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/fuelux/fuelux.spinner.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/date-time/bootstrap-datepicker.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/jquery.autosize.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/jquery.inputlimiter.1.3.1.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/jquery.maskedinput.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/bootstrap-tag.min.js')}}"></script>
+
+                            <script src="{{ asset('bundles/general/js/jquery.dataTables.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/jquery.dataTables.bootstrap.js')}}"></script>
+
+                            <!-- ace scripts -->
+
+                            <script src="{{ asset('bundles/general/js/ace-elements.min.js')}}"></script>
+                            <script src="{{ asset('bundles/general/js/ace.min.js')}}"></script>
+
+                            <!-- inline scripts related to this page by Armando -->                        
+                            <script src="{{ asset('bundles/general/js/_others/geral.js')}}"></script>                                                       
+                  {% endblock javascripts_layout1 %} 
+                  {% block javascripts_page %}{% endblock javascripts_page %}          
+                  {% block javascripts_layout2 %}          
+                            <script type="text/javascript">
+                            
+                         
+                            
+                            jQuery(function($) {
+                                
+                                //jquery de la pagina homeuser idem a la de fases
+				$('#loading-btn').on(ace.click_event, function () {
+					var btn = $(this);
+					btn.button('loading')
+					setTimeout(function () {
+						btn.button('reset')
+					}, 2000)
+				});
+				
+                               
+				//modal-form
+				$('#modal-form input[type=file]').ace_file_input({
+					style:'well',
+					btn_choose:'Drop files here or click to choose',
+					btn_change:null,
+					no_icon:'icon-cloud-upload',
+					droppable:true,
+					thumbnail:'large'
+				});
+				
+				
+				//chosen plugin inside a modal will have a zero width because the select element is originally hidden
+				//and its width cannot be determined.
+				//so we set the width after modal is show
+				/*$('#modal-form').on('shown.bs.modal', function () {
+					$(this).find('.chosen-container').each(function(){
+						$(this).find('a:first-child').css('width' , '210px');
+						$(this).find('.chosen-drop').css('width' , '210px');
+						$(this).find('.chosen-search input').css('width' , '200px');
+					});
+				});*/
+				/**
+				//or you can activate the chosen plugin after modal is shown
+				//this way select element becomes visible with dimensions and chosen works as expected
+				*/
+				/*
+				$('#modal-form').on('shown', function () {
+					$(this).find('.modal-chosen').chosen();
+					$(".chosen-select").chosen();
+				})*/
+	
+				//jquery for Chosen
+				$(".chosen-select").chosen(); 
+                                //$(".chosen-select").chosen({display_selected_options: true, no_results_text: "No se ha encontrado nada!", width: '500px'});
+				//$(".chosen-select").chosen({disable_search_threshold: 10});
+                                
+				//jquery tooltip
+				$('[data-rel=tooltip]').tooltip();
+				$('[data-rel=popover]').popover({html:true});
+                                
+				
+				//jquery datepicker
+					$('.date-picker').datepicker({autoclose:true}).next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				});
+				
+				//jqueryTable
+				/*var oTable1 = $('#sample-table-2').dataTable( {
+				"aoColumns": [
+			      { "bSortable": false },
+			      null, null,null, null, null,
+				  { "bSortable": false }
+				] } );*/
+				
+				
+				/*$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+						
+				});*/
+			
+				
+                               
+                               // $('.input-mask-phone').mask('(999) 999-9999');
+			
+			
+				//jquery accordion
+				$( "#accordion" ).accordion({
+					collapsible: true ,
+					heightStyle: "content",
+					animate: 250,
+					header: ".accordion-header"
+				}).sortable({
+					axis: "y",
+					handle: ".accordion-header",
+					stop: function( event, ui ) {
+						// IE doesn't register the blur when sorting
+						// so trigger focusout handlers to remove .ui-state-focus
+						ui.item.children( ".accordion-header" ).triggerHandler( "focusout" );
+					}
+				});
+                            });
+                     
+                              
+       </script>
+    {% endblock javascripts_layout2 %}
+ {% endblock javascripts %}

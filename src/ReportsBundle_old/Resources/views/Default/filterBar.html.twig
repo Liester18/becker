@@ -1,0 +1,111 @@
+
+<div>
+              <strong>Crit&eacute;rios de Filtragem</strong><br/><br/>
+              <div id="filters" class="btn-group">
+                  {% for f in filters %}
+                      <a id="{{f.id}}" class="actfilter btn" onclick="{{f.onclick}}()">
+                          <span class="glyphicon glyphicon-remove"></span>
+                          <small class="text-muted">
+                              {{f.name}}
+                          </small>
+                      </a>
+                  {% endfor %}
+              </div>
+          </div>
+          <div id="accordion" class="panel-group">
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a class="btn" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                              Idade
+                          </a>
+                      </h4>
+                  </div>
+                  <div id="collapseOne" class="panel-collapse collapse">
+                      <div class="panel-body">
+                          <div class="list-group"> 
+                              <a id="A1" from="0" to="1" href="#" class="year list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> Ate  1 ano<span class="badge">0</span>
+                              </a> 
+                              <a id="A2" from="1" to="3" href="#" class="year list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> 1 ate 3 anos<span class="badge">0</span> 
+                              </a> 
+                              <a id="A3" from="3" to="7" href="#" class="year list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> 3 ate 7 anos <span class="badge">0</span> 
+                              </a> 
+                              <a id="A4" from="7" to="14" href="#" class="year list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> 7 ate 14 anos<span class="badge">0</span> 
+                              </a> 
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a class="btn" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                              Tipo sanguíneo
+                          </a>
+                      </h4>
+                  </div>
+                  <div id="collapseTwo" class="panel-collapse collapse">
+                      <div class="panel-body">
+                          <div class="list-group"> 
+                              <a id="T1" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> A+<span class="badge">0</span>
+                              </a> 
+                              <a id="T2" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> B+<span class="badge">0</span> 
+                              </a> 
+                              <a id="T3" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> AB+<span class="badge">0</span> 
+                              </a> 
+                              <a id="T4" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span>O+<span class="badge">0</span> 
+                              </a> 
+                              <a id="T5" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> A-<span class="badge">0</span>
+                              </a> 
+                              <a id="T6" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> B-<span class="badge">0</span> 
+                              </a> 
+                              <a id="T7" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span> AB-<span class="badge">0</span> 
+                              </a> 
+                              <a id="T8" href="#" class="blood list-group-item"> 
+                                  <span class="glyphicon glyphicon-plus"></span>O-<span class="badge">0</span> 
+                              </a> 
+                          </div>
+                      </div> 
+                  </div>
+              </div>
+              <div class="panel panel-default">
+                  <div class="panel-heading">
+                      <h4 class="panel-title">
+                          <a class="btn" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                              Nome
+                          </a>
+                      </h4>
+                  </div>
+                  <div id="collapseThree" class="panel-collapse collapse">
+                      <div class="panel-body list-group">
+                          <div class="row input-group"> 
+                              <div class="col-md-10 col-sm-10">
+                                  <span class=""> 
+                                      <input id="chType" type="checkbox" checked="false" name="flex" aria-label="...">&nbsp; N&atilde;o Exato
+                                  </span>
+                              </div>
+                              <div class="col-md-2 col-sm-2">
+                                  <a id="nome-id" href="#" class="btn">
+                                      <span class="glyphicon glyphicon-plus-sign"></span>&nbsp;OK
+                                  </a>
+                              </div>
+                          </div>
+                          <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon1">Nome</span>
+                              <input id="filtername" type="text" value="" class="form-control" placeholder="Nome do paciente" aria-describedby="basic-addon1">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>

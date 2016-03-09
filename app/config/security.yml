@@ -1,0 +1,43 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        EntityBundle\Entity\Usuario: 
+            algorithm: sha512
+            encode-as-base64: true
+            iterations: 10
+    
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_MEDICO
+        ROLE_SEC: ROLE_SECRETARIA        
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        user:
+            entity: {class: EntityBundle\Entity\Usuario, property: username}
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+        secured_area:
+            pattern:    ^/
+            anonymous: ~
+
+            form_login:
+                check_path: /login_check
+                login_path: /login
+                default_target_path: /i
+
+            logout:
+                path:   /logout
+                target: /
+
+    access_control:
+         - { path: ^/, roles: [IS_AUTHENTICATED_ANONYMOUSLY] }
+         - { path: ^/*, roles: [ROLE_MEDICO , ROLE_SECRETARIA]}

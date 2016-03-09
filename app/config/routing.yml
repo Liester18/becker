@@ -1,0 +1,16 @@
+reports:
+    resource: "@ReportsBundle/Resources/config/routing.yml"
+    prefix:   /r
+
+autentication:
+    resource: "@AutenticationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+entity:
+    resource: "@EntityBundle/Resources/config/routing.yml"
+    prefix:   /e
+
+daily_work:
+    resource: "@DailyWorkBundle/Resources/config/routing.yml"
+    prefix:   /d_w
+

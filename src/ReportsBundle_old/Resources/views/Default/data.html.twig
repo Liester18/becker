@@ -1,0 +1,112 @@
+{% for d in data %}
+    <tr>
+        <td class="center">
+            <ul class="list-unstyled spaced2 pnome">
+                <li class="muted align-left align-middle">
+                    <i class="icon-angle-right bigger-110"></i>
+                    <a href="{{path('reports_homepage')}}{{d.getIdPaciente()}}/patient">{{d.getNome()}}</a>                                            
+                </li>
+            </ul>
+        </td>
+       <!-- <td class="center">
+            <ul class="list-unstyled spaced2">
+                {#%for p in d.getResponsavel() %#}
+                    <li class="muted align-left">
+                        <i class="icon-angle-right bigger-110"></i>
+                        {#{p.getNome()}#} - {#{p.email}#} - {#{p.telefContato}#}  </li>
+                    {#%endfor%#}
+            </ul>
+        </td> -->
+
+        <td class="hidden-480 center">                                            
+            <ul class="list-unstyled spaced2">                                              
+                <li class="muted align-left">
+                    <i class="icon-angle-right bigger-110"></i>
+                    {{d.endereco}}
+                </li>                                               
+            </ul>
+        </td>
+
+
+        <td class="hidden-480 center">{#{paciente.nome}#}</td> <!--debe ser un nombre de tipo usuario-->
+        <td class="center">
+            <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+
+                <button  name="{#proyecto.id#}" value="{# app.request.BaseUrl #}" onclick="window.location.replace('{{path('reports_homepage')}}{{d.idPaciente}}/patient');" class="btn btn-link btn-link-ajustado tooltip-info " data-placement="bottom" data-rel="tooltip" data-original-title="Editar">
+                    <i class="icon-edit bigger-230 blue"></i>
+                </button>    
+                <button name="subtarea" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit"
+                        title="Apagar">
+                    <i class="icon-trash bigger-230 red"></i>
+                </button>
+
+
+                        <!--<form action="{#path('listado_por_proyecto')#}" method="post">
+                            <button name= "fase" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-info" data-rel="tooltip" data-placement="bottom" type="submit"
+                                    title="Atualizar">
+                                <i class="icon-pencil bigger-130 blue green"></i>
+                            </button>
+
+                            <button name="tarea" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-light" data-rel="tooltip" data-placement="bottom" type="submit"
+                                    title="Fazer Consulta">
+                                <i class="icon-sort-by-attributes-alt bigger-130 light-blue"></i>
+                            </button>
+
+
+                            <button name="subtarea" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit"
+                                    title="Apagar">
+                                <i class="icon-trash bigger-130 red"></i>
+                            </button>
+                        </form> -->    
+
+            </div>
+
+            <div class="visible-xs visible-sm hidden-md hidden-lg">
+                <div class="inline position-relative">
+                    <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-caret-down icon-only bigger-120"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                        <li>
+                            <button  name="{#proyecto.id#}" value="{# app.request.BaseUrl #}" onclick="mostrar_proyecto(this)" class="btn btn-link btn-link-ajustado tooltip-info " data-placement="bottom" data-rel="tooltip" data-original-title="Ver">
+                                <i class="icon-zoom-in bigger-130 blue"></i>
+                            </button>
+                        </li>
+
+                        <form action="{#path('listado_por_proyecto')#}" method="post">
+
+                            <li>  
+                                <button name= "fase" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-info" data-rel="tooltip" data-placement="bottom" type="submit"
+                                        title="Fases">
+                                    <i class="icon-cog bigger-130 blue"></i>
+                                </button> 
+                            </li>
+                            <li>  
+
+                                <button name="tarea" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-light" data-rel="tooltip" data-placement="bottom" type="submit"
+                                        title="Tareas">
+                                    <i class="icon-cogs bigger-130 light-blue"></i>
+                                </button>
+                            </li>
+                            <li>  
+                                <button name="subtarea" value="{#proyecto.id#}" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit"
+                                        title="Subtareas">
+                                    <i class="icon-align-center bigger-130 grey"></i>
+                                </button>
+
+                            </li>
+                        </form>   
+
+                    </ul>
+                </div>
+            </div>
+        </td>
+
+    </tr>
+{% endfor %}
+
+
+
+
+

@@ -1,0 +1,13 @@
+<ul class="submenu">
+{% for e in elems %}
+    <li class="disabled">
+        <a id="{{e.id}}" name="({{e.begin}},{{e.end}}]" class="year" begin="{{e.begin}}" end="{{e.end}}">
+            <i class="icon-double-angle-right"></i>
+            ({{e.begin}},{{e.end}}]
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+
+

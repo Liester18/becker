@@ -1,0 +1,94 @@
+{% for d in data %}
+    <tr>
+        <td class="center">
+            <ul class="list-unstyled spaced2 pnome">
+                <li class="muted align-left align-middle">
+                    <i class="icon-angle-right bigger-110"></i>
+                    <a href="{{path('daily_work')}}{{d.getIdPaciente()}}">{{d.getNome()}}</a>                                            
+                </li>
+            </ul>
+        </td>
+        <td class="center">
+            <ul class="list-unstyled spaced2">
+                {%for p in d.getResponsavels() %}
+                    <li class="muted align-left">
+                        <i class="icon-angle-right bigger-110"></i>
+                        {{p.getNome()}} - {{p.email}} - {{p.telefContato}}  </li>
+                {%endfor%}
+            </ul>
+        </td> 
+
+        <!--<td class="hidden-480 center">                                            
+            <ul class="list-unstyled spaced2">                                              
+                <li class="muted align-left">
+                    <i class="icon-angle-right bigger-110"></i>
+                    {#{d.endereco}#}
+                </li>                                               
+            </ul>
+        </td> -->
+
+
+        
+        <td class="center">   
+            <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+             {% if app.user.rol.id == 1 %}   
+                <button onclick="window.location.replace('{{ path('atendimento', {'id_paciente': d.getIdPaciente()|default('default_id_paciente')}) }}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                        title="Ficha">
+                    <i class="icon-leaf bigger-230 dark "></i>
+                </button>   
+                <button onclick="window.location.replace('{{path('daily_work')}}{{d.getIdPaciente()}}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                        title="Fazer Consulta">
+                    <i class="icon-briefcase bigger-230 green"></i>
+                </button> 
+             {% endif %}          
+             <button id="delete" num="{{d.getIdPaciente()}}" name="Apagar" value="{{d.getIdPaciente()}}" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit" onclick="Borrar(this)"
+                        title="Apagar">
+                    <i class="icon-trash bigger-230 red"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+{% endfor %}
+<script type="text/javascript">
+    
+    function Borrar(obj){
+        var path = "{{ path('reports_delete') }}";
+        var path2 = "{{ path('reports_homepage') }}";
+        //alert('llego');
+        var json = {
+            'id': obj.value,
+            'page':$('#page_number').attr('name')
+        };
+        /*$.post(path,json,function(data){alert(data.status);
+            /*if(data.status == 'OK'){
+               alert(data.status); 
+            }
+            else{
+                alert('Error');
+            }*/
+        //});
+        $.ajax({
+                type: "POST",
+                url: path,
+                data: json,
+                // async: true,
+                dataType: "json",
+                success: function (response)
+                {
+                   location.href = path2;
+                    
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    // stuff there
+                },
+            });
+    
+    }
+    
+</script>
+
+
+
+
+

@@ -1,0 +1,4 @@
+services:
+#    autentication.example:
+#        class: AutenticationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

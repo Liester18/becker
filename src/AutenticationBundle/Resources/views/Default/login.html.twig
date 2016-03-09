@@ -1,0 +1,197 @@
+{# login.html.twig #}
+{% extends 'base.html.twig' %}
+
+    {% block title %}Registro de Usuario{% endblock %}
+    {% block meta %} 
+<meta name="description" content="User login page" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% endblock %}
+    {% block stylesheets %}
+<!-- basic styles -->
+
+<link href="{{ asset('bundles/general/css/bootstrap.min.css')}}" rel="stylesheet" />
+<link rel="stylesheet" href="{{ asset('bundles/general/css/font-awesome.min.css')}}" />
+
+
+
+<!--[if IE 7]>
+  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+<![endif]-->
+
+<!-- page specific plugin styles -->
+
+<!-- fonts -->
+
+<link rel="stylesheet" href="{{ asset('bundles/general/css/ace-fonts.css')}}" />
+
+<!-- ace styles -->
+
+<link rel="stylesheet" href="{{ asset('bundles/general/css/ace.min.css')}}" />
+<link rel="stylesheet" href="{{ asset('bundles/general/css/ace-rtl.min.css')}}" />
+
+    {% endblock %}
+    {% block js_head  %}
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+<!--[if lt IE 9]>
+<script src="assets/js/html5shiv.js"></script>
+<script src="assets/js/respond.min.js"></script>
+<![endif]-->
+    {% endblock %} 
+    {% block body_id %}class="login-layout" id="login_body"{% endblock %}            
+    {% block body %}
+    
+<div class="main-container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="login-container">
+                    <div class="center">
+                        <h1>
+                            <br />
+                            <i class="icon-leaf white"></i>
+                            <span class="white">Sistema</span>
+                            <span class="white">Ficha Medica</span>
+                        </h1>
+                        <h4 class="grey">&copy; Becker</h4>
+                    </div>
+
+                    <div class="space-6"></div>
+
+                    <div class="position-relative">
+                        <div id="login-box" class="login-box  widget-box no-border
+                             {%if showInRegister is not defined %}
+                             visible"
+                             {% else %}
+                             "
+                             {% endif %}
+                             >
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <h4 class="header blue lighter bigger">
+
+                                        Por favor entre seus dados:
+                                    </h4>
+
+                                    <div class="space-6"></div>
+
+                                    <form action="{{ path('user_login_check') }}" method="post">
+                                        <fieldset>
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" class="form-control" placeholder="Usuario" id="username" name="_username" />
+                                                    <i class="icon-user"></i>
+                                                </span>
+                                            </label>
+
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="password" class="form-control" placeholder="Senha" id="password" name="_password" />
+                                                    <i class="icon-lock"></i>
+                                                </span>
+                                            </label>
+
+                                            <div class="space"></div>
+
+                                            <div class="clearfix">
+                                                <label class="inline">
+                                                    <input type="checkbox" class="ace" name="_remember_me"/>
+                                                    <span class="lbl"> Lembrar</span>
+                                                </label>
+
+                                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary" name="login">
+                                                    <i class="icon-key"></i>
+                                                    Aceitar
+                                                </button>
+                                            </div>
+
+                                            <div class="space-4"></div>
+                                        </fieldset>
+                                    </form>
+
+                                    
+                                    
+                                </div><!-- /widget-main -->
+                                
+                            </div><!-- /widget-body -->
+                        </div><!-- /login-box -->
+                       
+                    </div><!-- /position-relative -->
+                </div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div>
+</div><!-- /.main-container -->
+    
+    {% endblock %}
+    {% block javascripts %}
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='{{ asset('bundles/general/js/jquery-2.0.3.min.js') }}'>" + "<" + "/script>");
+    </script>
+
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+    <script type="text/javascript">
+        if ("ontouchend" in document)
+            document.write("<script src='{{ asset('bundles/general/js/jquery.mobile.custom.min.js') }}'>" + "<" + "/script>");
+        </script>
+
+
+        <!-- Script form userregister-->
+        <script src="{{ asset('bundles/general/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
+        <script src="{{ asset('bundles/general/js/jquery.ui.touch-punch.min.js')}}"></script>
+      
+        <script src="{{ asset('bundles/general/js/fuelux/fuelux.spinner.min.js')}}"></script>
+       
+        <script src="{{ asset('bundles/general/js/jquery.autosize.min.js')}}"></script>
+        <script src="{{ asset('bundles/general/js/jquery.inputlimiter.1.3.1.min.js')}}"></script>
+        <script src="{{ asset('bundles/general/js/bootstrap-tag.min.js')}}"></script>
+        
+        <script src="{{ asset('bundles/general/js/jquery.maskedinput.min.js')}}"></script>
+        <script src="{{ asset('bundles/general/js/bootstrap.min.js')}}"></script>
+
+
+        <!-- ace scripts -->
+
+        <script src="{{ asset('bundles/general/js/ace-elements.min.js')}}"></script>
+        <script src="{{ asset('bundles/general/js/ace.min.js')}}"></script>
+
+
+        <script src="{{ asset('bundles/general/js/jquery.maskedinput.min.js')}}"></script>
+        <!-- inline scripts related to this page -->
+        <script src="{{ asset('bundles/general/js/_others/validaciones/registro.js')}}"></script>
+
+        <script type="text/javascript">
+            jQuery(function($) {
+           
+            $('.input-mask-phone').mask('(999) 999-9999');
+            $('.input-mask-username').mask('********');//numero o letras solamente que tiene que ser obligado esta cantidad
+            $('.input-mask-name').mask('aaaaaaaaaaaaaaaaaaaaa');//letras solamente pero tiene que ser obligado esta cantidad
+            
+        });
+        function show_box(id) {
+            jQuery('.widget-box.visible').removeClass('visible');
+            jQuery('#' + id).addClass('visible');
+        }
+
+        
+
+       /* function registrar() {
+           $.post('{# 'usuario'|url_encode()#}', {datos:'Liester'});
+           // location.href = '{# 'usuario'|url_encode() #}';
+        }*/
+
+       </script>
+
+    {% endblock %}            
+

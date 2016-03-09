@@ -1,0 +1,925 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %} 
+    <div class="page-content">        
+        <div class="row">
+            <div class="col-xs-12">
+
+
+                <div class="navbar navbar-default" id="navbar">
+                    <script type="text/javascript">
+                        try {
+                            ace.settings.check('navbar', 'fixed')
+                        } catch (e) {
+                        }
+                    </script>
+
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-blue widget-header-flat">
+                                    <h4 class="lighter">Fazer nova ficha medica</h4>											
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div id="fuelux-wizard" class="row-fluid" data-target="#step-container">
+                                            <ul class="wizard-steps">
+                                                <li data-target="#step1" class="active">
+                                                    <span class="step">1</span>
+                                                    <span class="title">Dados Gerais</span>
+                                                </li>
+
+                                                <li data-target="#step2">
+                                                    <span class="step">2</span>
+                                                    <span class="title">Primeiro Responsavel</span>
+                                                </li>
+
+                                                <li data-target="#step3">
+                                                    <span class="step">3</span>
+                                                    <span class="title">Segundo Responsavel</span>
+                                                </li>
+
+
+                                                <li data-target="#step4">
+                                                    <span class="step">4</span>
+                                                    <span class="title">Gravidez e Maternidade</span>
+                                                </li>
+
+                                                <li data-target="#step5">
+                                                    <span class="step">5</span>
+                                                    <span class="title">Problemas de saude</span>
+                                                </li>
+
+                                                <li data-target="#step6">
+                                                    <span class="step">6</span>
+                                                    <span class="title">Cuidados</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <hr />
+                                        <div class="step-content row-fluid position-relative" id="step-container">
+                                            <form class="form-horizontal" id="validation-form" name="atendimiento">
+                                                <div class="step-pane active" id="step1">
+                                                    <!-- <h4 class="lighter block green">Registre os dados principais do paciente</h4> -->
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.nome)}} </label>
+                                                        {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
+                                                        {{ form_widget(formulario.nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                        <input type="hidden" name="id_paciente" id="id_paciente_hdn" value="{{paciente.idPaciente}}">
+
+                                                    <div class="form-group">
+                                                        {#{{ form_row(formulario.nome) }}#}
+
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.data_nascimento)}} </label>
+                                                        <div class="input-group">
+                                                            {{ form_widget(formulario.data_nascimento, { 'attr': {'class' : 'form-control input-mask-date'} }) }}
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                                <div class="step-pane" id="step2">
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].nome)}} </label>
+                                                        {{ form_widget(formulario.responsavels[0].nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.cep)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].ocupacao)}} </label>
+
+                                                        {{ form_widget(formulario.responsavels[0].ocupacao, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >{{form_label(formulario.responsavels[0].telefContato)}} </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{ form_widget(formulario.responsavels[0].telefContato, { 'attr': {'class' : 'input-mask-phone'} }) }}
+                                                                <i class="icon-phone"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > {{form_label(formulario.responsavels[0].email)}}                                                                   <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
+                                                        </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{form_widget(formulario.responsavels[0].email,  { 'attr': {'class' : 'p_email'} }) }}
+                                                                <i class="icon-envelope"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.complemento)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.complemento, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.barrio)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.barrio, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.cidade)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.cidade, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.estado)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.estado, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="step-pane" id="step3">
+                                                    <h4 class="lighter block green">Registre os dados do segundo responsavel</h4>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].nome)}} </label>
+
+                                                        {{ form_widget(formulario.responsavels[1].nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.cep)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].ocupacao)}} </label>
+                                                        {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
+                                                        {{ form_widget(formulario.responsavels[1].ocupacao, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >{{form_label(formulario.responsavels[1].telefContato)}} </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{ form_widget(formulario.responsavels[1].telefContato, { 'attr': {'class' : 'input-mask-phone'} }) }}
+                                                                <i class="icon-phone"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > {{form_label(formulario.responsavels[1].email)}}                                                                   <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
+                                                        </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{form_widget(formulario.responsavels[1].email,  { 'attr': {'class' : 'p_email'} }) }}
+                                                                <i class="icon-envelope"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.complemento)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.complemento, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.barrio)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.barrio, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.cidade)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.cidade, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.estado)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.estado, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="step-pane" id="step4">
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.tipoSanguineo)}} </label>
+                                                        {{form_widget(formulario.tipoSanguineo, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.problemas_gravidez)}} </label>
+                                                        {{form_widget(formulario.problemas_gravidez, { 'attr': {'class' : 'autosize-transition',
+                                                                                                   'style':'overflow: hidden; word-wrap: break-word; resize: horizontal;height:92px;width: 60%;'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.tipoParto)}} </label>
+                                                        {{form_widget(formulario.tipoParto, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.problemas_posparto)}} </label>
+                                                        {{form_widget(formulario.problemas_posparto, { 'attr': {'class' : 'autosize-transition', 'style':'overflow: hidden; word-wrap: break-word; resize: horizontal;height:92px;width: 60%;'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.depressao_puerperal)}} </label>
+                                                        {{form_widget(formulario.depressao_puerperal, { 'attr': {'class' : 'autosize-transition', 'style':'overflow: hidden; word-wrap: break-word; resize: horizontal;height:92px;width: 60%;'} }) }}
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <div class="checkbox">
+                                                            <label class="col-sm-5 control-label l_artif">
+                                                                {{form_widget(formulario.leite_artificial, { 'attr': {'class' : 'ace '} }) }}
+                                                                <!--<input type="checkbox" class="ace" name="form-field-checkbox">-->
+                                                                <span class="lbl">{{form_label(formulario.leite_artificial)}}</span>
+                                                            </label>
+                                                            <label class="col-sm-2 control-label l_mat_ex">
+                                                                {{form_widget(formulario.leite_materno_exclusivo, { 'attr': {'class' : 'ace'} }) }}
+                                                                <!--<input type="checkbox" class="ace" name="form-field-checkbox">-->
+                                                                <span class="lbl">{{form_label(formulario.leite_materno_exclusivo)}}</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label">  {{form_label(formulario.leite_materno_idade)}}   </label>
+                                                        <div class="ace-spinner" style="width: 70px;">
+                                                            <div class="input-group">
+                                                                {{form_widget(formulario.leite_materno_idade, { 'attr': {'class' : 'input-mini spinner-input form-control'} }) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="step-pane" id="step5" data-prototype="{{ form_widget(formulario.paciente_problemasSaude.vars.prototype)|e }}">
+
+                                                    {% for ps in formulario.paciente_problemasSaude %}
+                                                        
+                                                       <div class="paciente_salud">
+                                                             <div class="form-group">
+                                                            <label class="col-sm-3 control-label">  {{form_label(ps.edadeDiagnostico)}}   </label>
+                                                            <div class="ace-spinner" style="width: 70px;">
+                                                                <div class="input-group">
+                                                                    {{form_widget(ps.edadeDiagnostico) }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label"> {{form_label(ps.problemaSaude)}} </label>
+                                                            {{form_widget(ps.problemaSaude, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label"> Detalhes Problemas Saude </label>
+                                                            {{form_widget(ps.detalhes_psalud, { 'attr': {'class' : 'autosize-transition',
+                                                                                                   'style':'overflow: hidden; word-wrap: break-word; resize: horizontal;height:92px;width: 60%;'} }) }}
+                                                        </div>
+                                                       
+                                                       </div>
+
+                                                    {% endfor %}
+                                                  
+                                                        
+
+                                                </div>
+
+                                                <div class="step-pane " id="step6" data-prototype="{{ form_widget(formulario.paciente_cuidados.vars.prototype)|e }}">
+
+
+                                                     {% for pc in formulario.paciente_cuidados %}
+
+                                                        <div class="paciente_cuidado">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label">  {{form_label(pc.horas)}}   </label>
+                                                            <div class="ace-spinner" style="width: 70px;">
+                                                                <div class="input-group">
+                                                                    {{form_widget(pc.horas, { 'attr': {'class' : 'input-mini spinner-input form-control'} }) }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-3 control-label"> {{form_label(pc.cuidado)}} </label>
+                                                            {{form_widget(pc.cuidado, { 'attr': {'class' : 'col-xs-10 col-sm-1'} }) }}
+                                                        </div>
+
+                                                        </div>
+
+
+                                                    {% endfor %}
+
+                                                   {#
+                                                    <div class="form-group">
+                                                       <label for="form-field-select-4" class="col-sm-3 control-label">Cuidados <i class="icon-asterisk red smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip" data-original-title="Campo obligatorio"></i></label>
+                                                        &nbsp;&nbsp;&nbsp;{{ form_widget(formulario.nCuidados, { 'id': 'form-field-select-4-1', 'attr': {'class' : 'chosen-select'}  }) }}
+                                                    </div>#}
+
+
+                                                    <div class="form-group ">
+                                                       <!-- <label for="form-field-select-4" class="col-sm-3 control-label">Horas en la crece </label>-->
+                                                       <!-- <input type="text" class="col-xs-10 col-sm-5" placeholder="Horas en la crece" id="ncuidades_crece">-->
+
+                                                    </div>
+                                                  <!-- <input type="submit" value="Send me your name!">-->
+                                                </div>
+                                                {{ form_row(formulario._token) }}
+                                            </form>  
+                                        </div>
+
+                                        <hr />
+                                        <div class="row-fluid wizard-actions">
+                                            <button class="btn btn-prev">
+                                                <i class="icon-arrow-left"></i>
+                                                Prev
+                                            </button>
+
+                                            <button class="btn btn-success btn-next" data-last="Finish ">
+                                                Next
+                                                <i class="icon-arrow-right icon-on-right"></i>
+                                            </button>
+                                        </div>
+                                    </div><!-- /widget-main -->
+                                </div><!-- /widget-body -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="modal-wizard" class="modal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header" data-target="#modal-step-contents">
+                                    <ul class="wizard-steps">
+                                        <li data-target="#modal-step1" class="active">
+                                            <span class="step">1</span>
+                                            <span class="title">Validation states</span>
+                                        </li>
+
+                                        <li data-target="#modal-step2">
+                                            <span class="step">2</span>
+                                            <span class="title">Alerts</span>
+                                        </li>
+
+                                        <li data-target="#modal-step3">
+                                            <span class="step">3</span>
+                                            <span class="title">Payment Info</span>
+                                        </li>
+
+                                        <li data-target="#modal-step4">
+                                            <span class="step">4</span>
+                                            <span class="title">Other Info</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="modal-body step-content" id="modal-step-contents">
+                                    <div class="step-pane active" id="modal-step1">
+                                        <div class="center">
+                                            <h4 class="blue">Step 1</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="step-pane" id="modal-step2">
+                                        <div class="center">
+                                            <h4 class="blue">Step 2</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="step-pane" id="modal-step3">
+                                        <div class="center">
+                                            <h4 class="blue">Step 3</h4>
+                                        </div>
+                                    </div>
+
+                                    <div class="step-pane" id="modal-step4">
+                                        <div class="center">
+                                            <h4 class="blue">Step 4</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer wizard-actions">
+                                    <button class="btn btn-sm btn-prev">
+                                        <i class="icon-arrow-left"></i>
+                                        Prev
+                                    </button>
+
+                                    <button class="btn btn-success btn-sm btn-next" data-last="Finish ">
+                                        Next
+                                        <i class="icon-arrow-right icon-on-right"></i>
+                                    </button>
+
+                                    <button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
+                                        <i class="icon-remove"></i>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- PAGE CONTENT ENDS -->
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->		
+
+
+    </div><!-- /.main-container-inner -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='{{asset('bundles/general/js/jquery-2.0.3.min.js')}}'>" + "<" + "/script>");
+</script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+<script type="text/javascript">
+    if ("ontouchend" in document)
+        document.write("<script src='{{asset('bundles/general/js/jquery.mobile.custom.min.js')}}'>" + "<" + "/script>");
+</script>
+<script src="{{asset('bundles/general/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/typeahead-bs2.min.js')}}"></script>
+
+<!-- page specific plugin scripts -->
+
+<script src="{{asset('bundles/general/js/fuelux/fuelux.wizard.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/additional-methods.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/bootbox.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/jquery.maskedinput.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/fuelux/fuelux.spinner.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/select2.min.js')}}"></script>
+
+<!-- ace scripts -->
+
+<script src="{{asset('bundles/general/js/ace-elements.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/ace.min.js')}}"></script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+    jQuery(function ($) {
+
+        $('[data-rel=tooltip]').tooltip();
+
+        $(".select2").css('width', '200px').select2({allowClear: true})
+                .on('change', function () {
+                    $(this).closest('form').validate().element($(this));
+                });
+
+
+        var $validation = false;
+        $('#fuelux-wizard').ace_wizard().on('change', function (e, info) {
+            if (info.step == 1 && $validation) {
+                if (!$('#validation-form').valid())
+                    return false;
+            }
+        }).on('finished', function (e) {
+            if($('div').is('.help-block')){
+                alert('Tem erros na ficha cadastrada, voce tem que corregir-os');
+                return false;                
+            }else if(validarAt()){
+            var formdata = $('form[name=atendimiento]').serialize();
+            //var _id_paciente = $('#id_paciente_hdn').val();
+            path = "{{ path('atendimento_seg') }}";
+            path2 = "{{path('to_reports')}}";
+
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: formdata,
+                // async: true,
+                dataType: "json",
+                success: function (response)
+                {
+                    bootbox.dialog({
+                        message: "Thank you! Your information was successfully saved!",
+                        buttons: {
+                            "success": {
+                                "label": "OK",
+                                "className": "btn-sm btn-primary",
+                                callback: function () {
+                                    location.href = path2;
+                                }
+
+                            }
+                        }
+
+                    });
+
+                    $('#validation-form').each(function () {
+                        this.reset();
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    // stuff there
+                },
+            });}
+        }).on('stepclick', function (e) {
+            //return false;//prevent clicking on steps
+        });
+
+
+        /*$('#skip-validation').removeAttr('checked').on('click', function () {
+            $validation = this.checked;
+            if (this.checked) {
+                $('#sample-form').hide();
+                $('#validation-form').removeClass('hide');
+            }
+            else {
+                $('#validation-form').addClass('hide');
+                $('#sample-form').show();
+            }
+        });*/
+
+        $('#becker_entitybundle_pacientetype_leite_materno_idade').ace_spinner({value: 0, min: 0, max: 12, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info'})
+                .on('change', function () {
+                    //alert(this.value)
+                });
+
+        $.mask.definitions['~'] = '[+-]';
+        $('.input-mask-date').mask('99/99/9999');
+        $('.input-mask-phone').mask('(99) 999999999');
+
+
+
+
+        //documentation : http://docs.jquery.com/Plugins/Validation/validate
+
+
+        /*$.mask.definitions['~'] = '[+-]';
+        $('#phone').mask('(99) 999999999');*/
+
+        jQuery.validator.addMethod("input-mask-phone", function (value, element) {
+            return this.optional(element) || /^\(\d{2}\) \d{9}( x\d{1,9})?$/.test(value);
+        }, "Enter a valid phone number.");
+
+        $('#validation-form').validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                name: {
+                    required: true
+                },
+                phone: {
+                    required: true,
+                    phone: 'required'
+                },
+                comment: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                platform: {
+                    required: true
+                },
+                subscription: {
+                    required: true
+                },
+                gender: 'required',
+                agree: 'required'
+            },
+            messages: {
+                email: {
+                    required: "Please provide a valid email.",
+                    email: "Please provide a valid email."
+                },
+                password: {
+                    required: "Please specify a password.",
+                    minlength: "Please specify a secure password."
+                },
+                subscription: "Please choose at least one option",
+                gender: "Please choose gender",
+                agree: "Please accept our policy"
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+                $('.alert-danger', $('.login-form')).show();
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                if (element.is(':checkbox') || element.is(':radio')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1)
+                        controls.append(error);
+                    else
+                        error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else
+                    error.insertAfter(element.parent());
+            },
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+
+
+
+
+        $('#modal-wizard .modal-header').ace_wizard();
+        $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
+    });
+    
+    //para los problemas de saude.
+    var $collectionHolder;
+    // setup an "add a tag" link
+    var $addTagLink = $('<a href="#" class="add_tag_link">Novo problema de saude</a>');
+    //var $newLinkLi = $('<li></li>').append($addTagLink);
+    var $newLinkLi = $('<div class="form-group"></div>').append($addTagLink);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('#step5');
+        
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder.append($newLinkLi); 
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+                       
+        $('#paciente_type_paciente_problemasSaude_0_problemaSaude').on('change', function (){
+            if($('#paciente_type_paciente_problemasSaude_0_problemaSaude option:selected').text() == 'Broncoespasmo/Bronquite'){                        
+               Bronquitis(0, false);                   
+            }else{
+               Bronquitis(0, true) 
+            }
+        })
+                
+        
+        
+        //alert($collectionHolder.html());
+        
+        $addTagLink.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // add a new tag form (see next code block)
+        addTagForm($collectionHolder, $newLinkLi);             
+        });
+    });
+    function addTagForm($collectionHolder, $newLinkLi) {
+        // Get the data-prototype explained earlier
+        var prototype = $collectionHolder.data('prototype');
+        // get the new index
+        var index = $collectionHolder.data('index');
+        
+        // Replace '__name__' in the prototype's HTML to
+        // instead be a number based on how many items we have
+        var newForm = prototype.replace(/__name__/g, index);
+        // increase the index with one for the next item
+        $collectionHolder.data('index', index + 1);        
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newFormLi = $('<div class="form-group fg"></div>').append(newForm);
+        $newLinkLi.before($newFormLi);
+        
+        $collectionHolder.find('#paciente_type_paciente_problemasSaude_'+index).each(function() {
+                //mio Kruz
+                $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').parent().css('margin-left', '-0.3%');
+                $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').css('height','92px').css('width', '65%');
+                
+                $('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').on('change', function (e){                    
+                    if($('#paciente_type_paciente_problemasSaude_'+ index +'_problemaSaude option:selected').text() == 'Broncoespasmo/Bronquite'){                        
+                        Bronquitis(index, false);                   
+                    }else{
+                        Bronquitis(index, true);   
+                    }
+                });
+                
+                addTagFormDeleteLink($(this));
+        });
+        
+    }
+
+    function addTagFormDeleteLink($tagFormLi) {
+        var $removeFormA = $('<a href="#">Apagar problema de saude</a><br /><br />');
+        $tagFormLi.append($removeFormA);
+        $removeFormA.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+            // remove the li for the tag form
+            $tagFormLi.parent().remove();
+        });
+    }
+    function Bronquitis(index, flag){
+        if(flag == false){
+            $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').parent().hide('slow');
+        }else{
+            $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').parent().show('slow');
+        }
+    }
+    
+    //para los cuidados.
+    var $collectionHolder2;
+    // setup an "add a tag" link
+    var $addTagLink2 = $('<a href="#" class="add_tag_link2">Novo cuidado</a>');
+    var $newLinkLi2 = $('<div class="form-group"></div>').append($addTagLink2);
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder2 = $('#step6');
+        
+        // add the "add a tag" anchor and li to the tags ul
+        $collectionHolder2.append($newLinkLi2);
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder2.data('index', $collectionHolder2.find(':input').length);
+        
+        //alert($collectionHolder2.html());
+        
+        $addTagLink2.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // add a new tag form (see next code block)
+        addTagForm2($collectionHolder2, $newLinkLi2);             
+        });
+    });
+    function addTagForm2($collectionHolder2, $newLinkLi2) {
+        // Get the data-prototype explained earlier
+        var prototype2 = $collectionHolder2.data('prototype');
+        // get the new index
+        var index2 = $collectionHolder2.data('index');
+        // Replace '__name__' in the prototype2's HTML to
+        // instead be a number based on how many items we have
+        var newForm2 = prototype2.replace(/__name__/g, index2);
+        // increase the index2 with one for the next item
+        $collectionHolder2.data('index', index2 + 1);        
+        // Display the form in the page in an li, before the "Add a tag" link li
+        var $newForm2Li = $('<div class="form-group fg"></div>').append(newForm2);
+        $newLinkLi2.before($newForm2Li);
+        
+        $collectionHolder2.find('#paciente_type_paciente_cuidados_'+index2).each(function() {
+                //mio Kruz
+                $('#paciente_type_paciente_cuidados_'+index2).css('margin-left', '14.5%');
+                $('#paciente_type_paciente_cuidados_'+index2+'_cuidado').parent().css('margin-left', '4.8%');
+                //$('#paciente_type_paciente_cuidados_'+index2+'_horas').addClass('input-small spinner-input form-control');
+                //$('#paciente_type_paciente_problemasSaude_'+index2+'_detalhes_psalud').css('height','92px').css('width', '65%');
+                
+                addTagFormDeleteLink2($(this));
+        });
+    }
+
+    function addTagFormDeleteLink2($tagFormLi2) {
+        var $removeFormA2 = $('<a href="#">Apagar cuidado</a><br /><br />');
+        $tagFormLi2.append($removeFormA2);
+        $removeFormA2.on('click', function(e) {
+            // prevent the link from creating a "#" on the URL
+            e.preventDefault();
+            // remove the li for the tag form
+            $tagFormLi2.parent().remove();
+        });
+    }
+</script>
+
+<!--<script type="application/javascript">
+var $collectionHolder;
+// setup an "add a tag" link
+var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
+var $newLinkLi = $('<li></li>').append($addTagLink);
+
+jQuery(document).ready(function() {
+    // Get the ul that holds the collection of tags
+    $collectionHolder = $('#step5');
+
+    $collectionHolder.find('div.paciente_salud').each(function() {
+            addTagFormDeleteLink($(this));
+        });
+
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionHolder.append($newLinkLi);
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionHolder.data('index', $collectionHolder.find(':input').length);
+    $addTagLink.on('click', function(e) {
+    // prevent the link from creating a "#" on the URL
+    e.preventDefault();
+    // add a new tag form (see next code block)
+    addTagForm($collectionHolder, $newLinkLi);
+    });
+});
+
+
+
+function addTagForm($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+    // get the new index
+    var index = $collectionHolder.data('index');
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li></li>').append(newForm);
+    $newLinkLi.before($newFormLi);
+}
+
+function addTagFormDeleteLink($tagFormLi) {
+    var $removeFormA = $('<a href="#">delete this tag</a>');
+    $tagFormLi.append($removeFormA);
+    $removeFormA.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // remove the li for the tag form
+        $tagFormLi.remove();
+    });
+}
+
+</script> -->
+
+<!--<script type="application/javascript">
+var $collectionCuidadoHolder;
+// setup an "add a tag" link
+var $addTagLink2 = $('<a href="#" class="add_cuidado_link">Add a Cuidado</a>');
+var $newLinkLi2 = $('<li></li>').append($addTagLink2);
+
+jQuery(document).ready(function() {
+    // Get the ul that holds the collection of tags
+    $collectionCuidadoHolder = $('#step6');
+
+    $collectionCuidadoHolder.find('div.paciente_cuidado').each(function() {
+            addTagFormDeleteLink2($(this));
+        });
+
+    // add the "add a tag" anchor and li to the tags ul
+    $collectionCuidadoHolder.append($newLinkLi2);
+    // count the current form inputs we have (e.g. 2), use that as the new
+    // index when inserting a new item (e.g. 2)
+    $collectionCuidadoHolder.data('index', $collectionCuidadoHolder.find(':input').length);
+    $addTagLink2.on('click', function(e) {
+    // prevent the link from creating a "#" on the URL
+    e.preventDefault();
+    // add a new tag form (see next code block)
+    addTagForm2($collectionCuidadoHolder, $newLinkLi2);
+    });
+});
+
+
+
+function addTagForm2($collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = $collectionHolder.data('prototype');
+    // get the new index
+    var index = $collectionHolder.data('index');
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+    // increase the index with one for the next item
+    $collectionHolder.data('index', index + 1);
+    // Display the form in the page in an li, before the "Add a tag" link li
+    var $newFormLi = $('<li></li>').append(newForm);
+    $newLinkLi.before($newFormLi);
+}
+
+function addTagFormDeleteLink2($tagFormLi) {
+    var $removeFormA = $('<a href="#">delete this tag</a>');
+    $tagFormLi.append($removeFormA);
+    $removeFormA.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+        // remove the li for the tag form
+        $tagFormLi.remove();
+    });
+}
+
+</script>-->
+
+{% block javascripts_page %}    
+    <script src="{{ asset('bundles/general/js/fuelux/fuelux.wizard.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/_others/geral.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/jquery.validate.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/additional-methods.min.js')}}"></script>
+     <script src="{{ asset('bundles/general/js/_others/validaciones/v_atendimento.js')}}"></script>
+     <script src="{{ asset('bundles/general/js/_others/geral.js')}}"></script>
+{% endblock javascripts_page %} 
+
+{% endblock %}

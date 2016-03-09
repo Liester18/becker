@@ -1,0 +1,117 @@
+<form id="diagnostico-form" method="post" onclick="">
+    {{ form_row(formulario._token) }}
+    <div class=" row">
+        <div id="datepickid" class="input-group col-lg-6">
+            {{ form_widget(formulario.data, { 'attr': {'class' :'form-control date-picker', 'data-date-format':'dd-mm-yyyy'}} ) }}
+            <span class="input-group-addon">
+                Data da consulta
+                <i class="icon-calendar bigger-110"></i>
+            </span>           
+        </div>
+        <div class="input-group input-group-sm col-sm-3">
+            <a href="#" class="" id="my-save" url="{{path('daily_work')}}" my-id="{{paciente.getIdPaciente()}}">
+                <i class="icon-book bigger-200"></i>&nbsp;<label>Salvar dados</label>
+            </a> 
+        </div>
+        <div class="input-group input-group-sm col-sm-3">
+            <a href="#" class="" id="my-consultas" url="{{path('view_consulta_url')}}" my-id="{{paciente.getIdPaciente()}}">
+                <i class="icon-book bigger-200"></i>&nbsp;<label>Consultas</label>
+            </a> 
+        </div>
+    </div>
+    <h4 class="header green">
+        Diagn&oacute;stico 
+    </h4>
+    <div class="widget-box">
+        <div class="widget-header widget-header-small  header-color-green"> 
+            <div class="wysiwyg-toolbar btn-toolbar center inline"> 
+                <div class="btn-group">  
+                    <a data-original-title="Bold (Ctrl/Cmd+B)" class="btn btn-sm" data-edit="bold" title="">
+                        <i class="icon-bold"></i>
+                    </a>  
+                    <a data-original-title="Change Title!" class="btn btn-sm" data-edit="italic" title="">
+                        <i class="icon-leaf"></i>
+                    </a>  
+                    <a data-original-title="Strikethrough" class="btn btn-sm" data-edit="strikethrough" title="">
+                        <i class="icon-strikethrough"></i>
+                    </a>  
+                </div> 
+                <div class="btn-group">  
+                    <a data-original-title="Bullet list" class="btn btn-sm" data-edit="insertunorderedlist" title="">
+                        <i class="icon-list-ul"></i>
+                    </a>  
+                    <a data-original-title="Number list" class="btn btn-sm active" data-edit="insertorderedlist" title="">
+                        <i class="icon-list-ol"></i>
+                    </a>  
+                </div> 
+                <div class="btn-group">  
+                    <a data-original-title="Align Left (Ctrl/Cmd+L)" class="btn btn-sm  active" data-edit="justifyleft" title="">
+                        <i class="icon-align-left"></i>
+                    </a>  
+                    <a data-original-title="Center (Ctrl/Cmd+E)" class="btn btn-sm" data-edit="justifycenter" title="">
+                        <i class="icon-align-center"></i>
+                    </a>  
+                    <a data-original-title="Align Right (Ctrl/Cmd+R)" class="btn btn-sm" data-edit="justifyright" title="">
+                        <i class="icon-align-right"></i>
+                    </a>  
+                </div> 
+            </div> 
+            <div class="widget-toolbar inline">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main no-padding">
+                <div style="height: 200px;" class="wysiwyg-editor" id="editor1" contenteditable="true"></div>
+            </div>
+        </div>
+    </div>
+    <!--Receta ----------------------------------------------------------------------------------->
+    <h4 class="header green">Receita medica</h4>
+    <div class="widget-box">
+        <div class="widget-header widget-header-small  header-color-green"> 
+            <div class="wysiwyg-toolbar btn-toolbar center inline"> 
+                <div class="btn-group">  
+                    <a data-original-title="Bold (Ctrl/Cmd+B)" class="btn btn-sm" data-edit="bold" title="">
+                        <i class="icon-bold"></i>
+                    </a>  
+                    <a data-original-title="Change Title!" class="btn btn-sm" data-edit="italic" title="">
+                        <i class="icon-leaf"></i>
+                    </a>  
+                    <a data-original-title="Strikethrough" class="btn btn-sm" data-edit="strikethrough" title="">
+                        <i class="icon-strikethrough"></i>
+                    </a>  
+                </div> 
+                <div class="btn-group">  
+                    <a data-original-title="Bullet list" class="btn btn-sm" data-edit="insertunorderedlist" title="">
+                        <i class="icon-list-ul"></i>
+                    </a>  
+                    <a data-original-title="Number list" class="btn btn-sm active" data-edit="insertorderedlist" title="">
+                        <i class="icon-list-ol"></i>
+                    </a>  </div> 
+                <div class="btn-group">  <a data-original-title="Align Left (Ctrl/Cmd+L)" class="btn btn-sm  active" data-edit="justifyleft" title="">
+                        <i class="icon-align-left"></i>
+                    </a>  
+                    <a data-original-title="Center (Ctrl/Cmd+E)" class="btn btn-sm" data-edit="justifycenter" title="">
+                        <i class="icon-align-center"></i>
+                    </a>  
+                    <a data-original-title="Align Right (Ctrl/Cmd+R)" class="btn btn-sm" data-edit="justifyright" title="">
+                        <i class="icon-align-right"></i>
+                    </a>  
+                </div> 
+            </div> 
+            <div class="widget-toolbar inline">
+                <a href="#" data-action="collapse">
+                    <i class="icon-chevron-up"></i>
+                </a>
+            </div>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main no-padding">
+                <div style="height: 200px;" class="wysiwyg-editor" id="editor2" contenteditable="true"></div>
+            </div>
+        </div>
+    </div>
+</form>

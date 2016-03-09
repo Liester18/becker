@@ -1,0 +1,37 @@
+portada:
+    pattern: /
+    defaults: { _controller: AutenticationBundle:Default:index}
+    
+inicio:
+    pattern: /i
+    defaults: { _controller: AutenticationBundle:Default:ini}    
+
+user_login: 
+    pattern: /login
+    defaults: { _controller: AutenticationBundle:Default:login}
+
+user_login_check:
+    pattern: /login_check
+
+user_logout:
+    pattern: /logout
+    
+user_add:
+    pattern:  /adduser
+    defaults: { _controller: AutenticationBundle:Default:adduser}
+    
+to_dwork:
+    pattern: /to_dwork
+    defaults: { _controller: AutenticationBundle:Default:dwork}
+    
+to_dawork:
+    pattern: /to_dawork
+    defaults: { _controller: AutenticationBundle:Default:dawork}
+    
+to_reportes:
+    pattern: /to_reportes
+    defaults: { _controller: AutenticationBundle:Default:reportes}
+    
+to_register:
+    pattern: /toR
+    defaults: { _controller: AutenticationBundle:Default:register}

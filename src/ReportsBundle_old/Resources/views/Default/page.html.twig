@@ -1,0 +1,16 @@
+<ul class="pagination">
+    <li>
+        <a href="{{path('reports_homepage')}}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+    </li>
+    {% for p in pages %}
+        <li><a href="{{path('reports_page',{'actualPage':p.pos})}}">{{p.pos}}</a></li>
+    {% endfor %}
+    <li>
+        <a href="{{path('reports_page',{'actualPage':pageNumber})}}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+    </li>
+</ul>
+

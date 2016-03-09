@@ -1,0 +1,61 @@
+<form class="my-form" onclick="{{path('daily_work')}}/{{idpaciente}}" method="post">
+    <div class="form-group">
+        {% if form_errors(modal) %}
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ form_errors(modal) }}
+            </div>
+        {% endif %}
+        <div class="widget-box">
+            {% if form_errors(modal.problemaSaude) %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ form_errors(modal.problemaSaude) }}
+                </div>
+            {% endif %}
+            {% if form_errors(modal.edadeDiagnostico) %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ form_errors(modal.edadeDiagnostico) }}
+                </div>
+            {% endif %}
+            <div class="widget-header widget-header-small header-color-green">
+                <label class="control-label">Problemas de saude</label>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <dt>
+                    {% if new == false %}
+                        {{ form_widget(modal.problemaSaude,{'attr':{'class':'hidden'}}) }}
+                        <p class="alert alert-success">
+                            {{pac_probSaude.getProblemaSaude().getNombrePsaude()}}
+                        </p>
+                    {% endif %}
+                    {% if new == true %}
+                        {{ form_widget(modal.problemaSaude) }}
+                    {% endif %}
+                    Edade de diagn&oacute;stico
+                    {{ form_widget(modal.edadeDiagnostico) }}
+                    </dt>
+                </div>
+            </div>
+        </div>
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-green">
+                <label class="control-label">Detalhe</label>
+            </div>
+            {% if form_errors(modal.detalhes_psalud) %}
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    {{ form_errors(modal.detalhes_psalud) }}
+                </div>
+            {% endif %}
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{ form_widget(modal.detalhes_psalud, { 'attr': {'class' : 'autosize-transition form-control', 'style' : 'overflow: hidden; word-wrap: break-word; resize: horizontal; height: 72px;'} }) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_row(modal._token) }}
+</form>

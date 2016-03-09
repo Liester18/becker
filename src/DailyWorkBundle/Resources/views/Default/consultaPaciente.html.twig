@@ -1,0 +1,53 @@
+{% extends 'layout.html.twig' %}
+{% block javascripts_page %}
+    <script src="{{ asset('bundles/general/js/bootbox.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/_others/consulta.js')}}"></script>
+{% endblock %} 
+{% block page_content %} 
+    <div class="page-content">        
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box transparent" id="recent-box">
+                    <div class="widget-header">
+                        <h4 id="name-paciente" class="lighter smaller">
+                            <i class=" icon-briefcase green"></i>
+                            CONSULTA DO PACIENTE: {{paciente.getNome()|upper}} 
+                        </h4>
+                        <div class="widget-toolbar no-border">
+                            <ul class="nav nav-tabs" id="recent-tab">
+                                <li class="active">
+                                    <a data-toggle="tab" href="#task-tab">Consulta</a>
+                                </li>
+                                <li class="">
+                                    <a data-toggle="tab" href="#comment-tab">Dados Generais</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main padding-4">
+                            <div class="tab-content padding-8 overflow-visible">
+                                <div id="task-tab" class="tab-pane active row">
+                                    <div id="my-consulta" class="col-md-8 col-sm-8">
+                                        {% include('DailyWorkBundle:Default:diagnostico.html.twig') %}
+                                    </div>
+                                    <div class="col-md-4 col-sm-4">
+                                        <div id="paciente_container" >
+                                        {% include('DailyWorkBundle:Default:dadosPaciente.html.twig') %}
+                                        </div>
+                                        <div id="prob_saude_container" >
+                                        {% include('DailyWorkBundle:Default:problemasDeSaude.html.twig') %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comment-tab" class="tab-pane">
+                                    {% include('DailyWorkBundle:Default:dadosGenerais.html.twig') %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %} 

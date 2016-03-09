@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="icon" href="{{asset('nino.jpeg')}}">
+
+    <title>Reporte</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{asset('bundles/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{asset('bundles/bootstrap-3.3.5/css/dashboard.css')}}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input class="form-control" placeholder="Search..." type="text">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 col-md-3 sidebar">
+          {{ render(controller('ReportsBundle:Default:filterPage'))}}
+        </div>
+        <div class="col-sm-8 col-sm-offset-4 col-md-9 col-md-offset-3 main">
+          <!--<h1 class="page-header">Op&ccedil;&otilde;es</h1>-->
+          <div class="row">
+              <div class="col-md-4 col-sm-4 btn-group list-group">
+                  <a id="mail" class="btn list-group-item">
+                      <span class="glyphicon glyphicon-envelope"></span>&nbsp;Mail List
+                  </a>
+                  <a href="#########" class="btn list-group-item">
+                      <span class="glyphicon glyphicon-plus"></span>&nbsp;Adicionar
+                  </a>
+              </div>
+          </div>
+          <div class="row" >
+              <div class="col-md-2 col-sm-2 ">
+                  <div class="col-md-6 col-sm-6"><img src="{{asset('ped.jpeg')}}" alt="Pacientes" class="img-rounded" style="height: 50px"></div>
+                  <div class="col-md-4 col-sm-4"><h2 style="margin-left: 5px">Pacientes</h2></div>
+              </div>
+              <div class="col-md-offset-6 col-sm-offset-6 col-md-4 col-sm-4">
+                  <div class="input-group" style="margin-top: 15px">
+                              <span class="input-group-addon" id="basic-addon1">Odenar</span>
+                      <select class="form-control" onchange="alert('cambio')" >
+                          <option>Nome-alfab&eacute;tica-Asc</option>
+                          <option>Nome-alfab&eacute;tica-Desc</option>
+                      </select>
+                  </div>
+              </div>
+          </div>
+          <!--<h2 class="sub-header" >Dados</h2>-->
+          <div class="table-responsive">
+            <table class="table table-bordered table-condensed table-striped form-group" >
+              <thead>
+                  <!--Datos aqui!!!!! -->
+                  <tr>
+                      <th>Nome</th>
+                      <th>Op&ccedil;&otilde;es</th>
+                  </tr>
+              </thead>
+              <tbody id="mytbody">
+                  {{ render(controller('ReportsBundle:Default:dataPage', {'page':actPage}))}}
+              </tbody>
+            </table>
+          </div>
+          <nav id="my-paginator">
+                  {{ render(controller('ReportsBundle:Default:page', {'activepage':actPage}))}}   
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    {% block stylesheets %}
+        <link href="{{asset('bundles/bootstrap-3.3.5/css/bootstrap.css')}}" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="{{asset('bundles/bootstrap-3.3.5/css/dashboard.css')}}" rel="stylesheet">
+    {% endblock %}
+    {% block javascripts %}
+
+        <script src="{{asset('bundles/bootstrap-3.3.5/js/jquery.js')}}"></script>
+        <script src="{{asset('bundles/bootstrap-3.3.5/js/bootstrap.js')}}"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="{{asset('bundles/bootstrap-3.3.5/js/holder.html')}}"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="{{asset('bundles/bootstrap-3.3.5/js/ie10-viewport-bug-workaround.js')}}"></script>
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="{{asset('bundles/bootstrap-3.3.5/js/ie-emulation-modes-warning.js')}}"></script>
+        
+        <script src="{{asset('bundles/app/js/dashboard/filter.js')}}"></script>
+    {% endblock %}   
+  
+
+</body></html>

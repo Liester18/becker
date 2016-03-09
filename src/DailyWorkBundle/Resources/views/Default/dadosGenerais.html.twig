@@ -1,0 +1,5 @@
+<form class="form-horizontal" id="responsavels-form" action="{{ path('daily_work') }}/{{paciente.getIdPaciente()}}" method="post" name="ficha">
+    <div id="resp-info" class="row">
+        {% include('DailyWorkBundle:Default:dadosResponsavel.html.twig') %}
+    </div>
+</form>

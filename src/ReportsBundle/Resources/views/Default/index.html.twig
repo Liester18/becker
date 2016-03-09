@@ -1,0 +1,96 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheets_page %}
+   <!-- <link href="{#{asset('bundles/app/css/dashboard.css')}#}" rel="stylesheet"> -->
+{% endblock stylesheets_page%}
+
+{% block page_content %} 
+    {% include('ReportsBundle:Default:dashboard.html.twig') %}
+{% endblock %} 
+
+{% block javascripts_page %}
+    <script src="{{asset('bundles/general/js/_others/filter.js')}}"></script>
+{% endblock javascripts_page %}
+
+
+{% block reportfilters %}
+    <ul class="submenu">
+
+        <li class="disabled">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-double-angle-right"></i>
+                Ativo                                          
+            </a>
+            {{render(controller('ReportsBundle:Default:activeFilter'))}}
+        </li>
+
+        <li class="disabled">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-double-angle-right"></i>
+                Sexo                                          
+            </a>
+            {{render(controller('ReportsBundle:Default:sexFilter'))}}
+        </li>
+
+        <li class="disabled">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-double-angle-right"></i>
+                Edades                                          
+            </a>
+            {{render(controller('ReportsBundle:Default:yearFilter'))}}
+        </li>
+        
+         <li class="disabled">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-double-angle-right"></i>
+                Problema Saude                                          
+            </a>
+            {{render(controller('ReportsBundle:Default:saudeFilter'))}}
+        </li>
+
+        <li class="disabled">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-double-angle-right"></i>
+                Nome Paciente                                          
+            </a>
+
+            <ul class="submenu">
+
+                <div class="input-group row">
+
+                    <input  placeholder="nome" id="filtername" class="col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 fnome" type="text"></input>
+
+                    <span class="input-group-btn col-md-3 col-sm-3">
+                        <button id="nome-id" class="btn btn-sm" type="button">
+                            OK
+                        </button>
+                    </span>
+
+                </div>
+
+            </ul>
+
+        </li>
+
+        <li class="disabled">
+            <a href="#" class="dropdown-toggle">
+                <i class="icon-double-angle-right"></i>
+                Nome Responsavel                                          
+            </a>
+
+            <ul class="submenu">
+
+                <div class="input-group row">
+
+                    <input  placeholder="nome" id="filternameResp" class="col-md-6 col-md-offset-2 col-sm-6 col-sm-offset-2 fnome" type="text"></input>
+
+                    <span class="input-group-btn col-md-3 col-sm-3">
+                        <button id="nome-idResp" class="btn btn-sm" type="button">
+                            OK
+                        </button>
+                    </span>
+                </div>
+            </ul>
+        </li>
+    </ul>
+{% endblock reportfilters %}

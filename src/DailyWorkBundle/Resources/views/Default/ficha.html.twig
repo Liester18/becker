@@ -1,0 +1,479 @@
+{% extends 'layout.html.twig' %}
+
+{% block page_content %} 
+    <div class="page-content">        
+        <div class="row">
+            <div class="col-xs-12">
+
+
+                <div class="navbar navbar-default" id="navbar">
+                    <script type="text/javascript">
+                        try {
+                            ace.settings.check('navbar', 'fixed')
+                        } catch (e) {
+                        }
+                    </script>
+
+
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div class="widget-box">
+                                <div class="widget-header widget-header-blue widget-header-flat">
+                                    <h4 class="lighter">Fazer nova ficha medica</h4>											
+                                </div>
+
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <div id="fuelux-wizard" class="row-fluid" data-target="#step-container">
+                                            <ul class="wizard-steps">
+                                                <li data-target="#step1" class="active">
+                                                    <span class="step">1</span>
+                                                    <span class="title">Dados Gerais</span>
+                                                </li>
+
+                                                <li data-target="#step2">
+                                                    <span class="step">2</span>
+                                                    <span class="title">Primeiro Responsavel</span>
+                                                </li>
+                                                <li data-target="#step3">
+                                                    <span class="step">3</span>
+                                                    <span class="title">Segundo Responsavel</span>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <hr />
+                                        <div class="step-content row-fluid position-relative" id="step-container">
+                                            <form class="form-horizontal" id="validation-form" action="{{ path('daily_work_homepage') }}" method="post" name="ficha">
+                                                <div class="step-pane active" id="step1">
+                                                    <!-- <h4 class="lighter block green">Registre os dados principais do paciente</h4> -->
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.nome)}} </label>
+                                                        {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
+                                                        {{ form_widget(formulario.nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        {#{{ form_row(formulario.nome) }}#}
+
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.data_nascimento)}} </label>
+                                                        <div class="input-group">
+                                                            {{ form_widget(formulario.data_nascimento , { 'attr': {'class' : 'form-control input-mask-date'} }) }}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {#{{ form_row(formulario.nome) }}#}
+
+                                                            <label class="col-sm-3 control-label"> {{form_label(formulario.sex)}} </label>
+                                                            <div class="input-group">
+                                                                {{ form_widget(formulario.sex, { 'attr': {'class' : 'form-control input-mask-date'} }) }}
+                                                            </div> 
+                                                        </div>
+
+                                                    </div>                                                   
+
+
+                                                    {#{{form_row(formulario.nProblemasSaude)}}#}
+                                                    {# {{form_row(formulario.nCuidados)}}#}
+
+
+                                                </div>
+
+
+                                                <div class="step-pane" id="step2">
+                                                    <h4 class="lighter block green">Registre os dados do primeiro responsavel</h4>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].nome)}} </label>
+
+                                                        {{ form_widget(formulario.responsavels[0].nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.cep)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].ocupacao)}} </label>
+                                                        {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
+                                                        {{ form_widget(formulario.responsavels[0].ocupacao, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >{{form_label(formulario.responsavels[0].telefContato)}} </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{ form_widget(formulario.responsavels[0].telefContato, { 'attr': {'class' : 'input-mask-phone'} }) }}
+                                                                <i class="icon-phone"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > {{form_label(formulario.responsavels[0].email)}}                                                                   <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
+                                                        </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{form_widget(formulario.responsavels[0].email,  { 'attr': {'class' : 'p_email'} }) }}
+                                                                <i class="icon-envelope"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.complemento)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.complemento, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.barrio)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.barrio, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.cidade)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.cidade, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.estado)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.estado, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
+                                                    </div>
+
+
+
+
+                                                </div>
+                                                <div class="step-pane" id="step3">
+                                                    <h4 class="lighter block green">Registre os dados do segundo responsavel</h4>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].nome)}} </label>
+
+                                                        {{ form_widget(formulario.responsavels[1].nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.cep)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].ocupacao)}} </label>
+                                                        {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
+                                                        {{ form_widget(formulario.responsavels[1].ocupacao, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >{{form_label(formulario.responsavels[1].telefContato)}} </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{ form_widget(formulario.responsavels[1].telefContato, { 'attr': {'class' : 'input-mask-phone'} }) }}
+                                                                <i class="icon-phone"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > {{form_label(formulario.responsavels[1].email)}}                                                                   <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
+                                                        </label>
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{form_widget(formulario.responsavels[1].email,  { 'attr': {'class' : 'p_email'} }) }}
+                                                                <i class="icon-envelope"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.complemento)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.complemento, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.barrio)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.barrio, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.cidade)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.cidade, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.estado)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.estado, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
+                                                    </div>
+
+                                                </div>
+
+
+                                                {{ form_row(formulario._token) }}
+                                            </form>  
+
+                                            
+
+                                        </div>
+
+                                        <hr />
+                                        <div class="row-fluid wizard-actions">
+                                            <button class="btn btn-prev">
+                                                <i class="icon-arrow-left"></i>
+                                                Prev
+                                            </button>
+
+                                            <button  class="btn btn-success btn-next" data-last="Finish ">
+                                                Next
+                                                <i class="icon-arrow-right icon-on-right"></i>
+                                            </button>
+                                        </div>
+                                    </div><!-- /widget-main -->
+                                </div><!-- /widget-body -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.page-content -->		
+
+
+    </div><!-- /.main-container-inner -->
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="icon-double-angle-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='{{asset('bundles/general/js/jquery-2.0.3.min.js')}}'>" + "<" + "/script>");
+</script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+<script type="text/javascript">
+    if ("ontouchend" in document)
+        document.write("<script src='{{asset('bundles/general/js/jquery.mobile.custom.min.js')}}'>" + "<" + "/script>");
+</script>
+<script src="{{asset('bundles/general/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/typeahead-bs2.min.js')}}"></script>
+
+<!-- page specific plugin scripts -->
+
+<script src="{{asset('bundles/general/js/fuelux/fuelux.wizard.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/jquery.validate.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/additional-methods.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/bootbox.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/jquery.maskedinput.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/fuelux/fuelux.spinner.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/select2.min.js')}}"></script>
+
+<!-- ace scripts -->
+
+<script src="{{asset('bundles/general/js/ace-elements.min.js')}}"></script>
+<script src="{{asset('bundles/general/js/ace.min.js')}}"></script>
+
+<!-- inline scripts related to this page -->
+
+<script type="text/javascript">
+    jQuery(function ($) {
+
+        $('[data-rel=tooltip]').tooltip();
+
+        $(".select2").css('width', '200px').select2({allowClear: true})
+                .on('change', function () {
+                    $(this).closest('form').validate().element($(this));
+                });
+
+
+        var $validation = false;
+        $('#fuelux-wizard').ace_wizard().on('change', function (e, info) {
+            if (info.step == 1 && $validation) {
+                if (!$('#validation-form').valid())
+                    return false;
+            }
+        }).on('finished', function (e) {
+            if($('div').is('.help-block')){
+                alert('Tem erros na ficha cadastrada, voce tem que corregir-os');
+                return false;                
+            }else if(validar()){
+            var formdata = $('form[name=ficha]').serialize();
+            var path = "{{ path('daily_work_homepage') }}";
+
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: formdata,
+                // async: true,
+                dataType: "json",
+                success: function (response)
+                {
+                    bootbox.dialog({
+                        message: "Thank you! Your information was successfully saved!",
+                        buttons: {
+                            "success": {
+                                "label": "OK",
+                                "className": "btn-sm btn-primary",
+                                callback: function () {
+                                    location.href = path;
+                                }
+
+                            }
+                        }
+
+                    });
+
+                    $('#validation-form').each(function () {
+                        this.reset();
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    // stuff there
+                },
+            });}
+
+        }).on('stepclick', function (e) {
+            //return false;//prevent clicking on steps
+        });
+
+
+
+        /*$('#skip-validation').removeAttr('checked').on('click', function () {
+            $validation = this.checked;
+            if (this.checked) {
+                $('#sample-form').hide();
+                $('#validation-form').removeClass('hide');
+            }
+            else {
+                $('#validation-form').addClass('hide');
+                $('#sample-form').show();
+            }
+        });*/
+
+        $('#becker_entitybundle_pacientetype_leite_materno_idade').ace_spinner({value: 0, min: 0, max: 12, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info'})
+                .on('change', function () {
+                    //alert(this.value)
+                });
+
+        $.mask.definitions['~'] = '[+-]';
+        $('.input-mask-date').mask('99/99/9999');
+        $('.input-mask-phone').mask('(99) 999999999');
+
+
+
+
+        //documentation : http://docs.jquery.com/Plugins/Validation/validate
+        
+
+        jQuery.validator.addMethod("input-mask-phone", function (value, element) {
+            return this.optional(element) || /^\(\d{2}\) \d{9}( x\d{1,9})?$/.test(value);
+        }, "Enter a valid phone number.");
+        
+        /*jQuery.validator.addMethod("p_email", function (value, element) {
+            return this.optional(element) || /^.+@.com.br$/.test(value);
+        }, "Email invalido by Kruz.");*/
+
+        $('#validation-form').validate({
+            errorElement: 'div',
+            errorClass: 'help-block',
+            focusInvalid: false,
+            rules: {                
+                email: {
+                    required: true,
+                    email: true
+                },
+                name: {
+                    required: true
+                },
+                'phone': {
+                    required: true,
+                    phone: 'required'
+                },
+                comment: {
+                    required: true
+                },
+                state: {
+                    required: true
+                },
+                platform: {
+                    required: true
+                },
+                subscription: {
+                    required: true
+                },
+                gender: 'required',
+                agree: 'required'
+            },
+            messages: {
+                email: {
+                    required: "Please provide a valid email11.",
+                    email: "Please provide a valid email222."
+                },
+                password: {
+                    required: "Please specify a password.",
+                    minlength: "Please specify a secure password."
+                },
+                subscription: "Please choose at least one option",
+                gender: "Please choose gender",
+                agree: "Please accept our policy"
+            },
+            invalidHandler: function (event, validator) { //display error alert on form submit   
+                $('.alert-danger', $('.login-form')).show();
+            },
+            highlight: function (e) {
+                $(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+            },
+            success: function (e) {
+                $(e).closest('.form-group').removeClass('has-error').addClass('has-info');
+                $(e).remove();
+            },
+            errorPlacement: function (error, element) {
+                if (element.is(':checkbox') || element.is(':radio')) {
+                    var controls = element.closest('div[class*="col-"]');
+                    if (controls.find(':checkbox,:radio').length > 1)
+                        controls.append(error);
+                    else
+                        error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
+                }
+                else if (element.is('.select2')) {
+                    error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
+                }
+                else if (element.is('.chosen-select')) {
+                    error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'));
+                }
+                else
+                    error.insertAfter(element.parent());
+            },
+            submitHandler: function (form) {
+            },
+            invalidHandler: function (form) {
+            }
+        });
+
+
+
+
+        $('#modal-wizard .modal-header').ace_wizard();
+        $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');
+    })
+</script>
+
+{% block javascripts_page %}
+    <script src="{{ asset('bundles/general/js/fuelux/fuelux.wizard.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/_others/geral.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/jquery.validate.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/additional-methods.min.js')}}"></script>
+   <!-- <script src="{#{ asset('bundles/general/js/bootbox.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/jquery.maskedinput.min.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/select2.min.js')}#}"></script>  -->
+     <script src="{{ asset('bundles/general/js/_others/validaciones/v_ficha.js')}}"></script>
+{% endblock javascripts_page %} 
+
+{% endblock %}

@@ -1,0 +1,84 @@
+{# empty Twig template #}
+{% extends 'layout.html.twig' %}
+
+{% block page_content %}
+    <div class="page-content">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+
+                <div class="row user_{{ app.user.rol.id }}">
+                    <div class="col-xs-6 col-sm-3 pricing-box">
+                        <div class="widget-box">
+                            <div class="widget-header header-color-dark">
+                                <h5 class="bigger lighter">Cadastro</h5>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                   <!-- <input type="image" class="img_crearficha" src="{#{ asset('bundles/general/img/ficha_medica.jpeg')}#}"> -->
+                                    <a href="{{path('to_dwork')}}"><img class="img_crearficha" src="{{ asset('bundles/general/img/ficha_medica.jpeg')}}"/> </a>
+                                    <hr />													
+                                </div>
+                                <div>
+                                    <a href="" class="btn btn-block btn-inverse">
+                                        <i class="icon-leaf bigger-110"></i>														
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {#% if app.user.rol.id == 1 %#}                
+                    <div class="col-xs-6 col-sm-3 pricing-box">
+                        <div class="widget-box">
+                            <div class="widget-header header-color-blue">
+                                <h5 class="bigger lighter">Atendimento</h5>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main wm2">
+                                    <!-- <input type="image" class="img_trabajod" src="{#{ asset('bundles/general/img/trabajod.jpeg')}#}"> -->
+                                    <!--<a href="{{path('to_dawork')}}"><img class="img_trabajod" src="{{ asset('bundles/general/img/trabajod.jpeg')}}"/> </a> -->
+                                    <a href="{{path('to_reportes')}}"><img class="img_trabajod" src="{{ asset('bundles/general/img/trabajod.jpeg')}}"/> </a>
+                                    <hr />													
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-block btn-primary">
+                                        <i class="icon-cog bigger-110"></i>														
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#% endif %#}
+                                    
+                   <!-- <div class="col-xs-6 col-sm-3 pricing-box">
+                        <div class="widget-box">
+                            <div class="widget-header header-color-green">
+                                <h5 class="bigger lighter">Reportes</h5>
+                            </div>
+
+                            <div class="widget-body">
+                                <div class="widget-main">
+                                    <a href="{{path('to_reportes')}}"><img class="img_reporte" src="{{ asset('bundles/general/img/reporte.jpeg')}}"/> </a>
+                                    <!--<input type="image" class="img_reporte" src="{{ asset('bundles/general/img/reporte.jpeg')}}"> -->
+                            <!--        <hr />													
+                                </div>
+                                <div>
+                                    <a href="#" class="btn btn-block btn-success">
+                                        <i class="icon-cogs bigger-110"></i>														
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>      -->                          
+
+
+                </div><!-- /.page-content -->
+            {% endblock page_content %}
+
+
+            {% block javascripts_page %}        
+            {% endblock javascripts_page %}

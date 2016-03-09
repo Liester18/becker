@@ -1,0 +1,21 @@
+daily_work_homepage:
+    path:     /
+    defaults: { _controller: DailyWorkBundle:Default:index }
+    
+daily_work:
+    path:    /dw
+    defaults: { _controller: DailyWorkBundle:Default:daily_work }
+
+consulta_page:
+    path: /dw/{id_paciente}
+    defaults: { _controller: DailyWorkBundle:Default:consulta }
+
+actualizar_page:
+    path: /dw/dw_e/{id_paciente}
+    defaults: { _controller: DailyWorkBundle:Default:actualizar }
+    
+atendimento:
+    path:    /at
+    defaults: { _controller: DailyWorkBundle:Default:atendimento }    
+    
+    

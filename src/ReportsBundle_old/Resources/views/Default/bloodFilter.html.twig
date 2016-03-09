@@ -1,0 +1,13 @@
+<ul class="submenu">
+{% for e in elems %}
+    <li class="disabled">
+        <a id="{{e.id}}" name="{{e.text}}" class="blood">
+            <i class="icon-double-angle-right"></i>
+            {{e.text}}
+        </a>
+    </li>
+{% endfor %}
+</ul>
+
+
+
