@@ -41,6 +41,8 @@ class FilterYear extends Filter {
             $this->filters = Array(Array('id' => $id, 'begin' => $begin, 'end' => $end));
             $this->session->set('year', json_encode($this->filters));
         } else {
+                        var_dump($this->filters);
+                                                var_dump($id);
             foreach ($this->filters as $f) {
                 if ($f['id'] == $id) {
                     return false;

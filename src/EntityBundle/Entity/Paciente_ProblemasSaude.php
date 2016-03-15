@@ -36,7 +36,7 @@ class Paciente_ProblemasSaude {
     /**
      * @var smallint
      *
-     * @ORM\Column(name="edade_diagnostico", type="smallint", nullable=false)
+     * @ORM\Column(name="edade_diagnostico", type="smallint", nullable=true)
      */
     private $edadeDiagnostico;
 

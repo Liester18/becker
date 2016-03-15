@@ -19,7 +19,7 @@
                         <div class="span12">
                             <div class="widget-box">
                                 <div class="widget-header widget-header-blue widget-header-flat">
-                                    <h4 class="lighter">Fazer nova ficha medica</h4>											
+                                    <h4 class="lighter">Fazer nova ficha médica</h4>											
                                 </div>
 
                                 <div class="widget-body">
@@ -33,11 +33,11 @@
 
                                                 <li data-target="#step2">
                                                     <span class="step">2</span>
-                                                    <span class="title">Primeiro Responsavel</span>
+                                                    <span class="title">Primeiro Responsável</span>
                                                 </li>
                                                 <li data-target="#step3">
                                                     <span class="step">3</span>
-                                                    <span class="title">Segundo Responsavel</span>
+                                                    <span class="title">Segundo Responsável</span>
                                                 </li>
 
                                             </ul>
@@ -50,7 +50,7 @@
                                                     <!-- <h4 class="lighter block green">Registre os dados principais do paciente</h4> -->
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.nome)}} </label>
+                                                        <label class="col-sm-3 control-label" for="inputError"> {{form_label(formulario.nome)}} <label class="obligatorio">&nbsp;*</label></label>                                                        
                                                         {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
                                                         {{ form_widget(formulario.nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
                                                     </div>
@@ -58,7 +58,8 @@
                                                     <div class="form-group">
                                                         {#{{ form_row(formulario.nome) }}#}
 
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.data_nascimento)}} </label>
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.data_nascimento)}}<label class="obligatorio">&nbsp;*</label> </label>
+                                                            
                                                         <div class="input-group">
                                                             {{ form_widget(formulario.data_nascimento , { 'attr': {'class' : 'form-control input-mask-date'} }) }}
                                                         </div>
@@ -66,7 +67,7 @@
                                                         <div class="form-group">
                                                             {#{{ form_row(formulario.nome) }}#}
 
-                                                            <label class="col-sm-3 control-label"> {{form_label(formulario.sex)}} </label>
+                                                            <label class="col-sm-3 control-label"> {{form_label(formulario.sex)}} <label class="obligatorio">&nbsp;*</label></label>                                                        
                                                             <div class="input-group">
                                                                 {{ form_widget(formulario.sex, { 'attr': {'class' : 'form-control input-mask-date'} }) }}
                                                             </div> 
@@ -83,25 +84,22 @@
 
 
                                                 <div class="step-pane" id="step2">
-                                                    <h4 class="lighter block green">Registre os dados do primeiro responsavel</h4>
+                                                    <h4 class="lighter block green">Registre os dados do primeiro responsável</h4>
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].nome)}} </label>
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].nome)}} <label class="obligatorio">&nbsp;*</label></label>
 
                                                         {{ form_widget(formulario.responsavels[0].nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
                                                     </div>
 
+                                                    
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.cep)}} </label>
-                                                        {{form_widget(formulario.responsavels[0].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].ocupacao)}} </label>
+                                                        <label class="col-sm-3 control-label"> Ocupação </label>
                                                         {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
                                                         {{ form_widget(formulario.responsavels[0].ocupacao, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
                                                     </div>
                                                     <div class="form-group tl">
-                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >{{form_label(formulario.responsavels[0].telefContato)}} </label>
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >Telefone de Contato <label class="obligatorio">&nbsp;*</label></label>                                            
 
                                                         <div class="col-sm-9">
                                                             <span class="input-icon input-icon-right">
@@ -112,7 +110,7 @@
                                                     </div>
 
                                                     <div class="form-group tl">
-                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > {{form_label(formulario.responsavels[0].email)}}                                                                   <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" >E-mail<label class="obligatorio">&nbsp;*</label>                                                                  <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
                                                         </label>
 
                                                         <div class="col-sm-9">
@@ -123,9 +121,17 @@
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.cep)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>            
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.logradouro)}} </label>
+                                                        {{form_widget(formulario.responsavels[0].endereco.logradouro, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                   {# <div class="form-group">
                                                         <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.complemento)}} </label>
                                                         {{form_widget(formulario.responsavels[0].endereco.complemento, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
-                                                    </div>
+                                                    </div>#}
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[0].endereco.barrio)}} </label>
                                                         {{form_widget(formulario.responsavels[0].endereco.barrio, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
@@ -139,30 +145,35 @@
                                                         {{form_widget(formulario.responsavels[0].endereco.estado, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
                                                     </div>
 
-
-
+                                                    <h4 class="lighter block green existe">Existe um segundo responsável?</h4>
+                                                    <div class="form-group existe">
+							<label >
+                                                            <input name="switch-field-1" class="ace ace-switch ace-switch-5 exist" type="checkbox" />
+								<span class="lbl"></span>
+							</label>
+                                                    </div>
 
                                                 </div>
-                                                <div class="step-pane" id="step3">
-                                                    <h4 class="lighter block green">Registre os dados do segundo responsavel</h4>
+                                                <div class="step-pane" id="step3">                                                    
+                                                    <div id="contenedor_st3">
+                                                        <input type="hidden" id="chk_resp2" value="1" />    
+                                                    <h4 class="lighter block green">Registre os dados do segundo responsável</h4>
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].nome)}} </label>
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].nome)}} <label class="obligatorio">&nbsp;*</label></label>                                                        
 
                                                         {{ form_widget(formulario.responsavels[1].nome, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
                                                     </div>
 
+                                                    
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.cep)}} </label>
-                                                        {{form_widget(formulario.responsavels[1].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].ocupacao)}} </label>
+                                                        <label class="col-sm-3 control-label"> Ocupação </label>
                                                         {#{{form_label(formulario.nome, { 'attr': {'class' : 'col-sm-3'} }) }}#}
                                                         {{ form_widget(formulario.responsavels[1].ocupacao, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
                                                     </div>
                                                     <div class="form-group tl">
-                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >{{form_label(formulario.responsavels[1].telefContato)}} </label>
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >Telefone de Contato <label class="obligatorio">&nbsp;*</label></label>
+                                                        
 
                                                         <div class="col-sm-9">
                                                             <span class="input-icon input-icon-right">
@@ -173,8 +184,9 @@
                                                     </div>
 
                                                     <div class="form-group tl">
-                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > {{form_label(formulario.responsavels[1].email)}}                                                                   <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > E-mail <label class="obligatorio">&nbsp;*</label>                                                                  <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
                                                         </label>
+                                                        
 
                                                         <div class="col-sm-9">
                                                             <span class="input-icon input-icon-right">
@@ -183,10 +195,25 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    <h4 class="lighter block green existe">Tem o mesmo endereço que o primeiro responsável?</h4>
+                                                    <div class="form-group endereco_si">
+							<label >
+                                                            <input name="switch-field-1" class="ace ace-switch ace-switch-5 endereco_yes" type="checkbox" />
+								<span class="lbl"></span>
+							</label>
+                                                    </div>
                                                     <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.cep)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.cep, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.logradouro)}} </label>
+                                                        {{form_widget(formulario.responsavels[1].endereco.logradouro, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
+                                                    </div>
+                                                    {#<div class="form-group">
                                                         <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.complemento)}} </label>
                                                         {{form_widget(formulario.responsavels[1].endereco.complemento, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
-                                                    </div>
+                                                    </div>#}
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.barrio)}} </label>
                                                         {{form_widget(formulario.responsavels[1].endereco.barrio, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
@@ -198,6 +225,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label"> {{form_label(formulario.responsavels[1].endereco.estado)}} </label>
                                                         {{form_widget(formulario.responsavels[1].endereco.estado, { 'attr': {'class' : 'col-xs-1 col-sm-5'} }) }}
+                                                    </div>
                                                     </div>
 
                                                 </div>
@@ -214,11 +242,11 @@
                                         <div class="row-fluid wizard-actions">
                                             <button class="btn btn-prev">
                                                 <i class="icon-arrow-left"></i>
-                                                Prev
+                                                Anterior
                                             </button>
 
-                                            <button  class="btn btn-success btn-next" data-last="Finish ">
-                                                Next
+                                            <button  class="btn btn-success btn-next" data-last="Finalizar">
+                                                Próximo         
                                                 <i class="icon-arrow-right icon-on-right"></i>
                                             </button>
                                         </div>

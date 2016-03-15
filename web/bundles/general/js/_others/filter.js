@@ -18,22 +18,22 @@ $(document).ready(function () {
     $('.nome_class').click(nomeDelete);
     $('.resp_class').click(nomeDeleteResp);
     
-    //path = $('#url').val();
+    path = $('#url').val();
     
-    /*$('#delete').click(function(){
+    $('#delete').click(function(){
         var json = {
             'id': $('#delete').attr('num'),
             'page':$('#page_number').attr('name')
         };
         $.post(path+'/r/d',json,function(data){
             if(data.status == 'OK'){
-                alert(data.status);
+                //alert(data.status);
             }
             else{
                 alert('Error');
             }
         });
-    });*/
+    });
 
 });
 //path = '/becker/web/app_dev.php'; 
@@ -45,7 +45,7 @@ function sendfilter(url, jsondata, callback) {
 ;
 
 //Actualiza la secccion de datos 
-function updateData(html, paginator) {
+function updateData(html, paginator) {alert('llego');
     $('#mytbody').html(html);
     $('#my-paginator').html(paginator);
 }
@@ -89,7 +89,7 @@ function nomeAdd() {
             'match': check
         };
         sendfilter(path + '/r/ajaxfilter/', json, function (data) {
-            if (data.status == 'OK') {
+            if (data.status == 'OK') {alert('aaa');
                 addFilter('filtName','actfilter', $('#filtername').val(), nomeDelete);
                 updateData(data.result, data.paginator);
             }

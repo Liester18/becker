@@ -84,5 +84,20 @@
     margin-bottom: 2%;
     margin-left: 2.5% !important;
 }
+.obligatorio{
+    color: #D15B47;
+}
+.form-group.existe {
+    margin-left: 26%;
+    margin-top: -3.5%;
+}
+.form-group.endereco_si{
+    margin-left: 43%;
+    margin-top: -3.5%;
+}
+/*.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-close{
+    position: relative;
+    z-index: 2 !important;
+}*/
 
 

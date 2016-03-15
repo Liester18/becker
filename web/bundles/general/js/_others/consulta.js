@@ -137,7 +137,7 @@ function ConsultaDados() {
         else {
             alert('Fail');
         }
-        my_init_consulta();
+        //my_init_consulta();
     }, 'json');
 }
 function NewModalProbSaude() {

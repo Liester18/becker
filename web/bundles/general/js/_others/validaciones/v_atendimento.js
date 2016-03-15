@@ -1,9 +1,53 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /*By Kruz*/
+$(document).ready(function() {   
+    var respons1 = $('#paciente_type_responsavels_0_nome').val();
+    var respons2 = $('#paciente_type_responsavels_1_nome').val();
+    $('.exist').prop('checked',true);
+    //$('.exist').hide();
+    if (respons1 == respons2) {
+        $('#contenedor_st3').hide();
+        $('.exist').prop('checked', false);        
+    }
+     $('.exist').click(function() {
+        if ($(this).is(':checked')) {
+            $('#contenedor_st3').show();
+            $('#paciente_type_responsavels_1_nome').val('');
+            $('#paciente_type_responsavels_1_telefContato').val('');
+            $('#paciente_type_responsavels_1_email').val('');
+            $('#paciente_type_responsavels_1_endereco_cep').val('');
+            $('#chk_resp2').val(1);
+        }else if (!$(this).is(':checked')) {
+            $('#contenedor_st3').hide();
+                var nome_r0 = $('#paciente_type_responsavels_0_nome').val();
+                var tel_r0 = $('#paciente_type_responsavels_0_telefContato').val();
+                var email_r0 = $('#paciente_type_responsavels_0_email').val();
+                var cep_r0 = $('#paciente_type_responsavels_0_endereco_cep').val(); 
+                $('#paciente_type_responsavels_1_nome').val(nome_r0);
+                $('#paciente_type_responsavels_1_telefContato').val(tel_r0);
+                $('#paciente_type_responsavels_1_email').val(email_r0);
+                $('#paciente_type_responsavels_1_endereco_cep').val(cep_r0);
+                $('#chk_resp2').val(0);               
+        }        
+    });
+});
+
+$('.endereco_yes').click(function() {
+         if ($(this).is(':checked')) {
+            $('#paciente_type_responsavels_1_endereco_cep').val($('#paciente_type_responsavels_0_endereco_cep').val());
+            $('#paciente_type_responsavels_1_endereco_complemento').val($('#paciente_type_responsavels_0_endereco_complemento').val());
+            $('#paciente_type_responsavels_1_endereco_barrio').val($('#paciente_type_responsavels_0_endereco_barrio').val());
+            $('#paciente_type_responsavels_1_endereco_cidade').val($('#paciente_type_responsavels_0_endereco_cidade').val());
+            $('#paciente_type_responsavels_1_endereco_estado').val($('#paciente_type_responsavels_0_endereco_estado').val());
+         }
+         else{
+             $('#paciente_type_responsavels_1_endereco_cep').val('');
+             $('#paciente_type_responsavels_1_endereco_complemento').val('');
+             $('#paciente_type_responsavels_1_endereco_barrio').val('');
+             $('#paciente_type_responsavels_1_endereco_cidade').val('');
+             $('#paciente_type_responsavels_1_endereco_estado').val('');
+         }
+});
+
 function validarAt()
 {    
     var nome = $('#paciente_type_nome').val();
@@ -15,7 +59,9 @@ function validarAt()
     var nome_r1 = $('#paciente_type_responsavels_1_nome').val();
     var tel_r1 = $('#paciente_type_responsavels_1_telefContato').val();
     var email_r1 = $('#paciente_type_responsavels_1_email').val();
-    
+    var cep_r0 = $('#paciente_type_responsavels_0_endereco_cep').val();
+    var cep_r1 = $('#paciente_type_responsavels_1_endereco_cep').val();
+    var chk_resp2 = $('#chk_resp2').val();
     
     if (nome == '') {
             alert('Deve preencher o nome do paciente');
@@ -26,7 +72,8 @@ function validarAt()
     }else if (sexo == '') {
             alert('Deve preencher o sexo do paciente');
             return false;
-    }else if (nome_r0 == '') {
+    } 
+    else if (nome_r0 == '') {
             alert('Deve preencher o nome do primeiro responsavel');
             return false;
     }else if (tel_r0 == '') {
@@ -35,15 +82,22 @@ function validarAt()
     }else if (email_r0 == '') {
             alert('Deve preencher o email do primeiro responsavel');
             return false;
-    }else if (nome_r1 == '') {
-            alert('Deve preencher o nome do segundo responsavel');
-            return false;
-    }else if (tel_r1 == '') {
-            alert('Deve preencher o telephone do segundo responsavel');
-            return false;
-    }else if (email_r1 == '') {
-            alert('Deve preencher o email do segundo responsavel');
-            return false;
+    }else if (chk_resp2 == 1){
+            if (nome_r1 == '') {
+                alert('Deve preencher o nome do segundo responsável');
+                return false;
+            }else if (tel_r1 == '') {
+                alert('Deve preencher o telephone do segundo responsável');
+                return false;
+            }else if (email_r1 == '') {
+                alert('Deve preencher o email do segundo responsável');
+                return false;
+            }else if(cep_r1 !== ""){
+                if (cep_r1 < 10000000 || cep_r1 > 99999999 ){ 
+                    alert('Deve preencher corretamente o CEP do segundo responsável');
+                    return false;
+                }
+            }
     }else if (data_nac != '') {
             var res = ValidateDateAt(data_nac);
             if(!res){
@@ -51,9 +105,8 @@ function validarAt()
             }else{
                 return true;
             }
-    }else{
-        return true;
-    }
+    }      
+    return true;
 }
 function ValidateDateAt(data_nac)
 {
@@ -79,6 +132,7 @@ function ValidateDateAt(data_nac)
             {                
                 if (dd > ListofDays[mm - 1])
                 {
+                    limpar();
                     alert('Invalid date format!');
                     return false;
                 }else{
@@ -94,11 +148,13 @@ function ValidateDateAt(data_nac)
                 }
                 if ((lyear == false) && (dd >= 29))
                 {
+                    limpar();
                     alert('Invalid date format!');
                     return false;
                 }
                 if ((lyear == true) && (dd > 29))
                 {
+                    limpar();
                     alert('Invalid date format!');
                     return false;
                 }else{
@@ -108,9 +164,15 @@ function ValidateDateAt(data_nac)
         }
         else
         {
+            limpar();
             alert("Invalid date format!");
             return false;
         }
+}
+function limpar(){
+    $('#paciente_type_responsavels_1_nome').val('');
+    $('#paciente_type_responsavels_1_telefContato').val('');
+    $('#paciente_type_responsavels_1_email').val('');
 }
 
 

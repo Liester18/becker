@@ -27,12 +27,21 @@ class Endereco
     /**
      * @var integer
      *
-     * @ORM\Column(name="cep", type="integer", nullable=false)
+     * @ORM\Column(name="cep", type="integer", nullable=true)
      */
     private $cep;
     //20000-000 a 28999-999
 
-	/**
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="logradouro", type="string", nullable=true)
+     */
+	private $logradouro;
+
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="complemento", type="string", nullable=true)
@@ -137,7 +146,17 @@ class Endereco
         return $this;
     }
 
+    public function getLogradouro()
+    {
+        return $this->logradouro;
+    }
     
+    public function setLogradouro($logradouro)
+    {
+        $this->logradouro = $logradouro;
+        return $this->logradouro;
+    }
+
     public function getCidade()
     {
         return $this->cidade;

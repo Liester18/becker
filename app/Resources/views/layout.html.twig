@@ -5,7 +5,7 @@
 {% block meta %} 
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistema Ficha Medica</title>
+    <title>Consultorio Daniel Becker</title>
     <script src='{{ asset('bundles/general/js/jquery-2.0.3.min.js')}}'></script>
     <!--<script src="{#{asset('bundles/general/js/_others/filter.js')}#}"></script>-->
 
@@ -74,7 +74,7 @@
                     <a href="{{path('inicio')}}" class="navbar-brand">
                         <small>
                             <i class="icon-leaf"></i>&nbsp;&nbsp;
-                            Sistema Ficha Medica
+                            Consultorio Daniel Becker
                         </small>
                     </a><!-- /.brand -->
                 </div><!-- /.navbar-header -->
@@ -85,9 +85,10 @@
 
                         <li class="light-blue">
                             <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                                <img class="nav-user-photo" src="{{ asset('bundles/general/avatars/user.jpg')}}" />
+                                <!--<img class="nav-user-photo" src="{#{ asset('bundles/general/avatars/user.jpg')}#}" />-->
+                                <!--<img class="nav-user-photo" placeholder="Sssefefer"/>-->
                                 <span class="user-info">
-                                    <small>Bienvenido,</small>
+                                    <small>Usuário,</small>
                                     {% if is_granted('ROLE_MEDICO') or is_granted('ROLE_SECRETARIA') %}
                                         {{ app.user.nombre }}
                                     {% endif %}
@@ -157,7 +158,7 @@
                             <li>
                                 <a href="{{path('to_dwork')}}" class="dropdown-toggle">
                                     <i class="icon-leaf dark"></i>
-                                    <span class="menu-text"> Criar Ficha Medica </span>
+                                    <span class="menu-text"> Criar Ficha Médica </span>
                                     <b class="arrow"></b>
                                 </a>
                                 <!-- <ul class="submenu">

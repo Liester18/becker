@@ -185,7 +185,7 @@ class DefaultController extends Controller {
 
     // Para ser llamado con AJAX para manipular los filtros 
     public function filterAction(Request $request) {
-        $session = $request->getSession();
+        $session = $request->getSession();$c = 1;
         if ($request->request->has('filter')) {
 
             switch ($request->request->get('filter')) {
@@ -225,7 +225,7 @@ class DefaultController extends Controller {
                     $filter_saude = new FilterSaude($session);
                     if ($request->request->get('action') == 'add') {
                         if (!$filter_saude->addFilter($request->request->get('id'), $request->request->get('name'))) {
-                            $response = array('result' => 'Error', 'status' => 'ERROR');
+                            $response = array('result' => 'Error2', 'status' => 'ERROR');
                             $resp = json_encode($response);
                             return new \Symfony\Component\HttpFoundation\Response($resp, 200);
                         }
@@ -236,9 +236,12 @@ class DefaultController extends Controller {
                 case 'YE':
                     $filter_year = new FilterYear($session);
                     if ($request->request->get('action') == 'add') {
-                        if (!$filter_year->addFilter($request->request->get('id'), $request->request->get('begin'), $request->request->get('end'))) {
-                            $response = array('result' => 'Error', 'status' => 'ERROR');
-                            $resp = json_encode($response);
+                        $_id = $request->request->get('id');
+                        $_b = $request->request->get('begin');
+                        $_end = $request->request->get('end');
+                        if (!$filter_year->addFilter($_id, $_b, $_end)) {
+                            $response = array('result' => 'Error3', 'status' => 'ERROR');
+                            $resp = json_encode($response);                            
                             return new \Symfony\Component\HttpFoundation\Response($resp, 200);
                         }
                     } else if ($request->request->get('action') == 'del') {
@@ -246,13 +249,13 @@ class DefaultController extends Controller {
                     }
                     break;
                 default:
-                    $response = array('result' => 'Error', 'status' => 'ERROR');
+                    $response = array('result' => 'Error4', 'status' => 'ERROR');
                     $resp = json_encode($response);
                     return new \Symfony\Component\HttpFoundation\Response($resp, 200);
-            }
+            }            
             return $this->dataAction($request);
         }
-        $response = array('result' => 'Error', 'status' => 'ERROR');
+        $response = array('result' => 'Error1', 'status' => 'ERROR');
         $resp = json_encode($response);
         return new \Symfony\Component\HttpFoundation\Response($resp, 200);
     }
@@ -316,14 +319,32 @@ class DefaultController extends Controller {
     }
 
     // Genera la lista de correos ...
-    public function exportAction(Request $request) {
+   /* public function exportAction(Request $request) {
         $response = new StreamedResponse(function() use($request) {
             $pacientes = $this->makeQuery($request, -1);
             $handle = fopen('php://output', 'r+');
-            fputcsv($handle, Array('Nome Responsavel', 'Nome Paciente', 'email'));
+            fputcsv($handle, Array('Email', 'Nome'), ';'); //Email;Nome
             foreach ($pacientes as $paciente) {
                 foreach ($paciente->getResponsavels() as $resp) {
-                    fputcsv($handle, Array($resp->getNome(), $paciente->getNome(), $resp->getEmail()));
+                    fputcsv($handle, Array($resp->getEmail(), $resp->getNome()), ';');
+                }
+            }
+            fclose($handle);
+        });
+        $response->headers->set('Content-Type', 'application/force-download');
+        $response->headers->set('Content-Disposition', 'attachment; filename="export.csv"');
+
+        return $response;
+    }*/
+    
+     public function exportAction(Request $request) {
+        $response = new StreamedResponse(function() use($request) {
+            $pacientes = $this->makeQuery($request, -1);
+            $handle = fopen('php://output', 'r+');
+            fputs($handle, implode(Array('Email', 'Nome'), ';')."\n"); //Email;Nome
+            foreach ($pacientes as $paciente) {
+                foreach ($paciente->getResponsavels() as $resp) {
+                    fputs($handle, implode(Array($resp->getEmail(), $resp->getNome()), ';')."\n");
                 }
             }
             fclose($handle);
