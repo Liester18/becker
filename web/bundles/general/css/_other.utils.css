@@ -99,5 +99,19 @@
     position: relative;
     z-index: 2 !important;
 }*/
+._p_der{    
+    margin-top: -78% !important;
+/*    position: relative !important;
+    top: -446px !important;*/
+}
+.widget-header.widget-header-blue.widget-header-flat{
+    height: 70px;
+}
+._sub .btn-next{
+    margin-top: -78% !important;
+/*    position: relative !important;
+    top: -446px !important;*/
+}
+
 
 

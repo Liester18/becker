@@ -18,8 +18,18 @@
                     <div class="row-fluid">
                         <div class="span12">
                             <div class="widget-box">
-                                <div class="widget-header widget-header-blue widget-header-flat">
-                                    <h4 class="lighter">Fazer nova ficha médica</h4>											
+                               <!-- <form class="form-horizontal" id="validation-form" action="{{ path('daily_work_homepage') }}" method="post" name="ficha">-->
+                                <div  class="widget-header widget-header-blue widget-header-flat" data-target="#step-container">
+                                    <h4 class="lighter">Fazer nova ficha médica</h4>
+                                     <!--<button class="btn btn-prev _p_der">
+                                                <i class="icon-arrow-left"></i>
+                                                Anterior
+                                     </button>
+
+                                     <button  class="btn btn-success btn-next" data-last="Finalizar">
+                                                Próximo
+                                                <i class="icon-arrow-right icon-on-right"></i>
+                                     </button>-->
                                 </div>
 
                                 <div class="widget-body">
@@ -45,7 +55,8 @@
 
                                         <hr />
                                         <div class="step-content row-fluid position-relative" id="step-container">
-                                            <form class="form-horizontal" id="validation-form" action="{{ path('daily_work_homepage') }}" method="post" name="ficha">
+                                            <form class="form-horizontal" id="validation-form" action="{#{ path('daily_work_homepage') }#}" method="post" name="ficha">
+                                                
                                                 <div class="step-pane active" id="step1">
                                                     <!-- <h4 class="lighter block green">Registre os dados principais do paciente</h4> -->
 
@@ -239,6 +250,18 @@
                                         </div>
 
                                         <hr />
+                                        <div class="row-fluid wizard-actions _sub" data-target="#step-container">
+                                            <h4 class="lighter">Fazer nova ficha médica</h4>
+                                            <button class="btn btn-prev _p_der">
+                                                <i class="icon-arrow-left"></i>
+                                                Anterior
+                                            </button>
+
+                                            <button  class="btn btn-success btn-next" data-last="Finalizar">
+                                                Próximo
+                                                <i class="icon-arrow-right icon-on-right"></i>
+                                            </button>
+                                        </div>
                                         <div class="row-fluid wizard-actions">
                                             <button class="btn btn-prev">
                                                 <i class="icon-arrow-left"></i>
@@ -322,6 +345,60 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
 
         var $validation = false;
         $('#fuelux-wizard').ace_wizard().on('change', function (e, info) {
+            if (info.step == 1 && $validation) {
+                if (!$('#validation-form').valid())
+                    return false;
+            }
+        }).on('finished', function (e) {
+            if($('div').is('.help-block')){
+                alert('Tem erros na ficha cadastrada, voce tem que corregir-os');
+                return false;                
+            }else if(validar()){
+            var formdata = $('form[name=ficha]').serialize();
+            var path = "{{ path('daily_work_homepage') }}";
+
+            $.ajax({
+                type: "POST",
+                url: path,
+                data: formdata,
+                // async: true,
+                dataType: "json",
+                success: function (response)
+                {
+                    bootbox.dialog({
+                        message: "Thank you! Your information was successfully saved!",
+                        buttons: {
+                            "success": {
+                                "label": "OK",
+                                "className": "btn-sm btn-primary",
+                                callback: function () {
+                                    location.href = path;
+                                }
+
+                            }
+                        }
+
+                    });
+
+                    $('#validation-form').each(function () {
+                        this.reset();
+                    });
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    // stuff there
+                },
+            });}
+
+        }).on('stepclick', function (e) {
+            //return false;//prevent clicking on steps
+        });
+        
+        
+        
+        /*sabarabe no mai*/
+        var $validation = false;
+        $('#fwizard').ace_wizard().on('change', function (e, info) {
             if (info.step == 1 && $validation) {
                 if (!$('#validation-form').valid())
                     return false;
