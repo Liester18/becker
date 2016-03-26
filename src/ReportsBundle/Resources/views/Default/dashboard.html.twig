@@ -23,12 +23,12 @@
         <div id="accordion1" class="accordion-style2 panel-group no-padding-right">
             <div class="panel panel-default">
                 <div class="row">
-                    <label class="col-md-2 col-sm-2 panel-title  blue  accordion-submenu" id="acoordion-title1">
+                    <!--<label class="col-md-2 col-sm-2 panel-title  blue  accordion-submenu" id="acoordion-title1">
                         <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 
                             Criterio Filtragem
                             <i class="icon-angle-down bigger-110" data-icon-hide="icon-angle-down " data-icon-show="icon-double-angle-right"></i>
                         </a>
-                    </label>
+                    </label>-->
                     <!--<div id="filters" class="col-md-8 col-sm-8"></div>-->
                 </div>
                 <div class="space" > </div> 
@@ -52,54 +52,51 @@
                                             <th>Nome Paciente</th>
                                             <th>Responsáveis</th>                                                                                   
                                         </tr>
-                                    </tfoot>
-                                    
-                                    
-                                        
-                                        
-    {% for d in p %}
-            <tr>
-                <td class="center">
-                    <ul class="list-unstyled spaced2 pnome">
-                        <li class="muted align-left align-middle">
-                            <i class="icon-angle-right bigger-110"></i>
-                            <a href="{{path('daily_work')}}{{d.nome}}">{{d.nome}}</a>                                            
-                        </li>
-                    </ul>
-                </td>
-                <td class="center">
-                    <ul class="list-unstyled spaced2">
-
-                            <li class="muted align-left">
-                                <i class="icon-angle-right bigger-110"></i>
-                                {{d.nome_resp}} - {{d.orden}}  </li>
-                        
-                    </ul>
-                </td>      
+                                    </tfoot>                                  
+                                                                           
+                                    {% for d in p %}
+                                                <tr>
+                                                    <td class="center">
+                                                        <ul class="list-unstyled spaced2 pnome">
+                                                            <li class="muted align-left align-middle">                                                               
+                                                                <a href="{{path('daily_work')}}{{d.nome}}">{{d.nome}}</a>                                            
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                    <td class="center">
+                                                        <ul class="list-unstyled spaced2">
+                                                                <li class="muted align-left">                                                                   
+                                                                    {{d.nome_resp}} </li>
+                                                                {% if d.nome_resp != d.nome_resp2 %}
+                                                                    <li class="muted align-left">                                                                   
+                                                                        {{d.nome_resp2}} </li>
+                                                                {% endif %}
+                                                        </ul>
+                                                    </td>      
 
 
 
-                <td class="center">   
-                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
-                     {% if app.user.rol.id == 1 %}   
-                        <button  class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
-                                title="Ficha">
-                            <i class="icon-leaf bigger-230 dark "></i>
-                        </button>   
-                        <button  class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
-                                title="Fazer Consulta">
-                            <i class="icon-briefcase bigger-230 green"></i>
-                        </button> 
-                     {% endif %}          
-                     <button id="delete" num="" name="Apagar" value="" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit" onclick="Borrar(this)"
-                                title="Apagar">
-                            <i class="icon-trash bigger-230 red"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-    {%endfor%}
-                                                                      
+                                                    <td class="center">   
+                                                        <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                                                         {% if app.user.rol.id == 1 %}   
+                                                            <button  class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                                                                    title="Ficha">
+                                                                <i class="icon-leaf bigger-230 dark "></i>
+                                                            </button>   
+                                                            <button  class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                                                                    title="Fazer Consulta">
+                                                                <i class="icon-briefcase bigger-230 green"></i>
+                                                            </button> 
+                                                         {% endif %}          
+                                                         <button id="delete" num="" name="Apagar" value="" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit" onclick="Borrar(this)"
+                                                                    title="Apagar">
+                                                                <i class="icon-trash bigger-230 red"></i>
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                        {%endfor%}
+
                                 </table>
                             </div>
                         </div>
@@ -120,19 +117,26 @@
     $(document).ready(function() {     
         $('#sample_3 tfoot th').each(function () {
             var title = $('#sample_3 thead th').eq($(this).index()).text();
-            $(this).html('<input type="text" placeholder="Search ' + title + '" />');        
+            $(this).html('<input type="text" placeholder="Busca ' + title + '" />');        
         });
                 
-                var table = $('#sample_3').dataTable();
-                $('#sample_3 tfoot th').each(function (i) 
-                {
-
-                            var title = $('#sample_3 thead th').eq($(this).index()).text();
-                            // or just var title = $('#sample_3 thead th').text();
-                            var serach = '<input type="text" placeholder="Search ' + title + '" />';
-                            $(this).html('');
-                            $(serach).appendTo(this).keyup(function(){table.fnFilter($(this).val(),i)})
-                });
+        var table = $('#sample_3').dataTable({
+            language: {                 
+                 search:         "Busca",
+                 emptyTable:     "Aucune donnée disponible dans le tableau"
+            }
+        });
+        $('#sample_3 tfoot th').each(function (i) 
+        {
+            var title = $('#sample_3 thead th').eq($(this).index()).text();
+            // or just var title = $('#sample_3 thead th').text();
+            var serach = '<input type="text" placeholder="Busca ' + title + '" />';
+            $(this).html('');
+            $(serach).appendTo(this).keyup(function(){table.fnFilter($(this).val(),i)})
+        });
+        
+        //otras cosas
+        $('#sample_3_filter label').html().first() = 'Busca';
     });
         
     </script>
