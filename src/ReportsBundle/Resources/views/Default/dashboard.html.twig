@@ -1,20 +1,22 @@
+{% extends 'layout.html.twig' %}
 
+{% block page_content %}
 
     <div class="page-content">
         <div class="page-header row">
-          {% if app.user.rol.id == 1 %}  
-            <div class="col-md-4 col-sm-4">
-                <h1>
-                    Maneje seus pacientes:
-                </h1>
-            </div>
-            <div class="col-md-offset-6 col-sm-offset-6 col-md-2 col-sm-3">
-                <a href="{{path('reports_list')}}" class="btn btn-app btn-info btn-sm no-radius" >
-                    <i class="icon-envelope bigger-230"></i>
-                    MailList
-                </a>
-            </div>
-          {% endif %}          
+            {% if app.user.rol.id == 1 %}  
+                <div class="col-md-4 col-sm-4">
+                    <h1>
+                        Maneje seus pacientes:
+                    </h1>
+                </div>
+                <div class="col-md-offset-6 col-sm-offset-6 col-md-2 col-sm-3">
+                    <a href="#" class="btn btn-app btn-info btn-sm no-radius" >
+                        <i class="icon-envelope bigger-230"></i>
+                        MailList
+                    </a>
+                </div>
+            {% endif %}          
 
         </div><!-- /.page-header -->
 
@@ -27,7 +29,7 @@
                             <i class="icon-angle-down bigger-110" data-icon-hide="icon-angle-down " data-icon-show="icon-double-angle-right"></i>
                         </a>
                     </label>
-                    <div id="filters" class="col-md-8 col-sm-8">{{render(controller('ReportsBundle:Default:filterPage'))}}</div>
+                    <!--<div id="filters" class="col-md-8 col-sm-8"></div>-->
                 </div>
                 <div class="space" > </div> 
                 <div class="panel-collapse collapse in" id="collapseOne">	
@@ -35,25 +37,71 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="table-responsive">
-                                <table id="sample-table-2" class="table table-striped table-bordered table-hover ">
+                                <table id="sample_3" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <!-- <th class="center">Seleccionar</th> -->                                        
-                                            <th class="center">Nome Paciente</th>
+                                            <th>Nome Paciente</th>
                                             <!--<th class="hidden-480 center">Responsavels</th> -->
-                                            <th class="hidden-480 center">Responsáveis</th>                                       
-                                            <th class="center">Ação</th>
+                                            <th>Responsáveis</th>                                       
+                                            <th>Ação</th>
                                         </tr>
                                     </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Nome Paciente</th>
+                                            <th>Responsáveis</th>                                                                                   
+                                        </tr>
+                                    </tfoot>
+                                    
+                                    
+                                        
+                                        
+    {% for d in p %}
+            <tr>
+                <td class="center">
+                    <ul class="list-unstyled spaced2 pnome">
+                        <li class="muted align-left align-middle">
+                            <i class="icon-angle-right bigger-110"></i>
+                            <a href="{{path('daily_work')}}{{d.nome}}">{{d.nome}}</a>                                            
+                        </li>
+                    </ul>
+                </td>
+                <td class="center">
+                    <ul class="list-unstyled spaced2">
 
-                                    <tbody id="mytbody">
-                                        {{ render(controller('ReportsBundle:Default:dataPage',{'page':actPage}))}}
-                                    </tbody>
+                            <li class="muted align-left">
+                                <i class="icon-angle-right bigger-110"></i>
+                                {{d.nome_resp}} - {{d.orden}}  </li>
+                        
+                    </ul>
+                </td>      
+
+
+
+                <td class="center">   
+                    <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
+                     {% if app.user.rol.id == 1 %}   
+                        <button  class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                                title="Ficha">
+                            <i class="icon-leaf bigger-230 dark "></i>
+                        </button>   
+                        <button  class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                                title="Fazer Consulta">
+                            <i class="icon-briefcase bigger-230 green"></i>
+                        </button> 
+                     {% endif %}          
+                     <button id="delete" num="" name="Apagar" value="" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="submit" onclick="Borrar(this)"
+                                title="Apagar">
+                            <i class="icon-trash bigger-230 red"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+    {%endfor%}
+                                                                      
                                 </table>
                             </div>
-                            <nav id="my-paginator">
-                                {{ render(controller('ReportsBundle:Default:page', {'activepage':actPage}))}}   
-                            </nav>
                         </div>
                     </div>
 
@@ -65,12 +113,31 @@
 
         <div class="space" > </div> 	
 
-        {# include 'modal_forms_proyecto.html.twig' #}
-    </div><!-- /.page-content -->      
 
-    
+    </div>   
+<script type="text/javascript">
+        
+    $(document).ready(function() {     
+        $('#sample_3 tfoot th').each(function () {
+            var title = $('#sample_3 thead th').eq($(this).index()).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');        
+        });
+                
+                var table = $('#sample_3').dataTable();
+                $('#sample_3 tfoot th').each(function (i) 
+                {
 
+                            var title = $('#sample_3 thead th').eq($(this).index()).text();
+                            // or just var title = $('#sample_3 thead th').text();
+                            var serach = '<input type="text" placeholder="Search ' + title + '" />';
+                            $(this).html('');
+                            $(serach).appendTo(this).keyup(function(){table.fnFilter($(this).val(),i)})
+                });
+    });
+        
+    </script>
 
+{% endblock %}
 
 
 

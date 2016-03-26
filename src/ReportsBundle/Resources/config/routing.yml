@@ -1,25 +1,7 @@
 reports_homepage:
     path:  /
-    #pattern: /
     defaults: { _controller: ReportsBundle:Default:index }
-    
-reports_delete:
-    path: /d/
-    defaults: {_controller: ReportsBundle:Default:deleteJS }
-    
-reports_ajax:
-    path: /ajaxfilter/
-    defaults: {_controller: ReportsBundle:Default:filter } 
-    
-reports_page:
-    path: /{actualPage}
-    defaults: { _controller: ReportsBundle:Default:indexPage }
-    
-reports_patient:
-    path: /{id}/patient
-    defaults: { _controller: ReportsBundle:Default:patientRedirect }
+   
 
-reports_list:
-    path: /list/
-    defaults: {_controller: ReportsBundle:Default:export } 
+ 
     

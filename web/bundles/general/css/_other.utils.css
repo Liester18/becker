@@ -112,6 +112,14 @@
 /*    position: relative !important;
     top: -446px !important;*/
 }
-
+/*para filtros en la tabla*/
+tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+}
+tfoot {
+    display: table-header-group;
+}
 
 

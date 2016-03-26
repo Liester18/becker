@@ -1,24 +1,20 @@
-{% extends 'layout.html.twig' %}
 
-{% block stylesheets_page %}
-   <!-- <link href="{#{asset('bundles/app/css/dashboard.css')}#}" rel="stylesheet"> -->
-{% endblock stylesheets_page%}
-
-{% block page_content %} 
 
     <div class="page-content">
         <div class="page-header row">
+          {% if app.user.rol.id == 1 %}  
             <div class="col-md-4 col-sm-4">
                 <h1>
                     Maneje seus pacientes:
                 </h1>
             </div>
             <div class="col-md-offset-6 col-sm-offset-6 col-md-2 col-sm-3">
-                <a href="#" class="btn btn-app btn-info btn-sm no-radius" >
+                <a href="{{path('reports_list')}}" class="btn btn-app btn-info btn-sm no-radius" >
                     <i class="icon-envelope bigger-230"></i>
                     MailList
                 </a>
             </div>
+          {% endif %}          
 
         </div><!-- /.page-header -->
 
@@ -45,9 +41,8 @@
                                             <!-- <th class="center">Seleccionar</th> -->                                        
                                             <th class="center">Nome Paciente</th>
                                             <!--<th class="hidden-480 center">Responsavels</th> -->
-                                            <th class="hidden-480 center">Endereco</th>                                       
-                                            <th class="hidden-480 center">Dado 4</th>
-                                            <th class="center">Acciones</th>
+                                            <th class="hidden-480 center">Responsáveis</th>                                       
+                                            <th class="center">Ação</th>
                                         </tr>
                                     </thead>
 
@@ -73,11 +68,9 @@
         {# include 'modal_forms_proyecto.html.twig' #}
     </div><!-- /.page-content -->      
 
-    {% block javascripts_page %}
-        <script src="{{asset('bundles/general/js/_others/filter.js')}}"></script>
-    {% endblock javascripts_page %} 
+    
 
-{% endblock %}    
+
 
 
 
