@@ -1,7 +1,12 @@
 reports_homepage:
     path:  /
     defaults: { _controller: ReportsBundle:Default:index }
-   
+
+reports_delete:
+    path: /d/
+    defaults: {_controller: ReportsBundle:Default:deleteJS }
+
+    
 
  
     
