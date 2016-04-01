@@ -5,6 +5,10 @@ reports_homepage:
 reports_delete:
     path: /d/
     defaults: {_controller: ReportsBundle:Default:deleteJS }
+    
+reports_export:
+    path: /e/
+    defaults: {_controller: ReportsBundle:Default:exp }
 
     
 

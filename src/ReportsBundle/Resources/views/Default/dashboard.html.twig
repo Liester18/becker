@@ -11,7 +11,7 @@
                     </h1>
                 </div>
                 <div class="col-md-offset-6 col-sm-offset-6 col-md-2 col-sm-3">
-                    <a href="#" class="btn btn-app btn-info btn-sm no-radius" >
+                    <a onclick="toExport()" class="btn  btn-info btn-sm no-radius" > <!-- btn-app -->
                         <i class="icon-envelope bigger-230"></i>
                         MailList
                     </a>
@@ -43,7 +43,8 @@
                                             <!-- <th class="center">Seleccionar</th> -->                                        
                                             <th>Nome Paciente</th>
                                             <!--<th class="hidden-480 center">Responsavels</th> -->
-                                            <th>Responsáveis</th>                                       
+                                            <th class="llll">Responsáveis</th>
+                                            <!--<th class="llll">Email</th>                                            -->
                                             <th>Ação</th>
                                         </tr>
                                     </thead>
@@ -65,14 +66,34 @@
                                                     </td>
                                                     <td class="center">
                                                         <ul class="list-unstyled spaced2">
-                                                                <li class="muted align-left">                                                                   
-                                                                    {{d.nome_resp}} </li>
-                                                                {% if d.nome_resp != d.nome_resp2 %}
-                                                                    <li class="muted align-left">                                                                   
-                                                                        {{d.nome_resp2}} </li>
-                                                                {% endif %}
+                                                                <li class="muted align-left r1">                                                                   
+                                                                    {{d.nome_resp}}                                                                     
+                                                                </li>
+                                                                <input type="hidden" name="email_resp[]" value="{{d.email_resp}}" id="e_r1"/>
+                                                                
+                                                                
+                                                                    {% if d.nome_resp != d.nome_resp2 %}
+                                                                        <li class="muted align-left r2">                                                                   
+                                                                            {{d.nome_resp2}}                                                                            
+                                                                        </li>  
+                                                                        <input type="hidden" name="email_resp2[]" value="{{d.email_resp2}}" id="e_r2"/>
+                                                                    {% endif %}
+                                                                
                                                         </ul>
-                                                    </td>      
+                                                    </td>
+                                                    
+                                                   <!-- <td class="center">
+                                                        <ul class="list-unstyled spaced2">
+                                                                <li class="muted align-left">                                                                   
+                                                                    {#{d.email_resp}#} </li>
+                                                               
+                                                                    {#% if d.nome_resp != d.nome_resp2 %#}
+                                                                        <li class="muted align-left">                                                                   
+                                                                            {#{d.email_resp2}#} </li>
+                                                                    {#% endif %#}
+                                                              
+                                                        </ul>
+                                                    </td>-->
 
 
 
@@ -146,9 +167,76 @@
                 });           
         }else{
             return false;
-        }     
-        
+        }          
     }
+    function toExport(){
+        var r1 = [];
+        var _r1 = [];
+        var r2 = [];
+        var _r2 = [];
+        var e_r1 = [];
+        var _e_r1 = [];
+        var e_r2 = [];
+        var _e_r2 = [];
+        var r_resp = [];
+        var r_email = [];
+        r1 = $('.r1');
+        r2 = $('.r2');
+        e_r1 = $('input[name="email_resp[]"]');
+        e_r2 = $('input[name="email_resp2[]"]');
+        r1.each(function(){           
+            _r1.push(r1.html()); 
+        })
+        r2.each(function(){
+            _r2.push(r2.html());
+        })
+        e_r1.each(function(){
+            _e_r1.push(e_r1.val());
+        })
+        e_r2.each(function(){
+            _e_r2.push(e_r2.val());
+        })
+        var p = 0;
+        for(var i=0; i<_r1.length; i++){
+            r_resp[p] = _r1[i];          
+            r_resp[p+1] = _r2[i];
+            p = p + 2;
+        }
+        
+        var e = 0;
+        for(var i=0; i<_r1.length; i++){
+            r_email[e] = _e_r1[i];            
+            r_email[e+1] = _e_r2[i];
+            e = e + 2;
+        }
+   
+        var path = "{{ path('reports_export') }}"; 
+         var path2 = "{{ path('reports_homepage') }}";
+        //alert('llego');
+        var json = {
+            'responsable': r_resp,
+            'email': r_email
+        };
+        //alert(json);
+        $.ajax({
+                type: "POST",
+                url: path,
+                data: json,
+                // async: true,
+                dataType: "json",
+                success: function (response)
+                {
+                    alert(response);
+                    //return response;
+                  // location.href = path2;                    
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown)
+                {
+                    // stuff there
+                },
+            });
+        
+    };
         
     $(document).ready(function() {     
         $('#sample_3 tfoot th').each(function () {
@@ -164,10 +252,19 @@
                  info: "Mostrando _PAGE_ de _PAGES_ páginas" ,
                  infoEmpty: "Não há registros disponíveis",
                  infoFiltered: "(filtrado de _MAX_ registros em total)"
-            },
-            dom: 'B<"clear">lfrtip',         //hay k kitar esto para k los filtros funcionen...   
-            buttons: ['csv']
-            
+            }//,
+            //dom: 'B<"clear">lfrtip',         //hay k kitar esto para k los filtros funcionen...   
+            //filter: true,
+            //buttons: ['csv']     
+            /*buttons: [
+            {
+                extend: 'csv',
+                exportOptions: {
+                    columns: ".llll"
+                }
+            }            
+            ]*/
+     
         });
         //var column = table.column(':contains(Salary)'); 
                 
