@@ -74,6 +74,7 @@ class DefaultController extends Controller {
     //        var_dump($responsable);
     //        var_dump($email);
     //        die();  
+            //la casa es bella...
             $handle = fopen('php://output', 'r+');
             fputs($handle, implode(Array('Email', 'Nome'), ';')."\n");
             foreach ($responsables as $k => $v) {
