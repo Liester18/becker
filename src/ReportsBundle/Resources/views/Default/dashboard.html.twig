@@ -11,7 +11,7 @@
                     </h1>
                 </div>
                 <div class="col-md-offset-6 col-sm-offset-6 col-md-2 col-sm-3">
-                    <a onclick="toExport()" class="btn  btn-info btn-sm no-radius" > <!-- btn-app -->
+                    <a  class="btn  btn-info btn-sm no-radius export" href="#"> <!-- btn-app -->
                         <i class="icon-envelope bigger-230"></i>
                         MailList
                     </a>
@@ -60,7 +60,8 @@
                                                     <td class="center">
                                                         <ul class="list-unstyled spaced2 pnome">
                                                             <li class="muted align-left align-middle">                                                               
-                                                                <a href="{{path('daily_work')}}{{d.nome}}">{{d.nome}}</a>                                            
+                                                                <!-- <a href="{#{path('daily_work')}}{{d.nome}}">{{d.nome}#}</a>  -->                                          
+                                                                {{d.nome}}
                                                             </li>
                                                         </ul>
                                                     </td>
@@ -169,7 +170,111 @@
             return false;
         }          
     }
-    function toExport(){
+    
+    /*function exportTableToCSV() {
+        $table = $('#sample_3');//alert($table);
+        filename = 'export.csv';//alert(filename);
+
+        var $rows = $table.find('tr:has(td)'),
+
+            // Temporary delimiter characters unlikely to be typed by keyboard
+            // This is to avoid accidentally splitting the actual contents
+            tmpColDelim = String.fromCharCode(11), // vertical tab character
+            tmpRowDelim = String.fromCharCode(0), // null character
+
+            // actual delimiter characters for CSV format
+            colDelim = '","',
+            rowDelim = '"\r\n"',
+
+            // Grab text from table into CSV formatted string
+            csv = '"' + $rows.map(function (i, row) {
+                var $row = $(row),
+                    $c = $row.find('td');
+                    $c2 = $c.find('ul');
+                    $cols = $c2.find('li');
+
+                return $cols.map(function (j, col) {
+                    var $col = $(col),
+                        text = $col.text();
+
+                    return text.replace(/"/g, '""'); // escape double quotes
+
+                }).get().join(tmpColDelim);
+
+            }).get().join(tmpRowDelim)
+                .split(tmpRowDelim).join(rowDelim)
+                .split(tmpColDelim).join(colDelim) + '"',
+
+            // Data URI
+            csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);//alert(csv);
+
+        /*$(this).attr({
+            'download': filename,
+                'href': csvData,
+                'target': '_blank'
+        });alert()*/
+       /* $('.export').attr({
+            'download': filename,
+                'href': csvData,
+                'target': '_blank'
+        });
+    }*/
+
+    function exportTableToCSV( _json ) {
+        
+        filename = 'export.csv';//alert(filename);
+
+        //var $rows = $table.find('tr:has(td)');
+
+            // Temporary delimiter characters unlikely to be typed by keyboard
+            // This is to avoid accidentally splitting the actual contents
+            tmpColDelim = String.fromCharCode(11); // vertical tab character
+            tmpRowDelim = String.fromCharCode(0); // null character
+
+            // actual delimiter characters for CSV format
+            colDelim = '","';
+            rowDelim = '"\r\n"';
+            
+             $.each(_json, function(i, item) {
+                //alert(_json[i].responsable);
+            })
+            alert(_json[0].responsable);
+
+            //mio (Liester)
+            // var a = _json.responsable +';'+ _json.email;alert(_json.email);
+             /*var data = [ 
+                {"Id": 10004, "PageName": "club"}, 
+                {"Id": 10040, "PageName": "qaz"}, 
+                {"Id": 10059, "PageName": "jjjjjjj"}
+               ];
+
+            $.each(data, function(i, item) {
+                alert(data[i].PageName);
+            })*/
+
+            /*$.each(data, function(i, item) {
+                alert(item.PageName);
+            });​*/
+
+             
+
+            // Data URI
+            csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);//alert(csv);
+
+        /*$(this).attr({
+            'download': filename,
+                'href': csvData,
+                'target': '_blank'
+        });alert()*/
+        $('.export').attr({
+            'download': filename,
+            'href': csvData,
+            'target': '_blank'
+        });
+    }
+    
+
+    /*function toExport(){
         var r1 = [];
         var _r1 = [];
         var r2 = [];
@@ -210,14 +315,13 @@
             e = e + 2;
         }
    
-        var path = "{{ path('reports_export') }}"; 
-         var path2 = "{{ path('reports_homepage') }}";
+        var path = "{#{ path('reports_export') }#}"; 
+         var path2 = "{#{ path('reports_homepage') }#}";
         //alert('llego');
         var json = {
             'responsable': r_resp,
             'email': r_email
         };
-        //alert(json);
         $.ajax({
                 type: "POST",
                 url: path,
@@ -226,15 +330,58 @@
                 dataType: "json",
                 success: function (response)
                 {
-                    alert(response);
-                    //return response;
-                  // location.href = path2;                    
+                                      
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown)
                 {
-                    // stuff there
+
                 },
-            });
+            });          
+        
+    };*/
+    
+    function toExport(){
+        var r1 = [];
+        var _r1 = [];
+        var r2 = [];
+        var _r2 = [];
+        var e_r1 = [];
+        var _e_r1 = [];
+        var e_r2 = [];
+        var _e_r2 = [];
+        var r_resp = [];
+        var r_email = [];
+        r1 = $('.r1');
+        r2 = $('.r2');
+        e_r1 = $('input[name="email_resp[]"]');
+        e_r2 = $('input[name="email_resp2[]"]');
+        r1.each(function(){           
+            _r1.push(r1.html()); 
+        })
+        r2.each(function(){
+            _r2.push(r2.html());
+        })
+        e_r1.each(function(){
+            _e_r1.push(e_r1.val());
+        })
+        e_r2.each(function(){
+            _e_r2.push(e_r2.val());
+        })
+        var p = 0;
+        for(var i=0; i<_r1.length; i++){
+            r_resp[p] = _r1[i];          
+            r_resp[p+1] = _r2[i];
+            p = p + 2;
+        }
+        
+        var e = 0;
+        for(var i=0; i<_r1.length; i++){
+            r_email[e] = _e_r1[i];            
+            r_email[e+1] = _e_r2[i];
+            e = e + 2;
+        }
+        var json = [{'responsable': r_resp,'email': r_email}];
+        return json;
         
     };
         
@@ -276,6 +423,14 @@
             var serach = '<input type="text" placeholder="Busca ' + title + '" />';
             $(this).html('');
             $(serach).appendTo(this).keyup(function(){table.fnFilter($(this).val(),i)})
+        });
+        
+        $(".export").on('click', function (event) {
+            // CSV
+            exportTableToCSV(toExport());
+        
+            // IF CSV, don't do event.preventDefault() or return false
+            // We actually need this to be a typical hyperlink
         });
         
         //otras cosas       

@@ -71,10 +71,6 @@ class DefaultController extends Controller {
         $response = new StreamedResponse(function() use($request) {            
             $responsables = $request->get('responsable');
             $email = $request->get('email');
-    //        var_dump($responsable);
-    //        var_dump($email);
-    //        die();  
-            //la casa es bella...
             $handle = fopen('php://output', 'r+');
             fputs($handle, implode(Array('Email', 'Nome'), ';')."\n");
             foreach ($responsables as $k => $v) {
@@ -82,11 +78,38 @@ class DefaultController extends Controller {
             }             
             fclose($handle);
         });
+        $response->setStatusCode(200);
         $response->headers->set('Content-Type', 'application/force-download');
         $response->headers->set('Content-Disposition', 'attachment; filename="export.csv"');
 
         return $response;
     }
+    
+    /*public function expAction11(){
+        $request = $this->getRequest();                    
+        $responsables = $request->get('responsable');
+        $email = $request->get('email');
+        
+        $response = new StreamedResponse();
+        $response->setCallback(function(){
+
+            $handle = fopen('php://output', 'w+');
+
+            // Add the header of the CSV file
+            fputcsv($handle, implode(Array('Email', 'Nome'), ';')."\n");
+            // Query data from database
+            foreach ($responsables as $k => $v) {
+                fputcsv($handle, implode(Array($email[$k], $v), ';')."\n");
+            }      
+            fclose($handle);
+        });
+
+        $response->setStatusCode(200);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition','attachment; filename="export.csv"');
+
+        return $response;
+    }*/
     
 
 }
