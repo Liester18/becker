@@ -67,17 +67,19 @@
                                                     </td>
                                                     <td class="center">
                                                         <ul class="list-unstyled spaced2">
-                                                                <li class="muted align-left r1">                                                                   
-                                                                    {{d.nome_resp}}                                                                     
+                                                                <li class="muted align-left">                                                                   
+                                                                    {{d.nome_resp}}
+                                                                    <input type="hidden" name="r1[]" value="{{d.nome_resp}}" class="r1"/>
                                                                 </li>
-                                                                <input type="hidden" name="email_resp[]" value="{{d.email_resp}}" id="e_r1"/>
+                                                                <input type="hidden" name="email_resp[]" value="{{d.email_resp}}" class="e_r1"/>
                                                                 
                                                                 
                                                                     {% if d.nome_resp != d.nome_resp2 %}
-                                                                        <li class="muted align-left r2">                                                                   
+                                                                        <li class="muted align-left">                                                                   
                                                                             {{d.nome_resp2}}                                                                            
+                                                                            <input type="hidden" name="r2[]" value="{{d.nome_resp2}}" class="r2"/>
                                                                         </li>  
-                                                                        <input type="hidden" name="email_resp2[]" value="{{d.email_resp2}}" id="e_r2"/>
+                                                                        <input type="hidden" name="email_resp2[]" value="{{d.email_resp2}}" class="e_r2"/>
                                                                     {% endif %}
                                                                 
                                                         </ul>
@@ -240,23 +242,13 @@
             })
             alert(_json[0].responsable);
 
-            //mio (Liester)
-            // var a = _json.responsable +';'+ _json.email;alert(_json.email);
-             /*var data = [ 
-                {"Id": 10004, "PageName": "club"}, 
-                {"Id": 10040, "PageName": "qaz"}, 
-                {"Id": 10059, "PageName": "jjjjjjj"}
-               ];
-
-            $.each(data, function(i, item) {
-                alert(data[i].PageName);
+            //mio (Liester)            
+            /*$.each(_json, function(i, item) {
+                alert(_json[i].resp);
             })*/
-
-            /*$.each(data, function(i, item) {
-                alert(item.PageName);
-            });​*/
-
-             
+            for(var i=0; i<_json.length; i++){ 
+                alert(_json[i].resp);
+            }
 
             // Data URI
             csvData = 'data:application/csv;charset=utf-8,' + encodeURIComponent(csv);//alert(csv);
@@ -342,47 +334,31 @@
     
     function toExport(){
         var r1 = [];
-        var _r1 = [];
         var r2 = [];
-        var _r2 = [];
         var e_r1 = [];
-        var _e_r1 = [];
-        var e_r2 = [];
-        var _e_r2 = [];
-        var r_resp = [];
-        var r_email = [];
-        r1 = $('.r1');
-        r2 = $('.r2');
-        e_r1 = $('input[name="email_resp[]"]');
-        e_r2 = $('input[name="email_resp2[]"]');
-        r1.each(function(){           
-            _r1.push(r1.html()); 
-        })
-        r2.each(function(){
-            _r2.push(r2.html());
-        })
-        e_r1.each(function(){
-            _e_r1.push(e_r1.val());
-        })
-        e_r2.each(function(){
-            _e_r2.push(e_r2.val());
-        })
-        var p = 0;
-        for(var i=0; i<_r1.length; i++){
-            r_resp[p] = _r1[i];          
-            r_resp[p+1] = _r2[i];
+        var e_r2 = [];      
+        r1 = document.getElementsByClassName('r1');
+        r2 = document.getElementsByClassName('r2');
+        e_r1 = document.getElementsByClassName('e_r1');
+        e_r2 = document.getElementsByClassName('e_r2');      
+        var p = 0; var e = 0;       
+        var _json = [{"resp": r1[0].value, "email": e_r1[0].value} , {"resp": r2[0].value, "email": e_r2[0].value}];
+        for(var i=1; i<r1.length; i++){                      
+            _json.push(
+                      {"resp": r1[i].value, "email": e_r1[i].value}
+            );
             p = p + 2;
         }
-        
-        var e = 0;
-        for(var i=0; i<_r1.length; i++){
-            r_email[e] = _e_r1[i];            
-            r_email[e+1] = _e_r2[i];
+        for(var i=0; i<r2.length; i++){
+            _json.push(
+                      {"resp": r2[i].value, "email": e_r2[i].value}
+            );                  
             e = e + 2;
-        }
-        var json = [{'responsable': r_resp,'email': r_email}];
-        return json;
-        
+        }       
+       /*$.each(_json, function(i, item) {
+            alert(_json[i].email);
+       })  */     
+        return _json;        
     };
         
     $(document).ready(function() {     
