@@ -68,19 +68,20 @@
                                                     <td class="center">
                                                         <ul class="list-unstyled spaced2">
                                                                 <li class="muted align-left">                                                                   
-                                                                    {{d.nome_resp}}
-                                                                    <input type="hidden" name="r1[]" value="{{d.nome_resp}}" class="r1"/>
+                                                                    {{d.n_resp}}
+                                                                    <input type="hidden" name="r1[]" value="{{d.n_resp}}" class="r1"/>
                                                                 </li>
-                                                                <input type="hidden" name="email_resp[]" value="{{d.email_resp}}" class="e_r1"/>
+                                                                <input type="hidden" name="email_resp[]" value="{{d.e_resp}}" class="e_r1"/>
                                                                 
-                                                                
-                                                                    {% if d.nome_resp != d.nome_resp2 %}
+                                                                {% if loop.index < p2[-1].pfinal %}
+                                                                    {% if p2[loop.index] != "N"   %}
                                                                         <li class="muted align-left">                                                                   
-                                                                            {{d.nome_resp2}}                                                                            
-                                                                            <input type="hidden" name="r2[]" value="{{d.nome_resp2}}" class="r2"/>
+                                                                            {{p2[loop.index].n_resp2}}                                                                            
+                                                                            <input type="hidden" name="r2[]" value="{{p2[loop.index].n_resp2}}" class="r2"/>
                                                                         </li>  
-                                                                        <input type="hidden" name="email_resp2[]" value="{{d.email_resp2}}" class="e_r2"/>
+                                                                        <input type="hidden" name="email_resp2[]" value="{{p2[loop.index].e_resp2}}" class="e_r2"/>
                                                                     {% endif %}
+                                                                {% endif %}
                                                                 
                                                         </ul>
                                                     </td>
@@ -103,16 +104,16 @@
                                                     <td class="center">   
                                                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                                          {% if app.user.rol.id == 1 %}   
-                                                            <button onclick="window.location.replace('{{ path('atendimento', {'id_paciente': d.paciente_id |default('default_id_paciente')}) }}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                                                            <button onclick="window.location.replace('{{ path('atendimento', {'id_paciente': d.p_id |default('default_id_paciente')}) }}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
                                                                     title="Ficha">
                                                                 <i class="icon-leaf bigger-230 dark "></i>
                                                             </button>   
-                                                            <button onclick="window.location.replace('{{path('daily_work')}}{{d.paciente_id}}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
+                                                            <button onclick="window.location.replace('{{path('daily_work')}}{{d.p_id}}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
                                                                     title="Fazer Consulta">
                                                                 <i class="icon-briefcase bigger-230 green"></i>
                                                             </button> 
                                                          {% endif %}          
-                                                         <button id="delete" num="{{d.paciente_id}}" name="Apagar" value="{{d.paciente_id}}" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="button" title="Apagar" onclick="Borrar(this)">
+                                                         <button id="delete" num="{{d.p_id}}" name="Apagar" value="{{d.p_id}}" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom"  type="button" title="Apagar" onclick="Borrar(this)">
                                                                 <i class="icon-trash bigger-230 red"></i>
                                                             </button>
                                                         </div>
@@ -408,8 +409,11 @@
             // IF CSV, don't do event.preventDefault() or return false
             // We actually need this to be a typical hyperlink
         });
-        
-        //otras cosas       
+        /*var sgte = $('.pagination .next a');
+        sgte.removeAttr();
+        sgte.on('click', function (event){
+            alert
+        });*/
     });   
      
 </script>    

@@ -29,28 +29,44 @@ class DefaultController extends Controller {
         $params = array();
         $stmt->execute($params);
         $po=$stmt->fetchAll();
-        
+        //var_dump($po); die();        
+            
         $final = array();
+        $final2 = array();
         $p = 0;
         $p_ant = 0;
-        foreach ($po as $v) {          
-            
-            if($p_ant == $v["paciente_id"]){
-                $final[$p-1]["responsavel_id"] = $v["responsavel_id"];
-                $final[$p-1]["nome_resp2"] = $v["nome_resp"];
-                $final[$p-1]["email_resp2"] = $v["email"];
+        $r_ant = "";
+        foreach ($po as $k=>$v) {          
+            if($p_ant == $v["paciente_id"] && $r_ant != $v["responsavel_id"]){
+                $p--;
+                $final2[$p]["r_id2"] = $v["responsavel_id"];
+                $final2[$p]["n_resp2"] = $v["nome_resp"];
+                $final2[$p]["e_resp2"] = $v["email"];
+                
             }else{
-                $final[$p]["paciente_id"] = $v["paciente_id"];                        
+                $final[$p]["p_id"] = $v["paciente_id"];                        
                 $final[$p]["nome"] = $v["nome"];
-                $final[$p]["responsavel_id"] = $v["responsavel_id"];
-                $final[$p]["nome_resp"] = $v["nome_resp"];
-                $final[$p]["email_resp"] = $v["email"];                
+                $final[$p]["r_id"] = $v["responsavel_id"];
+                $final[$p]["n_resp"] = $v["nome_resp"];
+                $final[$p]["e_resp"] = $v["email"]; 
             }
             $p++;
             $p_ant = $v["paciente_id"];
-        }     
-        
-        return $this->render('ReportsBundle:Default:dashboard.html.twig', array('last_username' => $sesion->get(SecurityContext::LAST_USERNAME), 'error' => $error, 'p'=> $final));
+            $r_ant = $v["responsavel_id"];          
+        }
+        $pos=0;
+        foreach ($final2 as $k=>$v){
+            if($pos != $k){                
+                while ($pos != $k){
+                    $final2[$pos] = "N"; 
+                    $pos++;
+                }
+            }
+            $pos++;
+        }
+        $final2[-1]["pfinal"] = $pos;
+        //var_dump($final2); die();
+        return $this->render('ReportsBundle:Default:dashboard.html.twig', array('last_username' => $sesion->get(SecurityContext::LAST_USERNAME), 'error' => $error, 'p'=> $final, 'p2'=> $final2));
     }
     
     // Para cargar solo el body de la pagina
