@@ -127,5 +127,36 @@ table.dataTable tfoot th, table.dataTable tfoot td{
     border-left: 1px solid #000 !important;
     border-right: 1px solid #000 !important;*/
 }
+.raya{
+    border-top: 1px solid #999 !important;
+    border-bottom: 1px solid #fff !important;
+    border-left: 1px solid #999 !important;
+    border-bottom: 0px !important;
+    /*border-right: 1px solid #000 !important;*/
+}
+tfoot tr th{
+    border-top: 0px !important;
+    border-bottom: 1px solid #999 !important;
+    border-left: 1px solid #999 !important;
+    /*border-right: 1px solid #000 !important;*/
+}
+tfoot tr th input{
+    margin-top: -3px !important;
+    margin-left: -3px !important;
+}
+.dere{
+    border-right: 1px solid #999 !important;
+    /*border-bottom: 0px !important;*/    
+}
+.dere_b{
+    border-right: 1px solid #999 !important;
+    /*border-top: 0px !important;*/
+}
+#sample_3{
+    width: 99.9%;
+}
+.dere_b input{
+    display: none;
+}
 
 

@@ -41,17 +41,18 @@
                                     <thead>
                                         <tr>
                                             <!-- <th class="center">Seleccionar</th> -->                                        
-                                            <th>Nome Paciente</th>
+                                            <th class="raya">Nome Paciente</th>
                                             <!--<th class="hidden-480 center">Responsavels</th> -->
-                                            <th class="llll">Responsáveis</th>
+                                            <th class="llll raya">Responsáveis</th>
                                             <!--<th class="llll">Email</th>                                            -->
-                                            <th>Ação</th>
+                                            <th class="raya dere">Ação</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Nome Paciente</th>
-                                            <th>Responsáveis</th>                                                                                   
+                                            <th>Responsáveis</th> 
+                                            <th class="dere_b"></th>
                                         </tr>
                                     </tfoot>                                  
                                                                            
@@ -90,7 +91,7 @@
                                                         <div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">
                                                          {% if app.user.rol.id == 1 %}   
                                                             <button onclick="window.location.replace('{{ path('atendimento', {'id_paciente': d.p_id |default('default_id_paciente')}) }}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
-                                                                    title="Ficha">
+                                                                    title="Atualizar ficha do cliente">
                                                                 <i class="icon-leaf bigger-230 dark "></i>
                                                             </button>   
                                                             <button onclick="window.location.replace('{{path('daily_work')}}{{d.p_id}}');" class="btn btn-link btn-link-ajustado tooltip-default" data-rel="tooltip" data-placement="bottom" 
@@ -234,7 +235,7 @@
     $(document).ready(function() {     
         $('#sample_3 tfoot th').each(function () {
             var title = $('#sample_3 thead th').eq($(this).index()).text();
-            $(this).html('<input type="text" placeholder="Busca ' + title + '" />');        
+            $(this).html('<input type="text" placeholder="Busca por' + title + '" />');        
         });
                 
         var table = $('#sample_3').dataTable({
@@ -265,7 +266,7 @@
         {
             var title = $('#sample_3 thead th').eq($(this).index()).text();
             // or just var title = $('#sample_3 thead th').text();
-            var serach = '<input type="text" placeholder="Busca ' + title + '" />';
+            var serach = '<input type="text" placeholder="Busca por ' + title + '" />';
             $(this).html('');
             $(serach).appendTo(this).keyup(function(){table.fnFilter($(this).val(),i)})
         });

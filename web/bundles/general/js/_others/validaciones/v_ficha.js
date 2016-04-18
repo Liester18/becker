@@ -25,14 +25,14 @@ $(document).ready(function() {
     $('.endereco_yes').click(function() {
          if ($(this).is(':checked')) {
             $('#paciente_type_responsavels_1_endereco_cep').val($('#paciente_type_responsavels_0_endereco_cep').val());
-            $('#paciente_type_responsavels_1_endereco_complemento').val($('#paciente_type_responsavels_0_endereco_complemento').val());
+            $('#paciente_type_responsavels_1_endereco_logradouro').val($('#paciente_type_responsavels_0_endereco_logradouro').val());
             $('#paciente_type_responsavels_1_endereco_barrio').val($('#paciente_type_responsavels_0_endereco_barrio').val());
             $('#paciente_type_responsavels_1_endereco_cidade').val($('#paciente_type_responsavels_0_endereco_cidade').val());
             $('#paciente_type_responsavels_1_endereco_estado').val($('#paciente_type_responsavels_0_endereco_estado').val());
          }
          else{
              $('#paciente_type_responsavels_1_endereco_cep').val('');
-             $('#paciente_type_responsavels_1_endereco_complemento').val('');
+             $('#paciente_type_responsavels_1_endereco_logradouro').val('');
              $('#paciente_type_responsavels_1_endereco_barrio').val('');
              $('#paciente_type_responsavels_1_endereco_cidade').val('');
              $('#paciente_type_responsavels_1_endereco_estado').val('');

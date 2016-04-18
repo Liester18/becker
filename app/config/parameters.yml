@@ -2,7 +2,7 @@
 parameters:
     database_host: 127.0.0.1
     database_port: 5432
-    database_name: becker3
+    database_name: becker4
     database_user: postgres
     database_password: postgres
     mailer_transport: smtp

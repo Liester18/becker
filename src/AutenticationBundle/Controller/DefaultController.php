@@ -18,6 +18,9 @@ class DefaultController extends Controller
         $sesion = $peticion->getSession();
         $this->container->get('security.context');
         $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->indexAction();
+        } 
         return $this->render('AutenticationBundle:Default:ini.html.twig', array('last_username' => $sesion->get(SecurityContext::LAST_USERNAME), 'error' => $error));
     }
     
@@ -83,25 +86,60 @@ class DefaultController extends Controller
 
     public function iniAction()
     {
+        $peticion = $this->getRequest();
+        $sesion = $peticion->getSession();
+        $this->container->get('security.context');
+        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->indexAction();
+        }
         return $this->render('AutenticationBundle:Default:ini.html.twig');
     }
     
     public function dworkAction()
     {
+        $peticion = $this->getRequest();
+        $sesion = $peticion->getSession();
+        $this->container->get('security.context');
+        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->indexAction();
+        }
         return $this->redirect('d_w');
     }
     
     public function daworkAction()
     {
+        $peticion = $this->getRequest();
+        $sesion = $peticion->getSession();
+        $this->container->get('security.context');
+        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->indexAction();
+        }
         return $this->redirect('d_w/dw');
     }
     
     public function reportesAction()
     {
+        $peticion = $this->getRequest();
+        $sesion = $peticion->getSession();
+        $this->container->get('security.context');
+        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->indexAction();
+        }
         return $this->redirect('r');
     }
     public function registerAction()
     {
+        $peticion = $this->getRequest();
+        $sesion = $peticion->getSession();
+        $this->container->get('security.context');
+        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->indexAction();
+        }
         return $this->render('AutenticationBundle:Default:register.html.twig');
     }
 }
