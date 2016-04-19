@@ -27,7 +27,7 @@ class EnderecoType extends AbstractType{
                 ->add('cep','number', array('label' => 'CEP'))
                 //->add('complemento','text', array('label' => 'Complemento'))
                 ->add('logradouro','text', array('label' => 'Logradouro'))
-                ->add('barrio','text', array('label' => 'Bairro'))
+                ->add('barrio','text', array('label' => 'Barrio'))
                 ->add('cidade','text', array('label' => 'Cidade'))
                 ->add('estado');
             
