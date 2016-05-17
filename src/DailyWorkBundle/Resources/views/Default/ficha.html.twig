@@ -126,7 +126,7 @@
 
                                                         <div class="col-sm-9">
                                                             <span class="input-icon input-icon-right">
-                                                                {{form_widget(formulario.responsavels[0].email,  { 'attr': {'class' : 'p_email'} }) }}
+                                                                {{form_widget(formulario.responsavels[0].email,  { 'attr': {'class' : 'p_email'} }) }}                                                                
                                                                 <i class="icon-envelope"></i>
                                                             </span>
                                                         </div>
@@ -343,11 +343,14 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 });
 
 
-        var $validation = false;
+        //var $validation = false;
         $('#fuelux-wizard').ace_wizard().on('change', function (e, info) {
-            if (info.step == 1 && $validation) {
+            /*if (info.step == 1 && $validation) {
                 if (!$('#validation-form').valid())
                     return false;
+            }*/
+            if (info.step) {
+                //alert(info.step);
             }
         }).on('finished', function (e) {
             if($('div').is('.help-block')){
@@ -397,7 +400,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         
         
         /*sabarabe no mai*/
-        var $validation = false;
+       /* var $validation = false;
         $('#fwizard').ace_wizard().on('change', function (e, info) {
             if (info.step == 1 && $validation) {
                 if (!$('#validation-form').valid())
@@ -409,7 +412,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 return false;                
             }else if(validar()){
             var formdata = $('form[name=ficha]').serialize();
-            var path = "{{ path('daily_work_homepage') }}";
+            var path = "{#{ path('daily_work_homepage') }#}";
 
             $.ajax({
                 type: "POST",
@@ -488,16 +491,20 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         $('#validation-form').validate({
             errorElement: 'div',
             errorClass: 'help-block',
-            focusInvalid: false,
-            rules: {                
-                email: {
+            focusInvalid: true,
+            rules: { 
+                //email
+                'paciente_type[responsavels][0][email]': {
                     required: true,
                     email: true
                 },
-                name: {
+                /*name: {
+                    required: true
+                },*/
+                'paciente_type[responsavels][0][nome]': {
                     required: true
                 },
-                'phone': {
+                phone: {
                     required: true,
                     phone: 'required'
                 },
@@ -517,7 +524,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 agree: 'required'
             },
             messages: {
-                email: {
+                'paciente_type[responsavels][0][email]': {
                     required: "Please provide a valid email11.",
                     email: "Please provide a valid email222."
                 },
@@ -525,6 +532,8 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                     required: "Please specify a password.",
                     minlength: "Please specify a secure password."
                 },
+                'paciente_type[responsavels][0][nome]': "Por favor preencher o nome do responsável.",
+            
                 subscription: "Please choose at least one option",
                 gender: "Please choose gender",
                 agree: "Please accept our policy"
