@@ -74,13 +74,14 @@
                                                                 </li>
                                                                 <input type="hidden" name="email_resp[]" value="{{d.e_resp}}" class="e_r1"/>
                                                                 
-                                                                {% if loop.index < p2[-1].pfinal %}
-                                                                    {% if p2[loop.index] != "N"   %}
+                                                                {% if loop.index-1 < p2[-1].pfinal %}
+                                                                    {% if p2[loop.index-1].r_info == -2   %}
                                                                         <li class="muted align-left">                                                                   
-                                                                            {{p2[loop.index].n_resp2}}                                                                            
-                                                                            <input type="hidden" name="r2[]" value="{{p2[loop.index].n_resp2}}" class="r2"/>
+                                                                            {{p2[loop.index-1].n_resp2}}                                                                            
+                                                                            <input type="hidden" name="r2[]" value="{{p2[loop.index-1].n_resp2}}" class="r2"/>
+                                                                            <input type="hidden" name="r2[]" value="{{loop.index-1}}" class="r2"/>
                                                                         </li>  
-                                                                        <input type="hidden" name="email_resp2[]" value="{{p2[loop.index].e_resp2}}" class="e_r2"/>
+                                                                        <input type="hidden" name="email_resp2[]" value="{{p2[loop.index-1].e_resp2}}" class="e_r2"/>
                                                                     {% endif %}
                                                                 {% endif %}
                                                                 

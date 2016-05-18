@@ -18,7 +18,7 @@
                     <div class="row-fluid">
                         <div class="span12">
                             <div class="widget-box">
-                               <!-- <form class="form-horizontal" id="validation-form" action="{{ path('daily_work_homepage') }}" method="post" name="ficha">-->
+                               <!-- <form class="form-horizontal" id="validation-form" action="{#{ path('daily_work_homepage') }#}" method="post" name="ficha">-->
                                 <div  class="widget-header widget-header-blue widget-header-flat" data-target="#step-container">
                                     <h4 class="lighter">Cadastrar novo cliente</h4>
                                      <!--<button class="btn btn-prev _p_der">
@@ -70,21 +70,20 @@
                                                         {#{{ form_row(formulario.nome) }}#}
 
                                                         <label class="col-sm-3 control-label"> {{form_label(formulario.data_nascimento)}}<label class="obligatorio">&nbsp;*</label> </label>
-                                                            
                                                         <div class="input-group">
                                                             {{ form_widget(formulario.data_nascimento , { 'attr': {'class' : 'form-control input-mask-date'} }) }}
                                                         </div>
-
+                                                    </div> 
                                                         <div class="form-group">
                                                             {#{{ form_row(formulario.nome) }}#}
 
                                                             <label class="col-sm-3 control-label"> {{form_label(formulario.sex)}} <label class="obligatorio">&nbsp;*</label></label>                                                        
                                                             <div class="input-group">
-                                                                {{ form_widget(formulario.sex, { 'attr': {'class' : 'form-control input-mask-date'} }) }}
+                                                                {{ form_widget(formulario.sex, { 'attr': {'class' : 'form-control'} }) }}
                                                             </div> 
                                                         </div>
 
-                                                    </div>                                                   
+                                                                                                      
 
 
                                                     {#{{form_row(formulario.nProblemasSaude)}}#}
@@ -349,14 +348,17 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 if (!$('#validation-form').valid())
                     return false;
             }*/
-            if (info.step) {
+            if (info.step && !$('#validation-form').valid()) {
                 //alert(info.step);
+                alert('Erros no formulario');
+                return false;
             }
         }).on('finished', function (e) {
-            if($('div').is('.help-block')){
-                alert('Tem erros na ficha cadastrada, voce tem que corregir-os');
+            if(!$('#validation-form').valid()){
+                alert('Erros no formulario');
                 return false;                
-            }else if(validar()){
+            }
+            else if(validar()){
             var formdata = $('form[name=ficha]').serialize();
             var path = "{{ path('daily_work_homepage') }}";
 
@@ -484,6 +486,10 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
             return this.optional(element) || /^\(\d{2}\) \d{9}( x\d{1,9})?$/.test(value);
         }, "Enter a valid phone number.");
         
+        $.validator.addMethod("paciente_type_data_nascimento", function(value, element) {
+                return value.match(/^\d\d?\/\d\d?\/\d\d\d\d$/);
+        }, "Please enter a date in the format dd/mm/yyyy.");
+        
         /*jQuery.validator.addMethod("p_email", function (value, element) {
             return this.optional(element) || /^.+@.com.br$/.test(value);
         }, "Email invalido by Kruz.");*/
@@ -491,22 +497,44 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         $('#validation-form').validate({
             errorElement: 'div',
             errorClass: 'help-block',
-            focusInvalid: true,
+            focusInvalid: false,
             rules: { 
                 //email
                 'paciente_type[responsavels][0][email]': {
                     required: true,
                     email: true
                 },
+                'paciente_type[responsavels][1][email]': {
+                    required: true,
+                    email: true
+                },
                 /*name: {
                     required: true
                 },*/
+                'paciente_type[nome]': {
+                    required: true
+                },
+                'paciente_type[sex]': {
+                    required: true
+                },
                 'paciente_type[responsavels][0][nome]': {
                     required: true
                 },
-                phone: {
+                'paciente_type[responsavels][1][nome]': {
+                    required: true
+                },
+                'paciente_type[data_nascimento]':{
+                    required: true
+                },
+                /*phone: {
                     required: true,
                     phone: 'required'
+                },*/
+                'paciente_type[responsavels][0][telefContato]': {
+                    required: true
+                },
+                'paciente_type[responsavels][1][telefContato]': {
+                    required: true
                 },
                 comment: {
                     required: true
@@ -525,15 +553,24 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
             },
             messages: {
                 'paciente_type[responsavels][0][email]': {
-                    required: "Please provide a valid email11.",
-                    email: "Please provide a valid email222."
+                    required: "Em branco, entre um email correto",
+                    email: "Erro, entre um email correto"
+                },
+                'paciente_type[responsavels][1][email]': {
+                    required: "Em branco, entre um email correto",
+                    email: "Erro, entre um email correto"
                 },
                 password: {
                     required: "Please specify a password.",
                     minlength: "Please specify a secure password."
                 },
-                'paciente_type[responsavels][0][nome]': "Por favor preencher o nome do responsável.",
-            
+                'paciente_type[nome]': "Por favor deve preencher o nome do paciente",
+                'paciente_type[sex]':"Por favor deve selecionar o sexo corretamente",
+                'paciente_type[responsavels][0][nome]': "Por favor deve preencher o nome do responsável",
+                'paciente_type[responsavels][1][nome]': "Por favor deve preencher o nome do responsável",
+                'paciente_type[responsavels][0][telefContato]': "Por favor deve preencher o telefone de contato",
+                'paciente_type[responsavels][1][telefContato]': "Por favor deve preencher o telefone de contato",
+                'paciente_type[data_nascimento]':"Por favor deve preencher a data de nacimento",            
                 subscription: "Please choose at least one option",
                 gender: "Please choose gender",
                 agree: "Please accept our policy"

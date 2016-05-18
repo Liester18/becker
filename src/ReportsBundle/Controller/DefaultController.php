@@ -36,12 +36,15 @@ class DefaultController extends Controller {
         $p = 0;
         $p_ant = 0;
         $r_ant = "";
-        foreach ($po as $k=>$v) {          
-            if($p_ant == $v["paciente_id"] && $r_ant != $v["responsavel_id"]){
+        foreach ($po as $k=>$v) {
+            $final2[$p]["r_info"]= "-3";
+            if($p_ant == $v["paciente_id"] && $r_ant != $v["responsavel_id"]){                
                 $p--;
+                //$final2[$p]["p_id"] = $p_ant;
+                $final2[$p]["r_info"]= "-2";
                 $final2[$p]["r_id2"] = $v["responsavel_id"];
                 $final2[$p]["n_resp2"] = $v["nome_resp"];
-                $final2[$p]["e_resp2"] = $v["email"];
+                $final2[$p]["e_resp2"] = $v["email"];               
                 
             }else{
                 $final[$p]["p_id"] = $v["paciente_id"];                        
@@ -54,7 +57,7 @@ class DefaultController extends Controller {
             $p_ant = $v["paciente_id"];
             $r_ant = $v["responsavel_id"];          
         }
-        $pos=0;
+        /*$pos=0;
         foreach ($final2 as $k=>$v){
             if($pos != $k){                
                 while ($pos != $k){
@@ -63,8 +66,8 @@ class DefaultController extends Controller {
                 }
             }
             $pos++;
-        }
-        $final2[-1]["pfinal"] = $pos;
+        }*/
+        $final2[-1]["pfinal"] = count($final2);
         //var_dump($final2); die();
         return $this->render('ReportsBundle:Default:dashboard.html.twig', array('last_username' => $sesion->get(SecurityContext::LAST_USERNAME), 'error' => $error, 'p'=> $final, 'p2'=> $final2));
     }
