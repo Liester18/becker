@@ -64,9 +64,6 @@
     top: 5px;
     left: 4px;
 }
-#paciente_type_sex{
-    margin: 0 0 0 12%;
-}
 #paciente_type_data_nascimento{
     margin-bottom: 9%;
 }
@@ -157,6 +154,16 @@ tfoot tr th input{
 }
 .dere_b input{
     display: none;
+}
+.help-block{
+    color: #d16e6c !important;
+    margin-left: 20%;
+}
+/*.form-group{
+    width: 70%;
+}*/
+.tl .help-block{
+    margin-left: -6%;
 }
 
 
