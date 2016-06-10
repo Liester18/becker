@@ -118,7 +118,18 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                                
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >Segundo Telefone de Contato</label></label>
 
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{ form_widget(formulario.responsavels[0].telefContato_2, { 'attr': {'class' : 'input-mask-phone'} }) }}
+                                                                <i class="icon-phone"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                     <div class="form-group tl">
                                                         <label class="col-sm-3 control-label no-padding-right" for="form-field-email" >E-mail<label class="obligatorio">&nbsp;*</label>                                                                  <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
                                                         </label>
@@ -192,6 +203,18 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <div class="form-group tl">
+                                                        <label class="col-sm-3 control-label no-padding-right" for="form-field-phone" >Segundo Telefone de Contato</label></label>
+
+
+                                                        <div class="col-sm-9">
+                                                            <span class="input-icon input-icon-right">
+                                                                {{ form_widget(formulario.responsavels[1].telefContato_2, { 'attr': {'class' : 'input-mask-phone'} }) }}
+                                                                <i class="icon-phone"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>       
 
                                                     <div class="form-group tl">
                                                         <label class="col-sm-3 control-label no-padding-right" for="form-field-email" > E-mail <label class="obligatorio">&nbsp;*</label>                                                                  <i class="smaller-60 icon-vertical-aling-bottom tooltip-obligatorio" data-placement="right" data-rel="tooltip"></i>
@@ -353,14 +376,14 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 alert('Erros no formulario');
                 return false;
             }
-        }).on('finished', function (e) {
+        }).on('finished', function (e) {alert($('#validation-form').valid());
             if(!$('#validation-form').valid()){
                 alert('Erros no formulario');
                 return false;                
             }
             else if(validar()){
             var formdata = $('form[name=ficha]').serialize();
-            var path = "{{ path('daily_work_homepage') }}";
+            var path = "{{ path('daily_work_homepage2') }}";
 
             $.ajax({
                 type: "POST",

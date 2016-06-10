@@ -28,6 +28,7 @@ class ResponsavelType extends AbstractType{
                 ->add('nome', 'text')
                 ->add('ocupacao')
                 ->add('telefContato', 'text',  array('label' => 'Telef de Contato'))
+                ->add('telefContato_2', 'text',  array('label' => '2do Telef de Contato'))
                 ->add('email', 'email')
                 ->add('endereco', new EnderecoType(), array(
                     'label' => false,

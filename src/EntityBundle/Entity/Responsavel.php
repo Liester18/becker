@@ -42,7 +42,14 @@ class Responsavel {
      * @ORM\Column(name="telef_contato", type="string", nullable=true)
      */
     private $telefContato;
-
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="telef_contato_2", type="string", nullable=true)
+     */
+    private $telefContato_2;
+    
     /**
      * @var string
      *
@@ -152,6 +159,28 @@ class Responsavel {
     public function getTelefContato() {
         return $this->telefContato;
     }
+    
+     /**
+     * Set telefContato_2
+     *
+     * @param integer $telefContato
+     * @return Responsavel
+     */
+    public function setTelefContato2($telefContato) {
+        $this->telefContato_2 = $telefContato;
+
+        return $this;
+    }
+
+    /**
+     * Get telefContato_2
+     *
+     * @return integer 
+     */
+    public function getTelefContato2() {
+        return $this->telefContato_2;
+    }
+
 
     /**
      * Set email

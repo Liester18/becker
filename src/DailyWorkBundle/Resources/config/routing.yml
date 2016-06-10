@@ -1,6 +1,10 @@
 daily_work_homepage:
     path:     /
     defaults: { _controller: DailyWorkBundle:Default:index }
+
+daily_work_homepage2:
+    path:     /xss/
+    defaults: { _controller: DailyWorkBundle:Default:index2 }    
     
 actualizar_probsaude:
     path: /dw/update/
