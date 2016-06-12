@@ -90,8 +90,15 @@
                                                             {{ form_widget(formulario.data_nascimento, { 'attr': {'class' : 'form-control input-mask-date'} }) }}
                                                         </div>
                                                     </div>
+                                                          <div class="form-group">
+                                                        
 
-
+                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.sex)}} <label class="obligatorio">&nbsp;*</label></label>                                                        
+                                                        <div class="input-group">
+                                                            {{ form_widget(formulario.sex, { 'attr': {'class' : 'form-control'} }) }}
+                                                        </div> 
+                                                    </div>
+                                                       
                                                 </div>
 
 
@@ -277,7 +284,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label"> {{form_label(formulario.problemas_posparto)}} </label>
+                                                        <label class="col-sm-3 control-label"> Problema p&oacute;s parto </label>
                                                         {{form_widget(formulario.problemas_posparto, { 'attr': {'class' : 'autosize-transition', 'style':'overflow: hidden; word-wrap: break-word; resize: horizontal;height:92px;width: 60%;'} }) }}
                                                     </div>
 
@@ -287,30 +294,20 @@
                                                     </div>
 
 
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label class="col-sm-5 control-label l_artif">
-                                                                {{form_widget(formulario.leite_artificial, { 'attr': {'class' : 'ace '} }) }}
-                                                                <!--<input type="checkbox" class="ace" name="form-field-checkbox">-->
-                                                                <span class="lbl">{{form_label(formulario.leite_artificial)}}</span>
-                                                            </label>
-                                                            <label class="col-sm-2 control-label l_mat_ex">
-                                                                {{form_widget(formulario.leite_materno_exclusivo, { 'attr': {'class' : 'ace'} }) }}
-                                                                <!--<input type="checkbox" class="ace" name="form-field-checkbox">-->
-                                                                <span class="lbl">{{form_label(formulario.leite_materno_exclusivo)}}</span>
-                                                            </label>
-                                                        </div>
+                                                   <div class="form-group">
+                                                        <label class="col-sm-3 control-label"> Leite </label>
+                                                        {{form_widget(formulario.leite_materno_exclusivo, { 'attr': {'class' : 'col-xs-10 col-sm-5'} }) }}
                                                     </div>
-
-
+                                                   
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label">  {{form_label(formulario.leite_materno_idade)}}   </label>
+                                                        <label class="col-sm-3 control-label " id = "idade">  &iquest;At&eacute; que idade?   </label>
                                                         <div class="ace-spinner" style="width: 70px;">
                                                             <div class="input-group">
                                                                 {{form_widget(formulario.leite_materno_idade, { 'attr': {'class' : 'input-mini spinner-input form-control'} }) }}
                                                             </div>
                                                         </div>
                                                     </div>
+                                                   
                                                 </div>
                                                 <div class="step-pane" id="step5" data-prototype="{{ form_widget(formulario.paciente_problemasSaude.vars.prototype)|e }}">
 
@@ -820,7 +817,29 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         // add a new tag form (see next code block)
         addTagForm2($collectionHolder2, $newLinkLi2);             
         });
+        
+          $("#paciente_type_leite_materno_idade").hide();
+        $("#idade").hide();
+
+        onSelectChange();
+        
+        $("#paciente_type_leite_materno_exclusivo").change(onSelectChange);
     });
+    
+    function onSelectChange() {
+        var v = $("#paciente_type_leite_materno_exclusivo").val();
+        
+       
+        if(v == 2){
+             $("#paciente_type_leite_materno_idade").show();
+             $("#idade").show();
+        }
+        else{
+              $("#paciente_type_leite_materno_idade").hide();
+              $("#idade").hide();
+        }
+    }
+    
     function addTagForm2($collectionHolder2, $newLinkLi2) {
         // Get the data-prototype explained earlier
         var prototype2 = $collectionHolder2.data('prototype');
