@@ -102,7 +102,7 @@ class Paciente
     /**
      * @var \TipoParto
      *
-     * @ORM\ManyToOne(targetEntity="TipoParto", inversedBy="paciente",cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="TipoParto", inversedBy="paciente",cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="tipoParto", referencedColumnName="idtipoparto")
      * })
