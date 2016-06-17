@@ -9,13 +9,11 @@ $(document).ready(function() {
             $('#paciente_type_responsavels_1_endereco_cep').val('');
             $('#chk_resp2').val(1);
         }else if (!$(this).is(':checked')) {
-            $('#step2').finish();
-            
             $('#contenedor_st3').hide();
-                var nome_r0 = $('#paciente_type_responsavels_0_nome').val();alert(nome_r0);
-                var tel_r0 = $('#paciente_type_responsavels_0_telefContato').val();alert(tel_r0);
-                var email_r0 = $('#paciente_type_responsavels_0_email').val();alert(email_r0);
-                var cep_r0 = $('#paciente_type_responsavels_0_endereco_cep').val(); alert(cep_r0);
+                var nome_r0 = $('#paciente_type_responsavels_0_nome').val();
+                var tel_r0 = $('#paciente_type_responsavels_0_telefContato').val();
+                var email_r0 = $('#paciente_type_responsavels_0_email').val();
+                var cep_r0 = $('#paciente_type_responsavels_0_endereco_cep').val(); 
                 $('#paciente_type_responsavels_1_nome').val(nome_r0);
                 $('#paciente_type_responsavels_1_telefContato').val(tel_r0);
                 $('#paciente_type_responsavels_1_email').val(email_r0);
