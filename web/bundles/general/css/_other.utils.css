@@ -165,5 +165,13 @@ tfoot tr th input{
 .tl .help-block{
     margin-left: -6%;
 }
+.dher{
+    margin-left: 15%;
+}
+.paciente_salud, .fg{
+    padding-bottom: 5px;
+    border-bottom: 1px solid lightgray;
+    padding-top: 10px;
+}
 
 

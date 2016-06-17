@@ -50,7 +50,7 @@ class PacienteType extends AbstractType {
                     'choices' => array(
                         'SELECIONAR' => 'placeholder',
                         'Artificial' => false,
-                        'Materno' => true,
+                        'Materno' => false,
                     ),
                     // *this line is important*
                     'choices_as_values' => true,

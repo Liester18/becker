@@ -358,7 +358,7 @@
                                                             <label class="col-sm-3 control-label"> {{form_label(pc.cuidado)}} </label>
                                                             {{form_widget(pc.cuidado, { 'attr': {'class' : 'col-xs-10 col-sm-1'} }) }}
                                                         </div>
-
+                                                        <hr />    
                                                         </div>
 
 
@@ -533,6 +533,8 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 .on('change', function () {
                     $(this).closest('form').validate().element($(this));
                 });
+                
+            
 
 
         var $validation = false;
@@ -709,7 +711,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
     //para los problemas de saude.
     var $collectionHolder;
     // setup an "add a tag" link
-    var $addTagLink = $('<a href="#" class="add_tag_link">Novo problema de saude</a>');
+    var $addTagLink = $('<i class="icon-plus dher"></i>&nbsp;&nbsp;<a href="#" class="add_tag_link">Novo problema de saude</a>');
     //var $newLinkLi = $('<li></li>').append($addTagLink);
     var $newLinkLi = $('<div class="form-group"></div>').append($addTagLink);
 
@@ -732,6 +734,9 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         })
                 
         
+        $('#paciente_type_paciente_problemasSaude_0_problemaSaude').select().val(9);
+        $('#paciente_type_paciente_cuidados_0_cuidado').css('width', '100px');
+        $('#paciente_type_paciente_cuidados_0_cuidado').select().val(5);
         
         //alert($collectionHolder.html());
         
@@ -761,6 +766,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 //mio Kruz
                 $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').parent().css('margin-left', '-0.3%');
                 $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').css('height','92px').css('width', '65%');
+                $('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').select().val(9); 
                 
                 $('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').on('change', function (e){                    
                     if($('#paciente_type_paciente_problemasSaude_'+ index +'_problemaSaude option:selected').text() == 'Broncoespasmo/Bronquite'){                        
@@ -776,7 +782,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
     }
 
     function addTagFormDeleteLink($tagFormLi) {
-        var $removeFormA = $('<a href="#">Apagar problema de saude</a><br /><br />');
+        var $removeFormA = $('<i class="icon-trash bigger-110 red">&nbsp;</i><a href="#">Apagar problema de saude</a><br /><br />');
         $tagFormLi.append($removeFormA);
         $removeFormA.on('click', function(e) {
             // prevent the link from creating a "#" on the URL
@@ -796,7 +802,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
     //para los cuidados.
     var $collectionHolder2;
     // setup an "add a tag" link
-    var $addTagLink2 = $('<a href="#" class="add_tag_link2">Novo cuidado</a>');
+    var $addTagLink2 = $('<i class="icon-plus dher"></i>&nbsp;&nbsp;<a href="#" class="add_tag_link2">Novo cuidado</a>');
     var $newLinkLi2 = $('<div class="form-group"></div>').append($addTagLink2);
 
     jQuery(document).ready(function() {
@@ -858,6 +864,8 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 //mio Kruz
                 $('#paciente_type_paciente_cuidados_'+index2).css('margin-left', '14.5%');
                 $('#paciente_type_paciente_cuidados_'+index2+'_cuidado').parent().css('margin-left', '4.8%');
+                $('#paciente_type_paciente_cuidados_'+index2+'_horas').css('width', '60px');
+                $('#paciente_type_paciente_cuidados_'+index2+'_cuidado').select().val(5);
                 //$('#paciente_type_paciente_cuidados_'+index2+'_horas').addClass('input-small spinner-input form-control');
                 //$('#paciente_type_paciente_problemasSaude_'+index2+'_detalhes_psalud').css('height','92px').css('width', '65%');
                 
@@ -866,7 +874,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
     }
 
     function addTagFormDeleteLink2($tagFormLi2) {
-        var $removeFormA2 = $('<a href="#">Apagar cuidado</a><br /><br />');
+        var $removeFormA2 = $('<i class="icon-trash bigger-110 red">&nbsp;<a href="#">Apagar cuidado</a><br /><br />');
         $tagFormLi2.append($removeFormA2);
         $removeFormA2.on('click', function(e) {
             // prevent the link from creating a "#" on the URL
