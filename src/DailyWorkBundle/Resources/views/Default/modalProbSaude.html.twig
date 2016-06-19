@@ -24,7 +24,7 @@
             </div>
             <div class="widget-body">
                 <div class="widget-main">
-                    <dt>
+                    <dt class="row">
                     {% if new == false %}
                         {{ form_widget(modal.problemaSaude,{'attr':{'class':'hidden'}}) }}
                         <p class="alert alert-success">
@@ -32,10 +32,22 @@
                         </p>
                     {% endif %}
                     {% if new == true %}
-                        {{ form_widget(modal.problemaSaude) }}
+                        <div id="control-select-add-new">
+                            <div id="alternative-input">
+                                &nbsp;&nbsp;
+                                <input id="input-prob-saude" type="text" list="prob-sau" url="{{path('add_prob_saude_url')}}"/>
+                                <datalist id="prob-sau">
+                                </datalist>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                Edade de diagn&oacute;stico
+                                &nbsp;&nbsp;
+                                {{ form_widget(modal.edadeDiagnostico) }}
+                            </div>
+                            <div id="select-form-input">
+                                {{ form_widget(modal.problemaSaude) }}
+                            </div>
+                        </div>
                     {% endif %}
-                    Edade de diagn&oacute;stico
-                    {{ form_widget(modal.edadeDiagnostico) }}
                     </dt>
                 </div>
             </div>
@@ -59,3 +71,9 @@
     </div>
     {{ form_row(modal._token) }}
 </form>
+<script type="text/javascript">
+    $('#select-form-input').hide();
+    $('#paciente_problemassaudetype_problemaSaude option').each(function(){
+        $('#prob-sau').append("<option>"+$(this).html()+"</option>");
+    });
+</script>

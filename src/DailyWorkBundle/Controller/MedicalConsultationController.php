@@ -9,6 +9,7 @@ use DailyWorkBundle\Form\Consulta\ConsultaType;
 use DailyWorkBundle\Form\ProblemasSaude\Paciente_ProblemasSaudeType;
 use DailyWorkBundle\Form\Responsavel_F\PacienteResponsavelsType;
 use Symfony\Component\HttpFoundation\Response;
+use DailyWorkBundle\Form\ProblemasSaude\ProblemasSaudeType;
 
 class MedicalConsultationController extends Controller {
 
@@ -40,16 +41,15 @@ class MedicalConsultationController extends Controller {
                     'paciente' => $paciente
                 ));
                 
-
                 $response = array('status' => 'OK', 'html' => $html);
                 $resp = json_encode($response);
                 return new Response($resp, 200);
             } else {
-                $html = $this->render('DailyWorkBundle:Default:consultaPaciente.html.twig', array(
+                $html = $this->renderView('DailyWorkBundle:Default:diagnostico.html.twig', array(
                     'formulario' => $formulario->createView(),
                     'paciente' => $paciente
                 ));
-                $response = array('status' => 'ERROR', 'html' => $html);
+                $response = array('status' => 'OK', 'html' => $html);
                 $resp = json_encode($response);
                 return new Response($resp, 200);
             }
@@ -274,24 +274,18 @@ class MedicalConsultationController extends Controller {
         return new \Symfony\Component\HttpFoundation\Response($resp, 200);
     }
 
-    public function consultasViewAction($id_paciente, $page) {
+    public function consultasViewAction($id_paciente) {
         $em = $this->getDoctrine()->getManager();
         $docQuery = $em->createQuery('SELECT c FROM EntityBundle:Consulta c JOIN c.paciente p WHERE p.idPaciente = ' . $id_paciente .
                 ' ORDER BY c.data DESC');
-        $docQuery->setFirstResult($page * 10 - 10);
-        $docQuery->setMaxResults(10);
+        
         #$docQuery->addOrderBy("c.data", "ASC");
         $consultas = $docQuery->getResult();
 
-        $html = $this->renderView('DailyWorkBundle:Default:modalConsultasPacientes.html.twig', array(
+        $html = $this->renderView('DailyWorkBundle:Default:consultas_Paciente.html.twig', array(
             'consultas' => $consultas));
 
-        $paciente = $em->getRepository('EntityBundle:Paciente')->findOneBy(Array('idPaciente' => $id_paciente));
-        $title = $this->renderView('DailyWorkBundle:Default:titleModalConsultasPacientes.html.twig', array(
-            'paciente' => $paciente
-        ));
-
-        $response = array('html' => $html, 'title' => $title);
+        $response = array('html' => $html, 'status'=>'OK');
         $resp = json_encode($response);
         return new \Symfony\Component\HttpFoundation\Response($resp, 200);
     }
@@ -314,26 +308,30 @@ class MedicalConsultationController extends Controller {
                 $resp = json_encode($response);
                 return new Response($resp, 200);
             } else {
-                $html = $this->renderView('DailyWorkBundle:Default:modalOneConsultaPaciente.html.twig', array(
-                    'modal' => $formModal->createView(), 
-                    'consulta' => $consulta));
-                $title = $this->renderView('DailyWorkBundle:Default:titleModalOneConsultaPaciente.html.twig', array(
-                    'consulta' => $consulta
-                ));
-                $response = array('status' => 'ERROR', 'title' => $title, 'html' => $html);
+                
+                $response = array('status' => 'ERROR');
                 $resp = json_encode($response);
                 return new \Symfony\Component\HttpFoundation\Response($resp, 200);
             }
         }
-        $html = $this->renderView('DailyWorkBundle:Default:modalOneConsultaPaciente.html.twig', array(
+        $html = $this->renderView('DailyWorkBundle:Default:showPatientConsulta.html.twig', array(
             'modal' => $formModal->createView(), 
+            'id_consulta' => $id_consulta,
             'consulta' => $consulta));
-        $title = $this->renderView('DailyWorkBundle:Default:titleModalOneConsultaPaciente.html.twig', array(
-            'consulta' => $consulta
-        ));
-        $response = array('title' => $title, 'html' => $html);
+        
+        $response = array('status' => 'OK', 'html' => $html);
         $resp = json_encode($response);
         return new \Symfony\Component\HttpFoundation\Response($resp, 200);
     }
-
+    public function addProbSauAction($probsaude){
+        $prob = new \EntityBundle\Entity\ProblemasSaude();
+        $prob->setNombrePsaude($probsaude);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($prob);
+        $em->flush();
+        $response = array('status' => 'OK', 'number' => $prob->getIdProblemasSaude());
+        $resp = json_encode($response);
+        return new \Symfony\Component\HttpFoundation\Response($resp, 200);
+    }
 }

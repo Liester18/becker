@@ -24,7 +24,7 @@ class ConsultaType extends AbstractType{
         parent::buildForm($builder, $options);
 
         $builder->add('data','date', array('label' => 'Data da consulta',
-            'format' => 'dd-MM-yyyy', 'widget' => 'single_text'))
+            'format' => 'dd-MM-yyyy', 'widget' => 'single_text','required'=>true))
                 ->add('observacao','textarea', array('label' => 'Observações'))
                 ->add('receita','textarea', array('label' => 'Receita'));
     }

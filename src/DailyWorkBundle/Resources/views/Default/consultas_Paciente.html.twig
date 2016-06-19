@@ -1,0 +1,36 @@
+<div class="table-responsive">
+    <div class="widget-box row" >
+        <div class="widget-header">
+                <h4>Listadas de consultas por data</h4>
+        </div>
+        <div class="widget-body" style="padding-top: 5px;">
+            <div class="row" style="padding-top: 5px;">
+                <button type="button" class="btn btn-info btn-xs btn-back" >Voltar</button><br/>
+            </div>
+            <ul class="row list-group select-cursor overflow-y-scroll" style="overflow-y:auto; padding-top: 5px;">
+                {% for c in consultas %}
+                    <li class="alert-info list-group-item "> 
+                        <a href="#" class="my-consulta" url="{{path('one_consulta_url')}}" id-cons="{{c.getIdConsulta()}}">
+                            {{c.getData().format("Y-m-d")}} 
+                        </a>
+                        <div class="dd2-content no-hover" style="word-break:break-all;">
+                            {{ c.getObservacao()|length > 100 ? c.getObservacao()|slice(0, 100) ~ '...' : c.getObservacao()  }}
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="row align-left" style="padding-top: 5px; padding-bottom: 5px;">
+                <button type="button" class="btn btn-info btn-xs btn-back" >Voltar</button><br/>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('.my-consulta').unbind('click');
+    $('.my-consulta').click(ViewOneConsulta);
+    $('.btn-back').click(function(){
+        $('#list_diagnostic').hide();
+        $('#new_diagnostic').show();
+    });
+    
+</script>

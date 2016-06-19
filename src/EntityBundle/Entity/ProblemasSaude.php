@@ -17,7 +17,7 @@ class ProblemasSaude
      *
      * @ORM\Column(name="id_problemassaude", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="SEQUENCE")
+     * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\SequenceGenerator(sequenceName="n_problemas_saude_id_problemas_saude_seq", allocationSize=1, initialValue=1)
      */
     private $idProblemasSaude;

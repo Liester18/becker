@@ -60,7 +60,7 @@ view_consulta_url:
     path: /cons/
 
 view_consulta: 
-    path: /cons/{id_paciente}/{page}
+    path: /cons/{id_paciente}/
     defaults: { _controller: DailyWorkBundle:MedicalConsultation:consultasView }
 
 one_consulta_url:
@@ -80,5 +80,11 @@ atendimento_seg:
 
 to_reports:
     path:    /torep/
-    defaults: { _controller: DailyWorkBundle:Default:toRep}    
+    defaults: { _controller: DailyWorkBundle:Default:toRep}   
+    
+add_prob_saude_url:
+    path: /addps/
 
+add_prob_saude:
+    path: /addps/{probsaude}
+    defaults: { _controller: DailyWorkBundle:MedicalConsultation:addProbSau}

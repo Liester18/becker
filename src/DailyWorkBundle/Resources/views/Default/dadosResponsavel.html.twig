@@ -84,12 +84,15 @@
                                                 {%endif%}
                                                 {% if hFlag == false%}
                                                     <div class="widget-header widget-header-small header-color-blue" style="background-color: #6FB3E0 !important; border: none">
-                                                        <label class="control-label"> Telefone para contato</label>
+                                                        <label class="control-label"> Telefones para contato</label>
                                                     </div>
                                                 {%endif%}
                                                 <div class="widget-body">
                                                     <div class="dd2-content no-hover">
                                                         {{oresponsavel.getResponsavel().getTelefContato()}}
+                                                    </div>
+                                                    <div class="dd2-content no-hover">
+                                                        {{oresponsavel.getResponsavel().getTelefContato2()}}
                                                     </div>
                                                 </div>
                                             </div>

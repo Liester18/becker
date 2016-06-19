@@ -3,6 +3,7 @@
 namespace EntityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Responsavel
@@ -54,6 +55,7 @@ class Responsavel {
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     *  @Assert\Email( message = "Email invalido")
      */
     private $email;
 

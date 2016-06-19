@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: 'C:\Bitnami\wappstack-5.6.20-1\apache2\htdocs\becker\app/config/routing_dev.yml'

@@ -124,22 +124,23 @@ function ConsultaDados() {
     var url = $(this).attr('url');
 
     var json = {
-        'consultatype[observacao]': $('#editor1').html(),
-        'consultatype[receita]': $('#editor2').html(),
+        'consultatype[observacao]': $('#diagnostico').val(),
+        'consultatype[receita]': $('#receita_medica').val(),
         'consultatype[data]': $('#consultatype_data').val(),
         'consultatype[_token]': $('#consultatype__token').attr('value')
     };
 
     $.post(url + id, json, function (data) {
         if (data.status == 'OK') {
-            $('#my-consulta').html(data.html);
+            $('#diagnostico-form').html(data.html);
         }
         else {
             alert('Fail');
         }
-        //my_init_consulta();
+        my_init_consulta();
     }, 'json');
 }
+
 function NewModalProbSaude() {
     var id = $(this).attr('idPaciente');
     var url = $(this).attr('url');
@@ -169,17 +170,71 @@ function NewModalProbSaude() {
                     },
                     "callback": function () {
                         var result = true;
-                        $.post(url + id, $('.my-form').serialize(), function (data) {
-                            if (data.status == 'OK') {
-                                $('#prob_saude_container').html(data.html);
-                                my_init_consulta();
+                        var val = $('#input-prob-saude').val();
+                        var found = 0;
+                        var selectProblema = $('#paciente_problemassaudetype_problemaSaude');
+                        $('#paciente_problemassaudetype_problemaSaude option').each(function(){
+                            if($(this).html()==val){
+                                found = $(this).val();
                             }
-                            else {
-                                $('.bootbox-body').html(data.html);
-                                my_init_consulta();
-                                result = false;
-                            }
-                        }, 'json');
+                        });
+                        //$('#solution').attr('edade',$('#paciente_problemassaudetype_edadeDiagnostico').val());
+                        //$('#solution').attr('detalhe',$('#paciente_problemassaudetype_detalhes_psalud').val());
+                        var edade=$('#paciente_problemassaudetype_edadeDiagnostico').val();
+                        var detalhe=$('#paciente_problemassaudetype_detalhes_psalud').val();
+                        var token =$('#paciente_problemassaudetype__token').val();
+                        if(found!=0){
+                            //selectProblema.val(found);
+                            var json1 = {
+                                "paciente_problemassaudetype[edadeDiagnostico]":edade,
+                                "paciente_problemassaudetype[detalhes_psalud]":detalhe,
+                                "paciente_problemassaudetype[_token]":token,
+                                "paciente_problemassaudetype[problemaSaude]":found,
+                            };
+                            $.post(url + id, json1, function (data) {
+                                if (data.status == 'OK') {
+                                    $('#prob_saude_container').html(data.html);
+                                    my_init_consulta();
+                                }
+                                else {
+                                    $('.bootbox-body').html(data.html);
+                                    my_init_consulta();
+                                    result = false;
+                                }
+                            }, 'json');
+                            return result;
+                        }
+                        else{
+                            var url1 = $('#input-prob-saude').attr("url");
+                            var json = {};
+                            $.get(url1 + $('#input-prob-saude').val(), json, function (data) {
+                                if (data.status == 'OK') {
+                                    
+                                    var json2 = {
+                                        "paciente_problemassaudetype[edadeDiagnostico]":edade,
+                                        "paciente_problemassaudetype[detalhes_psalud]":detalhe,
+                                        "paciente_problemassaudetype[_token]":token,
+                                        "paciente_problemassaudetype[problemaSaude]":data.number
+                                    };
+                                    $.post(url + id, json2, function (data) {
+                                        if (data.status == 'OK') {
+                                            $('#prob_saude_container').html(data.html);
+                                            my_init_consulta();
+                                        }
+                                        else {
+                                            $('.bootbox-body').html(data.html);
+                                            my_init_consulta();
+                                            result = false;
+                                        }
+                                    }, 'json');
+                                    return result;
+                                }
+                                else {
+                                    alert("error");
+                                }
+                            }, 'json');
+                        }
+                        
                         return result;
                     }
                 }
@@ -304,96 +359,46 @@ function EditPaciente() {
     return false;
 }
 ;
-
-function ViewConsultas(){
-    var id = $(this).attr('my-id');
-    var url = $(this).attr('url');
+function UpdateConsultasList(){
+    var id = $('#my-consultas').attr('my-id');
+    var url = $('#my-consultas').attr('url');
     var json = {
     };
-    $.get(url + id+'/'+'1', json, function (data) {
-        bootbox.dialog({
-            modal: true,
-            title: data.title,
-            title_html: true,
-            message: data.html,
-            buttons: [
-                {
-                    "label": "Cancel",
-                    "class": "btn btn-xs",
-                    "click": function () {
-                    },
-                    callback: function () {
-                    }
-                },
-                {
-                    "label": "OK",
-                    "class": "btn btn-primary btn-xs",
-                    "click": function () {
-                        //$(this).dialog("close");
-                    },
-                    "callback": function () {
-                        var result = true;
-                        $.post(url + id, $('.my-form').serialize(), function (data) {
-                            if (data.status == 'OK') {
-                                my_init_consulta();
-                            }
-                            else {
-                                my_init_consulta();
-                                result = false;
-                            }
-                        }, 'json');
-                        return result;
-                    }
-                }
-            ]
-        });
+    $.get(url + id+'/', json, function (data) {
+        if(data.status == 'OK'){
+            $('#list_diagnostic').html(data.html);
+        }
+        else{
+            alert('server error');
+        }
     }, 'json');
     my_init_consulta();
+}
+function ViewConsultas(){
+    UpdateConsultasList();
+    $('#new_diagnostic').hide();
+    $('#one_diagnostic_info').hide();
+    $('#list_diagnostic').show();
     return false;
 };
-
-function ViewOneConsulta(){
-    var id = $(this).attr('id-cons');
-    var url = $(this).attr('url');
+function ViewOneConsultaC(id, url){
     var json = {
     };
     $.get(url + id, json, function (data) {
-        bootbox.dialog({
-            modal: true,
-            title: data.title,
-            title_html: true,
-            message: data.html,
-            buttons: [
-                {
-                    "label": "Cancel",
-                    "class": "btn btn-xs",
-                    "click": function () {
-                    },
-                    callback: function () {
-                    }
-                },
-                {
-                    "label": "OK",
-                    "class": "btn btn-primary btn-xs",
-                    "click": function () {
-                        //$(this).dialog("close");
-                    },
-                    "callback": function () {
-                        var result = true;
-                        $.post(url + id, $('.my-form').serialize(), function (data) {
-                            if (data.status == 'OK') {
-                                my_init_consulta();
-                            }
-                            else {
-                                my_init_consulta();
-                                result = false;
-                            }
-                        }, 'json');
-                        return result;
-                    }
-                }
-            ]
-        });
+        if(data.status == 'OK'){
+            $('#new_diagnostic').hide();
+            $('#list_diagnostic').hide();
+            $('#one_diagnostic_info').html(data.html);
+            $('#one_diagnostic_info').show()();
+        }
+        else {
+            alert('error');
+        }
     }, 'json');
     return false;
+}
+function ViewOneConsulta(){
+    var id = $(this).attr('id-cons');
+    var url = $(this).attr('url');
+    ViewOneConsultaC(id, url);
 };

@@ -3,6 +3,7 @@
 namespace EntityBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Consulta
@@ -26,6 +27,7 @@ class Consulta
      * @var \DateTime
      *
      * @ORM\Column(name="data", type="date", nullable=false)
+     * @Assert\NotBlank( message = "A data inserida é invalida")
      */
     private $data;
 

@@ -1,0 +1,93 @@
+<form id="consulta-paciente-form" id-con="{{id_consulta}}" url="{{path('one_consulta_url')}}" class="my-form" onclick="" method="post">
+        <div>
+            <div class="widget-header">
+                <h4>Consulta</h4>
+            </div>
+            <div class="widget-body"> 
+                <div class="row btn-group consulta-group" style="padding-top: 10px;">
+                    <button  type="button" class="btn btn-info btn-xs btn-back-consulta" >Voltar</button>
+                    <button  type="button" class="btn btn-info btn-xs btn-edit-consulta" >Editar</button>
+                </div>
+                <div class="row btn-group consulta-edit-group" style="padding-top: 10px;">
+                    <button type="button" class="btn btn-info btn-xs btn-ok-consulta" >Aceptar</button>
+                    <button type="button" class="btn btn-info btn-xs btn-canc-consulta" >Cancelar</button>
+                </div>
+                <div class="row consulta-edit-group">
+                        <div class="col-xs-12 col-md-12">
+                            <h4 class="header green">
+                                Diagn&oacute;stico 
+                            </h4>
+                                {{ form_widget(modal.observacao, { 'attr': {'class' : 'dd2-content col-xs-12 col-sm-12'} }) }}
+                            <h4 class="header green">
+                                Receita medica
+                            </h4>
+                            {{ form_widget(modal.receita, { 'attr': {'class' : 'dd2-content col-xs-12 col-sm-12'} }) }}
+                        </div>
+                </div>
+                <div class="row consulta-group">
+                        <div class="col-xs-12 col-md-12">
+                            <h4 class="header green">
+                                Diagn&oacute;stico 
+                            </h4>
+                            <div class="dd2-content no-hover" style="word-break:break-all;">
+                                {{consulta.getObservacao()}}
+                            </div>
+                            <h4 class="header green">
+                                Receita medica
+                            </h4>
+                            <div class="dd2-content no-hover" style="word-break:break-all;">
+                                {{consulta.getReceita()}}
+                            </div>
+                        </div>
+                    </div>
+                <div class="row btn-group consulta-group" style="padding-top: 10px;">
+                    <button  type="button" class="btn btn-info btn-xs btn-back-consulta" >Voltar</button>
+                    <button  type="button" class="btn btn-info btn-xs btn-edit-consulta" >Editar</button>
+                </div>
+                <div class="row btn-group consulta-edit-group" style="padding-top: 10px;">
+                    <button type="button" class="btn btn-info btn-xs btn-ok-consulta" >Aceptar</button>
+                    <button type="button" class="btn btn-info btn-xs btn-canc-consulta" >Cancelar</button>
+                </div>            
+        </div>
+    </div>
+    <div id="rest_form">
+        {{ form_rest(modal) }}
+    </div>
+</form>
+<script type="text/javascript">
+    $('#rest_form').hide();
+    $('.my-consulta').unbind('click');
+    $('.my-consulta').click(ViewOneConsulta);
+    $('.consulta-edit-group').hide();
+    $('.btn-edit-consulta').click(function(){
+        $('.consulta-group').hide();
+        $('.consulta-edit-group').show();
+    });
+    $('.btn-back-consulta').click(function(){
+        $('#one_diagnostic_info').hide();
+        $('#new_diagnostic').hide();
+        $('#list_diagnostic').show();
+    });
+    $('.btn-canc-consulta').click(function(){
+        $('.consulta-group').show();
+        $('.consulta-edit-group').hide();
+    });
+    $('.btn-ok-consulta').click(function(){
+        var id = $('#consulta-paciente-form').attr('id-con');
+        var url = $('#consulta-paciente-form').attr('url');
+        $.post(url + id, $('#consulta-paciente-form').serialize(), function (data) {
+            if (data.status == 'OK') {
+                $('#one_diagnostic_info').hide();
+                $('#new_diagnostic').hide();
+                $('#list_diagnostic').show();
+                
+                ViewOneConsultaC(id, url);
+                UpdateConsultasList();
+            }
+            else {
+                alert('Error!!!');
+            }
+        }, 'json');
+    });
+    
+</script>

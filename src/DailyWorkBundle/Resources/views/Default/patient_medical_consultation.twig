@@ -1,0 +1,19 @@
+{# empty Twig template #}
+<div class="table-responsive">
+    <div class="widget-box">
+        <div class="widget-header">
+            <h5 class="smaller">Data</h5>
+        </div>
+        <div class="widget-body">
+            <div class="widget-main padding-6">
+                {% for c in consultas %}
+                    <div class="alert alert-info"> 
+                        <a href="#" class="my-consulta" url="{{path('one_consulta_url')}}" id-cons="{{c.getIdConsulta()}}">
+                            {{c.getData().format("Y-m-d")}} 
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

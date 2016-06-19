@@ -18,6 +18,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use DailyWorkBundle\Form\Endereco\EnderecoType;
+use Symfony\Component\Validator\Constraints\Email;
 
 class ResponsavelType extends AbstractType{
     
@@ -29,7 +30,7 @@ class ResponsavelType extends AbstractType{
                 ->add('ocupacao')
                 ->add('telefContato', 'text',  array('label' => 'Telef de Contato'))
                 ->add('telefContato_2', 'text',  array('label' => '2do Telef de Contato'))
-                ->add('email', 'email')
+                ->add('email', 'email', array('label' => 'E-mail'))
                 ->add('endereco', new EnderecoType(), array(
                     'label' => false,
                     'by_reference' => false,
