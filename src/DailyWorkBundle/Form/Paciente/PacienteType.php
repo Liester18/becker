@@ -48,9 +48,9 @@ class PacienteType extends AbstractType {
         ->add('problemas_posparto', 'textarea', array('required' => false))
         ->add('leite_materno_exclusivo', 'choice', array(
                     'choices' => array(
-                        'SELECIONAR' => 'placeholder',
+                        'SELECIONAR' => false,
                         'Artificial' => false,
-                        'Materno' => false,
+                        'Materno' => true,
                     ),
                     // *this line is important*
                     'choices_as_values' => true,
@@ -59,7 +59,7 @@ class PacienteType extends AbstractType {
         ->add('leite_materno_idade', 'number', array('required' => false))
         ->add('sex', 'choice', array('label' => 'Sexo',
                     'choices' => array(
-                        'SELECIONAR' => 'placeholder',
+                        'SELECIONAR' => false,
                         'M' => false,
                         'F' => true,
                     ),
