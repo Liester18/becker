@@ -2,6 +2,7 @@
 {% block javascripts_page %}
     <script src="{{ asset('bundles/general/js/bootbox.min.js')}}"></script>
     <script src="{{ asset('bundles/general/js/_others/consulta.js')}}"></script>
+    <script src="{{ asset('bundles/general/js/jquery.validate.min.js')}}"></script>
 {% endblock %} 
 {% block page_content %} 
     <div class="page-content">        
@@ -19,7 +20,7 @@
                                     <a data-toggle="tab" href="#task-tab">Consulta</a>
                                 </li>
                                 <li class="">
-                                    <a data-toggle="tab" href="#comment-tab">Dados Generais</a>
+                                    <a data-toggle="tab" href="#comment-tab">Dados dos respons&aacute;veis</a>
                                 </li>
                             </ul>
                         </div>
@@ -30,11 +31,21 @@
                                 <div id="task-tab" class="tab-pane active row">
                                     <div id="my-consulta" class="col-md-8 col-sm-8">
                                         {% include('DailyWorkBundle:Default:diagnostico.html.twig') %}
+                                        <div id="list_diagnostic">
+                                            
+                                        </div> 
+                                        <div id="one_diagnostic_info">
+                                            
+                                        </div>  
+                                        <script type="text/javascript">
+                                            $('#list_diagnostic').hide();
+                                            $('#one_diagnostic_info').hide();
+                                        </script>
                                     </div>
                                     <div class="col-md-4 col-sm-4">
-                                        <div id="paciente_container" >
-                                        {% include('DailyWorkBundle:Default:dadosPaciente.html.twig') %}
-                                        </div>
+                                        <!--<div id="paciente_container" >
+                                        {--% include('DailyWorkBundle:Default:dadosPaciente.html.twig') %}
+                                        </div>-->
                                         <div id="prob_saude_container" >
                                         {% include('DailyWorkBundle:Default:problemasDeSaude.html.twig') %}
                                         </div>

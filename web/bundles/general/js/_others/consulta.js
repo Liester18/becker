@@ -104,10 +104,51 @@ function EditResponsavelAction() {
     }, 'json');
 }
 ;
+
 function SaveResponsavelAction() {
     var id = $(this).attr('id-pac');
     var url = $(this).attr('url');
+    var erro =0;
+    
+    if(!/^(\([0-9]+\)[0-9]+)$/.test($('#Paciente_ordenResponsavels_1_responsavel_telefContato').val().replace(/[\s]+/g,'')) &&
+            $('#Paciente_ordenResponsavels_1_responsavel_telefContato').val().replace(/[\s]+/g,'')!=""){
+        var parent =$('#Paciente_ordenResponsavels_1_responsavel_telefContato').parent();
+        if($(parent).children().length==1)
+            $(parent).append("<div class=\"alert alert-danger\">"+
+                "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+
+                    "telefone invalido</div>");
+        erro =1;    
+    }
+    if(!/^(\([0-9]+\)[0-9]+)$/.test($('#Paciente_ordenResponsavels_1_responsavel_telefContato_2').val().replace(/[\s]+/g,'')) &&
+            $('#Paciente_ordenResponsavels_1_responsavel_telefContato_2').val().replace(/[\s]+/g,'')!=""){
+        var parent =$('#Paciente_ordenResponsavels_1_responsavel_telefContato_2').parent();
+        if($(parent).children().length==1)
+            $(parent).append("<div class=\"alert alert-danger\">"+
+                "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+
+                    "telefone invalido</div>");
+        erro =1;    
+    }
+    if(!/^(\([0-9]+\)[0-9]+)$/.test($('#Paciente_ordenResponsavels_0_responsavel_telefContato').val().replace(/[\s]+/g,'')) &&
+            $('#Paciente_ordenResponsavels_0_responsavel_telefContato').val().replace(/[\s]+/g,'')!=""){
+            var parent =$('#Paciente_ordenResponsavels_0_responsavel_telefContato').parent();
+            if($(parent).children().length==1)
+                $(parent).append("<div class=\"alert alert-danger\">"+
+                "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+
+                    "telefone invalido</div>");
+        erro =1;    
+    }
+    if(!/^(\([0-9]+\)[0-9]+)$/.test($('#Paciente_ordenResponsavels_0_responsavel_telefContato_2').val().replace(/[\s]+/g,'')) && 
+            $('#Paciente_ordenResponsavels_0_responsavel_telefContato_2').val().replace(/[\s]+/g,'')!=""){
 
+            var parent =$('#Paciente_ordenResponsavels_0_responsavel_telefContato_2').parent();
+            if($(parent).children().length==1)
+                $(parent).append("<div class=\"alert alert-danger\">"+
+                "<button type=\"button\" class=\"close\" data-dismiss=\"alert\">&times;</button>"+
+                    "telefone invalido</div>");
+        erro =1;    
+    }
+    if(erro == 1)
+        return false;
     $.post(url + id, $('#responsavels-form').serialize(), function (data) {
         if (data.status == 'OK') {
             $('#resp-info').html(data.html);
@@ -124,8 +165,8 @@ function ConsultaDados() {
     var url = $(this).attr('url');
 
     var json = {
-        'consultatype[observacao]': $('#diagnostico').val(),
-        'consultatype[receita]': $('#receita_medica').val(),
+        'consultatype[observacao]': $('#consultatype_observacao').val(),
+        'consultatype[receita]': $('#consultatype_receita').val(),
         'consultatype[data]': $('#consultatype_data').val(),
         'consultatype[_token]': $('#consultatype__token').attr('value')
     };
@@ -133,6 +174,7 @@ function ConsultaDados() {
     $.post(url + id, json, function (data) {
         if (data.status == 'OK') {
             $('#diagnostico-form').html(data.html);
+            my_init_consulta();
         }
         else {
             alert('Fail');
