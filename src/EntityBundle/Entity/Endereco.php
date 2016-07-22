@@ -75,7 +75,7 @@ class Endereco
     
      /**
      * 
-     * @ORM\OneToMany(targetEntity="Responsavel", mappedBy="endereco", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Responsavel", mappedBy="endereco", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="responsavel_id", referencedColumnName="id_responsavel") 
      * 
      */

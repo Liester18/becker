@@ -173,5 +173,8 @@ tfoot tr th input{
     border-bottom: 1px solid lightgray;
     padding-top: 10px;
 }
+#paciente_type_sex{
+    width: 100%;
+}
 
 

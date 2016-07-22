@@ -384,7 +384,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 success: function (response)
                 {
                     bootbox.dialog({
-                        message: "Thank you! Your information was successfully saved!",
+                        message: "Os dados foram salvos com sucesso",
                         buttons: {
                             "success": {
                                 "label": "OK",
@@ -554,7 +554,13 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         });
 
 
-
+        
+        if($('#paciente_type_sex option[selected="selected"]').length == 0){
+            $('#paciente_type_sex').append($('<option>', {           
+                selected:'selected',
+                text: 'SELECIONAR'
+            }));
+        }
 
         $('#modal-wizard .modal-header').ace_wizard();
         $('#modal-wizard .wizard-actions .btn[data-dismiss=modal]').removeAttr('disabled');

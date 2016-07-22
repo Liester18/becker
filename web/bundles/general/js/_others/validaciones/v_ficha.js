@@ -64,7 +64,7 @@ function validar()
     }else if (data_nac == '') {
             alert('Deve preencher a data de nacimento do paciente');
             return false;    
-    }else if (sexo == '') {
+    }else if (sexo == '' || sexo == "SELECIONAR") {
             alert('Deve preencher o sexo do paciente');
             return false;
     }else if (nome_r0 == '') {

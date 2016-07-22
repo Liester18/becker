@@ -780,14 +780,27 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
             if($('#paciente_type_paciente_problemasSaude_0_problemaSaude option:selected').text() == 'Broncoespasmo/Bronquite'){                        
                Bronquitis(0, false);                   
             }else{
-               Bronquitis(0, true) 
+               Bronquitis(0, true); 
             }
         })
-                
+               
+        if($('#paciente_type_paciente_problemasSaude_0_problemaSaude option[selected="selected"]').length == 0){
+            $('#paciente_type_paciente_problemasSaude_0_problemaSaude').append($('<option>', {           
+                selected:'selected',
+                text: 'SELECIONAR'
+            }));
+        }        
         
-        $('#paciente_type_paciente_problemasSaude_0_problemaSaude').select().val(9);
         $('#paciente_type_paciente_cuidados_0_cuidado').css('width', '100px');
-        $('#paciente_type_paciente_cuidados_0_cuidado').select().val(5);
+        //$('#paciente_type_paciente_cuidados_0_cuidado').select().val(5);
+        
+        //alert($('#paciente_type_paciente_cuidados_0_cuidado option[selected="selected"]').length);
+        if($('#paciente_type_paciente_cuidados_0_cuidado option[selected="selected"]').length == 0){
+            $('#paciente_type_paciente_cuidados_0_cuidado').append($('<option>', {           
+                selected:'selected',
+                text: 'SELECIONAR'
+            }));
+        }
         
         //alert($collectionHolder.html());
         
@@ -816,8 +829,17 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
         $collectionHolder.find('#paciente_type_paciente_problemasSaude_'+index).each(function() {
                 //mio Kruz
                 $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').parent().css('margin-left', '-0.3%');
-                $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').css('height','92px').css('width', '65%');
-                $('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').select().val(9); 
+                $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').css('height','92px').css('width', '65%');               
+                
+                //$('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').select().val(9);
+                
+                if($('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude option[selected="selected"]').length == 0){                    
+                    $('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').append($('<option>', {           
+                        selected:'selected',
+                        text: 'SELECIONAR'
+                    }));
+                } 
+               
                 
                 $('#paciente_type_paciente_problemasSaude_' + index + '_problemaSaude').on('change', function (e){                    
                     if($('#paciente_type_paciente_problemasSaude_'+ index +'_problemaSaude option:selected').text() == 'Broncoespasmo/Bronquite'){                        
@@ -849,7 +871,7 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
             $('#paciente_type_paciente_problemasSaude_'+index+'_detalhes_psalud').parent().show('slow');
         }
     }
-    
+   //---------------------------------------------------------------------CUIDADOS------------------------------------------------->>> 
     //para los cuidados.
     var $collectionHolder2;
     // setup an "add a tag" link
@@ -916,7 +938,15 @@ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+
                 $('#paciente_type_paciente_cuidados_'+index2).css('margin-left', '14.5%');
                 $('#paciente_type_paciente_cuidados_'+index2+'_cuidado').parent().css('margin-left', '4.8%');
                 $('#paciente_type_paciente_cuidados_'+index2+'_horas').css('width', '60px');
-                $('#paciente_type_paciente_cuidados_'+index2+'_cuidado').select().val(5);
+                //$('#paciente_type_paciente_cuidados_'+index2+'_cuidado').select().val(5);
+                
+                if($('#paciente_type_paciente_cuidados_'+index2+'_cuidado option[selected="selected"]').length == 0){
+                    $('#paciente_type_paciente_cuidados_'+index2+'_cuidado').append($('<option>', {           
+                        selected:'selected',
+                        text: 'SELECIONAR'
+                    }));
+                }
+                
                 //$('#paciente_type_paciente_cuidados_'+index2+'_horas').addClass('input-small spinner-input form-control');
                 //$('#paciente_type_paciente_problemasSaude_'+index2+'_detalhes_psalud').css('height','92px').css('width', '65%');
                 

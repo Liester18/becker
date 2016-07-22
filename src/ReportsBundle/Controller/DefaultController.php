@@ -11,12 +11,26 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DefaultController extends Controller {
     
+    public function lAction()
+    {
+        return $this->render('AutenticationBundle:Default:login.html.twig');
+    }
+
     // Controladores de la pagina principal ...
-    public function indexAction() {        
+    public function indexAction() {
+        
         $peticion = $this->getRequest();
         $sesion = $peticion->getSession();
         $this->container->get('security.context');
-        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));      
+        $error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));
+        if ($error){
+            return $this->lAction();
+        }
+        
+        //$peticion = $this->getRequest();
+        //$sesion = $peticion->getSession();
+        //$this->container->get('security.context');
+        //$error = $peticion->attributes->get(SecurityContext::AUTHENTICATION_ERROR, $sesion->get(SecurityContext::AUTHENTICATION_ERROR));      
         
         $em = $this->getDoctrine()->getEntityManager();
         $db = $em->getConnection();
@@ -28,48 +42,24 @@ class DefaultController extends Controller {
         $stmt = $db->prepare($query);
         $params = array();
         $stmt->execute($params);
-        $po=$stmt->fetchAll();
-        //var_dump($po); die();        
+        $po=$stmt->fetchAll();      
             
         $final = array();
-        $final2 = array();
-        $p = 0;
-        $p_ant = 0;
-        $r_ant = "";
+        $i = 0;
         foreach ($po as $k=>$v) {
-            $final2[$p]["r_info"]= "-3";
-            if($p_ant == $v["paciente_id"] && $r_ant != $v["responsavel_id"]){                
-                $p--;
-                //$final2[$p]["p_id"] = $p_ant;
-                $final2[$p]["r_info"]= "-2";
-                $final2[$p]["r_id2"] = $v["responsavel_id"];
-                $final2[$p]["n_resp2"] = $v["nome_resp"];
-                $final2[$p]["e_resp2"] = $v["email"];               
-                
-            }else{
-                $final[$p]["p_id"] = $v["paciente_id"];                        
-                $final[$p]["nome"] = $v["nome"];
-                $final[$p]["r_id"] = $v["responsavel_id"];
-                $final[$p]["n_resp"] = $v["nome_resp"];
-                $final[$p]["e_resp"] = $v["email"]; 
-            }
-            $p++;
-            $p_ant = $v["paciente_id"];
-            $r_ant = $v["responsavel_id"];          
-        }
-        /*$pos=0;
-        foreach ($final2 as $k=>$v){
-            if($pos != $k){                
-                while ($pos != $k){
-                    $final2[$pos] = "N"; 
-                    $pos++;
+            if($k > 0){
+                if($po[$k]['nome'] == $po[$k-1]['nome'] && $po[$k]['nome_resp'] != $po[$k-1]['nome_resp']){
+                    $final[$i]= array('f' => 's','n' => $po[$k-1]["nome"], 'id_p' => $po[$k-1]["paciente_id"], 'r1'=>$po[$k-1]["nome_resp"], 'id_r1' => $po[$k-1]["responsavel_id"], 'e_r1' => $po[$k-1]["email"],
+                        'r2' => $po[$k]["nome_resp"], 'id_r2' => $po[$k]["responsavel_id"], 'e_r2' => $po[$k]["email"]);                   
+                    $i++;
+                }else if($po[$k]['nome'] == $po[$k-1]['nome'] && $po[$k]['nome_resp'] == $po[$k-1]['nome_resp']){
+                    $final[$i]= array('f' => 'n','n' => $po[$k-1]["nome"], 'id_p' => $po[$k-1]["paciente_id"], 'r1'=>$po[$k-1]["nome_resp"], 'id_r1' => $po[$k-1]["responsavel_id"], 'e_r1' => $po[$k-1]["email"]);
+                    $i++;
                 }
-            }
-            $pos++;
-        }*/
-        $final2[-1]["pfinal"] = count($final2);
-        //var_dump($final2); die();
-        return $this->render('ReportsBundle:Default:dashboard.html.twig', array('last_username' => $sesion->get(SecurityContext::LAST_USERNAME), 'error' => $error, 'p'=> $final, 'p2'=> $final2));
+            }            
+        }    
+        //var_dump($final); die();
+        return $this->render('ReportsBundle:Default:dashboard.html.twig', array('last_username' => $sesion->get(SecurityContext::LAST_USERNAME), 'error' => $error, 'p'=> $final));
     }
     
     // Para cargar solo el body de la pagina

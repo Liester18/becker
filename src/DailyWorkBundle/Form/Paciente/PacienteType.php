@@ -58,8 +58,7 @@ class PacienteType extends AbstractType {
                 ))
         ->add('leite_materno_idade', 'number', array('required' => false))
         ->add('sex', 'choice', array('label' => 'Sexo',
-                    'choices' => array(
-                        'SELECIONAR' => false,
+                    'choices' => array(                        
                         'M' => false,
                         'F' => true,
                     ),
